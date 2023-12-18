@@ -1,0 +1,17 @@
+@use "../../../sass/abstract/" as *;
+
+.card {
+    width: 18% !important;
+    border: none !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0px 10px !important;
+    height: 200px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
