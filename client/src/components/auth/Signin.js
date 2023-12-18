@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './styles/Login.scss';
-import Form from 'react-bootstrap/Form';
+import {Form} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function Signin() {
