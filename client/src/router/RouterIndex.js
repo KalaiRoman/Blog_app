@@ -1,6 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-
-
 import React from 'react'
 import Signin from "../components/auth/Signin";
 import Dashboard from "../components/dashboard/Dashboard";
@@ -10,7 +8,7 @@ import CreateBlog from "../components/createblog/CreateBlog";
 import AllBlogs from "../components/createblog/AllBlogs";
 function RouterIndex() {
     return (
-        <div>
+        <section>
             <Routes>
                 <Route path="/login" element={<Signin />}></Route>
                 <Route path="/register" element={<Signup />}></Route>
@@ -19,7 +17,7 @@ function RouterIndex() {
                 <Route path="/createBlog" element={<CreateBlog />}></Route>
                 <Route path="/" exact element={<Dashboard />}></Route>
             </Routes>
-        </div>
+        </section>
     )
 }
 

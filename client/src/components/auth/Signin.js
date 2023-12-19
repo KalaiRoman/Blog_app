@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
 import './styles/Login.scss';
-import {Form} from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { LoginAction } from '../../redux/actions/LoginActions';
+
 function Signin() {
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -18,6 +27,14 @@ function Signin() {
         e.preventDefault();
         if (email?.length === 0 || password?.length === 0) {
             setError(true);
+        }
+
+        if (email && password) {
+            const datas = {
+                email: email,
+                password: password
+            }
+            dispatch(LoginAction(datas, navigate))
         }
     }
     const SignupPath = () => {

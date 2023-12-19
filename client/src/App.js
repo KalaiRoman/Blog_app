@@ -4,7 +4,7 @@ import RouterIndex from './router/RouterIndex'
 function App() {
   return (
     <div>
-      <RouterIndex/>
+      <RouterIndex />
     </div>
   )
 }

@@ -15,6 +15,10 @@ const Auth_Shema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Password is Required"],
+    },
+    posts: {
+        type: Array,
+        default: 0
     }
 }, {
     timestamps: true

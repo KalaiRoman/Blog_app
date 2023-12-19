@@ -2,8 +2,14 @@ import React, { useState } from 'react'
 import './styles/Login.scss';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { RegisterAction } from '../../redux/actions/LoginActions';
 
 function Signup() {
+
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
     const [user, setUser] = useState({
         username: "",
         email: "",
@@ -11,6 +17,8 @@ function Signup() {
         confirmpassword: ""
     });
     const [error, setError] = useState(false);
+    const [passworderror, setPasswordError] = useState("");
+
     const { email, password, username, confirmpassword } = user;
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -20,6 +28,20 @@ function Signup() {
         e.preventDefault();
         if (email?.length === 0 || password?.length === 0 || username?.length === 0 || confirmpassword?.length === 0) {
             setError(true);
+        }
+
+        if (email && password && username) {
+            if (password === confirmpassword) {
+                const data = {
+                    email: email,
+                    userName: username,
+                    password: password
+                }
+                dispatch(RegisterAction(data, navigate))
+            }
+            else {
+                setPasswordError("Password Not Matched")
+            }
         }
     }
     const SignupPath = () => {
@@ -62,6 +84,10 @@ function Signup() {
                                 {error && confirmpassword?.length <= 0 ? <span className='text-danger'>Confirmpassword is Required</span> : null}
                             </Form.Text>
                         </Form.Group>
+
+                        <div className='text-danger mb-2 mt-2'>
+                            {passworderror}
+                        </div>
                         <button className='submit-button' onClick={SubmitData}>
                             Signup
                         </button>

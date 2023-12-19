@@ -1,10 +1,11 @@
 import React from 'react'
 import Header from '../components/header/Header'
-import Footer from '../components/footer/Footer'
 import './styles/Layout.scss';
+
 function Layout({ children }) {
     return (
         <div className='main-layout-section'>
+
             <div className='inside-layout-section'>
                 <div className='header-section-layout'>
                     <Header />
@@ -12,7 +13,6 @@ function Layout({ children }) {
                 <div className='body-section-layout'>
                     {children}
                 </div>
-              
             </div>
         </div>
     )
