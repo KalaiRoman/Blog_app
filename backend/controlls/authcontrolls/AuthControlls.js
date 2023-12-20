@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 // register
 export const AuthRegister = async (req, res, next) => {
-    const { userName, email, password, posts } = req.body;
+    const { userName, email, password, posts, image, profileDescription } = req.body;
     try {
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hashSync(password, salt);
@@ -12,7 +12,9 @@ export const AuthRegister = async (req, res, next) => {
             userName,
             email,
             password: hashPassword,
-            posts: 0
+            posts: 0,
+            image: "",
+            profileDescription: ""
         });
         await response.save();
         res.status(201).json({ message: "User Register Successfully", user: response });

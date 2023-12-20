@@ -19,6 +19,12 @@ const Auth_Shema = new mongoose.Schema({
     posts: {
         type: Array,
         default: 0
+    },
+    image: {
+        type: String,
+    },
+    profileDescription: {
+        type: String
     }
 }, {
     timestamps: true

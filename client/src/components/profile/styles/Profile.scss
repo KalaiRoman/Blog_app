@@ -1,0 +1,18 @@
+@use "../../../sass/abstract/" as *;
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.update-btn {
+    width: 20%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: orangered;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

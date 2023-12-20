@@ -27,3 +27,12 @@ export async function singleUserService(data) {
         throw err;
     }
 }
+
+export async function singleUserServiceUpdate(id, data) {
+    try {
+        const response = await instanceBaseurl.put(`/auth/update/${id}`, data);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}

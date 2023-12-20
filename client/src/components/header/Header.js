@@ -10,7 +10,6 @@ function Header() {
 
     const state = useSelector((state) => state?.singleuser?.Singleuser);
 
-    console.log(state, 'state')
     const navigate = useNavigate();
     const homePath = () => {
         navigate("/");
@@ -23,6 +22,10 @@ function Header() {
     }
     const CreateBlogpath = () => {
         navigate("/allblogs");
+    }
+
+    const profielPath=()=>{
+        navigate("/profile");
     }
     const token = localStorage.getItem("blog_token");
     // const decoded = jwtDecode(token);
@@ -44,7 +47,7 @@ function Header() {
                     </div>
                     <div className='d-flex gap-4'>
                         {token ? <>
-                            <div>
+                            <div onClick={profielPath} className='cursor'>
                                 {state?.userName}
                             </div></> : <div className='cursor' onClick={loginpath}>Login</div>}
                         <div className='cursor' onClick={authLogin}>
