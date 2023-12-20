@@ -74,11 +74,30 @@ export const GetSingleUserData = async (req, res, next) => {
 export const SingleUserUpdate = async (req, res, next) => {
     const id = req.params.id;
     try {
-        const response = await Auth_Shema.findByIdAndUpdate({ _id: id }, req.body, { new: true });
-        if (response) { res.status(200).json({ message: "Updated successfully" }); }
-        else {
-            res.status(404).json({ message: "User Id Not Found", });
+
+        const olduser = await Auth_Shema.findById({ _id: id })
+        if (req.body.password) {
+            const oldPassword = await bcrypt.compare(req.body.oldpassword, olduser?.password);
+            if (oldPassword) {
+                const salt = await bcrypt.genSalt(10);
+                const comparepassword = await bcrypt.hashSync(req.body.password, salt)
+                const response = await Auth_Shema.findByIdAndUpdate({ _id: id }, { password: comparepassword }, { new: true });
+                if (response) { res.status(200).json({ message: "Updated Password successfully" }); }
+
+            }
+            else {
+                res.status(404).json({ message: "Old Password Dosn't Matched" });
+            }
+
         }
+        else {
+            const response = await Auth_Shema.findByIdAndUpdate({ _id: id }, req.body, { new: true });
+            if (response) { res.status(200).json({ message: "Updated successfully" }); }
+            else {
+                res.status(404).json({ message: "User Id Not Found", });
+            }
+        }
+
     } catch (error) {
         res.status(404).json({ message: "User Id Not Found", });
     }
@@ -87,14 +106,6 @@ export const SingleUserUpdate = async (req, res, next) => {
 export const AllUsers = async (req, res, next) => {
     try {
         const response = await Auth_Shema.find();
-        const posts = await Createblog_Shema.find().populate("user");
-
-
-        const datas = [];
-
-
-        console.log(datas, 'datas')
-
         if (response) {
             res.status(200).json({ message: "All Users", data: response });
         }

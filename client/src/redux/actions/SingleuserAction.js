@@ -1,7 +1,7 @@
 import { singleUserService, singleUserServiceUpdate } from "../../services/auth_service/auth_service";
 import { SingleuserFail, SingleuserRequest, SingleuserSuccess } from "../reducer/Singleuser_reducer";
 import jwt_decode from "jwt-decode";
-import { ToastSuccess } from './../../middleware/Toast_action';
+import { ToastError, ToastSuccess } from './../../middleware/Toast_action';
 
 
 export const SingleuserActionData = () => async (dispatch) => {
@@ -33,7 +33,7 @@ export const SingleuserActionData = () => async (dispatch) => {
 
 
 
-export const UpdateProfileActionData = (data,handleClose) => async (dispatch) => {
+export const UpdateProfileActionData = (data, handleClose) => async (dispatch) => {
 
     try {
         const token = localStorage.getItem("blog_token");
@@ -46,6 +46,8 @@ export const UpdateProfileActionData = (data,handleClose) => async (dispatch) =>
             handleClose();
         }
     } catch (error) {
+
+        ToastError(error?.response?.data?.message);
         dispatch(SingleuserFail(error?.response?.data?.message));
 
     }

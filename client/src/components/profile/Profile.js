@@ -11,6 +11,10 @@ function Profile() {
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
 
+    const [error, setError] = useState(false);
+    const [passworderror, setPasswordError] = useState("");
+
+
     const [imageurl, setImageUrl] = useState("");
     const [user, setUser] = useState({
         username: "",
@@ -18,9 +22,21 @@ function Profile() {
         password: "",
         profileDescription: ""
     });
-    const { email, password, username, profileDescription } = user;
+    // password change
+    const [userpassword, setUserPassword] = useState({
+        oldpassword: "",
+        passwordnew: "",
+        confirmpassword: "",
+    });
+    const { oldpassword, passwordnew, confirmpassword } = userpassword;
+    const { username, password, profileDescription, email } = user;
+
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
+    };
+
+    const handleChangePassword = (e) => {
+        setUserPassword({ ...userpassword, [e.target.name]: e.target.value });
     };
 
     const state = useSelector((state) => state?.singleuser?.Singleuser);
@@ -68,6 +84,27 @@ function Profile() {
             avatar: imageurl
         }
         dispatch(UpdateProfileActionData(data, handleClose));
+    }
+
+
+    const PasswordChange = (e) => {
+        e.preventDefault();
+        if (oldpassword?.length === 0 || passwordnew?.length === 0 || confirmpassword?.length === 0) {
+            setError(true);
+        }
+
+        if (oldpassword && passwordnew) {
+            if (passwordnew === confirmpassword) {
+                const data = {
+                    oldpassword: oldpassword,
+                    password: passwordnew,
+                }
+                dispatch(UpdateProfileActionData(data))
+            }
+            else {
+                setPasswordError("Password Not Matched")
+            }
+        }
     }
     return (
         <div>
@@ -129,7 +166,52 @@ function Profile() {
                         Update Profile
                     </button>
                 </div>
+
+                <div className='d-flex gap-4 align-items-center justify-content-center mt-4'>
+                    <div>
+                        <Form.Group className="mb-3" controlId="">
+                            <Form.Label>old password</Form.Label>
+                            <Form.Control type="text" placeholder="Enter oldpassword" name="oldpassword" value={oldpassword} onChange={handleChangePassword} />
+                            <Form.Text className="text-muted">
+                                {error && oldpassword?.length <= 0 ? <span className='text-danger'>oldPassword is Required</span> : null}
+
+                            </Form.Text>
+                        </Form.Group>
+                    </div>
+                    <div>
+                        <Form.Group className="mb-3" controlId="">
+                            <Form.Label>New Password</Form.Label>
+                            <Form.Control type="text" placeholder="Enter passwordnew" name="passwordnew" value={passwordnew} onChange={handleChangePassword} />
+                            <Form.Text className="text-muted">
+                                {error && passwordnew?.length <= 0 ? <span className='text-danger'>Password is Required</span> : null}
+
+                            </Form.Text>
+                        </Form.Group>
+                    </div>
+                    <div>
+                        <Form.Group className="mb-3" controlId="">
+                            <Form.Label>Confirm Password</Form.Label>
+                            <Form.Control type="text" placeholder="Enter confirmpassword" name="confirmpassword" value={confirmpassword} onChange={handleChangePassword} />
+                            <Form.Text className="text-muted">
+                                {error && confirmpassword?.length <= 0 ? <span className='text-danger'>Confirmpassword is Required</span> : null}
+
+                            </Form.Text>
+                        </Form.Group>
+                    </div>
+                    <div className='text-danger mb-2 mt-2'>
+                        {passworderror}
+                    </div>
+                </div>
+                <div>
+                    <div className='d-flex align-items-center justify-content-center mt-4'>
+                        <button className='update-btn' onClick={PasswordChange}>
+                            Change Password
+                        </button>
+                    </div>
+                </div>
             </div>
+
+
 
 
             <Modal

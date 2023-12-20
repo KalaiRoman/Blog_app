@@ -19,8 +19,8 @@ function Cards({ data }) {
                     <div className='fw-bold fs-5 mt-2'>
                         {data?.userName}
                     </div>
-                    <div className='mt-2'>
-                        {data?.posts} posts
+                    <div className='mt-2 d-flex align-items-center gap-2'>
+                        <span className='fw-bold text-danger'>{data?.posts}</span> Posts
                     </div>
                     {/* <div className='d-flex gap-2 mt-2 mb-4'>
                         Created On : {moment(data?.createdAt).format('ll')}

@@ -20,3 +20,13 @@ export async function getBlogService() {
         throw err;
     }
 }
+
+export async function getSingleUserBlogService(data) {
+    try {
+        const response = await instanceBaseurl.get(`/blog/allblogs/currentuser/${data}`);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}
+

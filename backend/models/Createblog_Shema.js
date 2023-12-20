@@ -22,6 +22,10 @@ const CreateBlog_shema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'auth'
+    },
+    userId:{
+        type:String,
+        required:true
     }
 }, {
     timestamps: true

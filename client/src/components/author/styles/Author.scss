@@ -18,12 +18,26 @@
     width: 25% !important;
     border: none !important;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    background-color: #ffdab4;
     border-radius: 10px;
     cursor: pointer;
     padding: 10px 10px !important;
     height: auto !important;
     display: flex;
-
     flex-direction: column;
+    position: relative;
+}
+
+.activecard::after{
+    content: "you";
+    position: absolute;
+    width: 60px;
+    height: 27px;
+    border-radius: 10%;
+    right: 0px;
+    top: 0px;
+    background-color: orangered;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+
 }

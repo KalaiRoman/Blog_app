@@ -5,11 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SingleuserActionData } from '../../redux/actions/SingleuserAction';
 
 function Header() {
-
     const dispatch = useDispatch();
-
     const state = useSelector((state) => state?.singleuser?.Singleuser);
-
     const navigate = useNavigate();
     const homePath = () => {
         navigate("/");
@@ -21,10 +18,12 @@ function Header() {
         navigate("/author");
     }
     const CreateBlogpath = () => {
-        navigate("/allblogs");
-    }
+        navigate("/allblogs", {
+            state: { id: state?._id }
+        });
 
-    const profielPath=()=>{
+    }
+    const profielPath = () => {
         navigate("/profile");
     }
     const token = localStorage.getItem("blog_token");
@@ -38,6 +37,8 @@ function Header() {
     useEffect(() => {
         dispatch(SingleuserActionData());
     }, [])
+
+    const path = window.location.pathname;
     return (
         <div>
             <nav class="navbar navbar-light bg-light navbar-expand-lg">
@@ -45,22 +46,39 @@ function Header() {
                     <div onClick={homePath} className='cursor'>
                         Blog's
                     </div>
-                    <div className='d-flex gap-4'>
+                    <div className='d-flex gap-5'>
                         {token ? <>
-                            <div onClick={profielPath} className='cursor'>
+                            <div onClick={profielPath} className='cursor'
+                                style={{
+                                    color: path == "/profile" ? "red" : "black"
+                                }}
+                            >
                                 {state?.userName}
                             </div></> : <div className='cursor' onClick={loginpath}>Login</div>}
-                        <div className='cursor' onClick={authLogin}>
-                            Author
-                        </div>
                         {token ? <>
-                            <div className='cursor' onClick={CreateBlogpath}>
-                                Create Blog
+                            <div className='cursor' onClick={CreateBlogpath}
+                                style={{
+                                    color: path == "/allblogs" ? "red" : "black"
+                                }}
+                            >
+                                Create Post
                             </div>
                         </> : <>
-                            <div className='cursor' onClick={loginpath}>
-                                Create Blog
+                            <div className='cursor' onClick={loginpath}
+                                style={{
+                                    color: path == "/allblogs" ? "red" : "black"
+                                }}
+                            >
+                                Create Post
                             </div></>}
+                        <div className='cursor' onClick={authLogin}
+                            style={{
+                                color: path == "/author" ? "red" : "black"
+                            }}
+                        >
+                            Author
+                        </div>
+
                         {token && <div onClick={Logout} className='cursor'>Logout</div>}
                     </div>
 

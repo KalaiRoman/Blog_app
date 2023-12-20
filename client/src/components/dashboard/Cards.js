@@ -1,5 +1,14 @@
 import React from 'react'
 import ReactHtmlParser from 'react-html-parser';
+import moment from 'moment';
+import ReactTimeAgo from 'react-time-ago';
+import TimeAgo from 'javascript-time-ago';
+
+import en from 'javascript-time-ago/locale/en.json';
+import ru from 'javascript-time-ago/locale/en.json';
+
+TimeAgo.addDefaultLocale(en);
+
 function Cards({ data }) {
     return (
         <div>
@@ -29,15 +38,17 @@ function Cards({ data }) {
                             {data?.user?.userName}
                         </div>
                         <div>
-                            {data?.user?.posts} posts
+                            <small>
+                                <ReactTimeAgo date={new Date(data?.createdAt)} locale='en-US' />
+                            </small>
                         </div>
                     </div>
                     <div>
-                      <div>
-                        <button className='type-btn'>
-                        {data?.type}
-                        </button>
-                      </div>
+                        <div>
+                            <button className='type-btn'>
+                                {data?.type}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
