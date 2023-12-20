@@ -4,13 +4,19 @@ import dotenv from "dotenv";
 import ConnectDb from './middleware/DBConnect.js';
 import router from './routings/Routing.js';
 import morgan from 'morgan';
+import { notFound, errorMiddleware } from './middleware/errorMiddleware.js';
 dotenv.config();
 ConnectDb();
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json({ extended: true }))
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
-app.use("/blog", router)
+// error handler
+
+
+app.use("/blog", router);
+app.use(notFound);
+app.use(errorMiddleware)
 app.listen(9000, () => console.log(`Server running ${process.env.PORT}`))
 
 

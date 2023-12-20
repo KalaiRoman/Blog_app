@@ -16,3 +16,15 @@
     border: none;
     cursor: pointer;
 }
+.profileimage {
+    width: 20%;
+    position: relative;
+}
+
+.editicon {
+    position: absolute;
+    right: 0%;
+    bottom: 0;
+    cursor: pointer;
+    font-weight: bold;
+}

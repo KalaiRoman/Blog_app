@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 import { ToastSuccess } from './../../middleware/Toast_action';
 
 
-export const SingleuserActionData = (data) => async (dispatch) => {
+export const SingleuserActionData = () => async (dispatch) => {
 
     dispatch(SingleuserRequest());
     try {
@@ -16,7 +16,6 @@ export const SingleuserActionData = (data) => async (dispatch) => {
         if (final) {
             const response = await singleUserService(final?.id);
 
-            console.log(response, 'response')
             if (response) {
                 dispatch(SingleuserSuccess(response?.data));
             }
@@ -34,7 +33,7 @@ export const SingleuserActionData = (data) => async (dispatch) => {
 
 
 
-export const UpdateProfileActionData = (data) => async (dispatch) => {
+export const UpdateProfileActionData = (data,handleClose) => async (dispatch) => {
 
     try {
         const token = localStorage.getItem("blog_token");
@@ -43,6 +42,8 @@ export const UpdateProfileActionData = (data) => async (dispatch) => {
         const response = await singleUserServiceUpdate(final?.id, data);
         if (response) {
             ToastSuccess("Profile Updated successfully");
+            SingleuserActionData();
+            handleClose();
         }
     } catch (error) {
         dispatch(SingleuserFail(error?.response?.data?.message));

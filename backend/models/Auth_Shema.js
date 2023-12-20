@@ -1,7 +1,4 @@
 import mongoose from 'mongoose';
-
-
-
 const Auth_Shema = new mongoose.Schema({
     userName: {
         type: String,
@@ -17,10 +14,10 @@ const Auth_Shema = new mongoose.Schema({
         required: [true, "Password is Required"],
     },
     posts: {
-        type: Array,
+        type: Number,
         default: 0
     },
-    image: {
+    avatar: {
         type: String,
     },
     profileDescription: {
@@ -29,7 +26,5 @@ const Auth_Shema = new mongoose.Schema({
 }, {
     timestamps: true
 });
-
-
 
 export default mongoose.model("auth", Auth_Shema);

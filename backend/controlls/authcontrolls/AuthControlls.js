@@ -1,10 +1,12 @@
 import Auth_Shema from "../../models/Auth_Shema.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import HttpError from './../../models/errorModel.js';
+import Createblog_Shema from "../../models/Createblog_Shema.js";
 
 // register
 export const AuthRegister = async (req, res, next) => {
-    const { userName, email, password, posts, image, profileDescription } = req.body;
+    const { userName, email, password, posts, avatar, profileDescription } = req.body;
     try {
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hashSync(password, salt);
@@ -13,13 +15,13 @@ export const AuthRegister = async (req, res, next) => {
             email,
             password: hashPassword,
             posts: 0,
-            image: "",
+            avatar: "",
             profileDescription: ""
         });
         await response.save();
         res.status(201).json({ message: "User Register Successfully", user: response });
     } catch (error) {
-        res.status(404).json({ message: "User Already Register", });
+        return next(new HttpError('User Already Register', 422))
     }
 }
 
@@ -40,7 +42,9 @@ export const AuthLogin = async (req, res, next) => {
 
             }
         }
-        else { res.status(404).json({ message: "User dosn't Exist", }); }
+        else {
+            res.status(404).json({ message: "User dosn't Exist", });
+        }
 
     } catch (error) {
         res.status(404).json({ message: "User Not Found", });
@@ -50,9 +54,6 @@ export const AuthLogin = async (req, res, next) => {
 // single user
 export const GetSingleUserData = async (req, res, next) => {
     const id = req.params.id;
-
-    console.log(id, "id")
-
     try {
         if (id) {
             const response = await Auth_Shema.findById({ _id: id });
@@ -86,6 +87,14 @@ export const SingleUserUpdate = async (req, res, next) => {
 export const AllUsers = async (req, res, next) => {
     try {
         const response = await Auth_Shema.find();
+        const posts = await Createblog_Shema.find().populate("user");
+
+
+        const datas = [];
+
+
+        console.log(datas, 'datas')
+
         if (response) {
             res.status(200).json({ message: "All Users", data: response });
         }

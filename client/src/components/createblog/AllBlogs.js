@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Cards from './Cards';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBlogActionData } from '../../redux/actions/CreateBlogActions';
 function AllBlogs() {
+
+    const dispatch = useDispatch();
+
+    const state = useSelector((state) => state?.blog?.Blogdata);
+
+
+    useEffect(() => {
+        dispatch(getBlogActionData());
+    }, [])
 
     const navigate = useNavigate();
 
@@ -17,10 +28,10 @@ function AllBlogs() {
                 </div>
                 <div>
                     <div className='row gap-4'>
-                        {Array(10)?.fill("number")?.map((item, index) => {
+                        {state?.map((item, index) => {
                             return (
                                 <div key={index} className='cards col-lg-3'>
-                                    <Cards data={index + 1} />
+                                    <Cards data={item} />
                                 </div>
                             )
                         })}
