@@ -15,6 +15,7 @@ TimeAgo.addDefaultLocale(en);
 function Cards({ data, id }) {
 
 
+    const des = data?.description?.slice(0, 220);
 
     const [loading, setLoading] = useState(false);
 
@@ -55,7 +56,7 @@ function Cards({ data, id }) {
                 {data?.title}
             </div>
             <div className='fs-6 mt-2' style={{ height: "80px" }}>
-                {ReactHtmlParser(data?.description)}
+                {ReactHtmlParser(des)}
             </div>
 
             {id ? <>
