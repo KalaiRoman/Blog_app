@@ -18,9 +18,7 @@ function Header() {
         navigate("/author");
     }
     const CreateBlogpath = () => {
-        navigate("/allblogs", {
-            state: { id: state?._id }
-        });
+        navigate("/currentuserblogs");
 
     }
     const profielPath = () => {
@@ -58,7 +56,7 @@ function Header() {
                         {token ? <>
                             <div className='cursor' onClick={CreateBlogpath}
                                 style={{
-                                    color: path == "/allblogs" ? "red" : "black"
+                                    color: path == "/currentuserblogs" ? "red" : "black"
                                 }}
                             >
                                 Create Post
@@ -66,7 +64,7 @@ function Header() {
                         </> : <>
                             <div className='cursor' onClick={loginpath}
                                 style={{
-                                    color: path == "/allblogs" ? "red" : "black"
+                                    color: path == "/currentuserblogs" ? "red" : "black"
                                 }}
                             >
                                 Create Post

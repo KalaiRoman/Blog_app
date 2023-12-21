@@ -31,7 +31,7 @@ function Signin() {
 
         if (email && password) {
             const datas = {
-                email: email,
+                userNameorEmail: email,
                 password: password
             }
             dispatch(LoginAction(datas, navigate))
@@ -49,11 +49,11 @@ function Signin() {
                         Login
                     </div>
                     <Form>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3" controlId="formBasictext">
                             <Form.Label className='mb-2'>Email</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" className='form-box' name="email" value={email} onChange={handleChange} />
+                            <Form.Control type="text" placeholder="Enter email or userName" className='form-box' name="email" value={email} onChange={handleChange} />
                             <Form.Text className="text-muted">
-                                {error && email?.length <= 0 ? <span className='text-danger'>Email is Required</span> : null}
+                                {error && email?.length <= 0 ? <span className='text-danger'>EmailoruserName is Required</span> : null}
                             </Form.Text>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">

@@ -13,3 +13,43 @@
     justify-content: center;
     border: none;
 }
+
+.edit-btn {
+    width: 100%;
+    padding: 6px 50px;
+    border-radius: 10px;
+    background-color: #7f00ff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.delete-btn {
+    width: 100%;
+    padding: 6px 50px;
+    border-radius: 10px;
+    background-color: red;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.yes-btn {
+    width: 20%;
+    padding: 6px 10px;
+    border-radius: 10px;
+    background-color: red;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.no-btn {
+    width: 20%;
+    padding: 6px 10px;
+    border-radius: 10px;
+    background-color: #7f00ff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}

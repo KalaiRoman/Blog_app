@@ -5,10 +5,22 @@ import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
 import JoditEditor from 'jodit-react';
 import './styles/Createblog.scss';
-import { CreateblogActionData } from '../../redux/actions/CreateBlogActions';
-import { useDispatch } from 'react-redux';
+import { CreateblogActionData, EditblogAction, singleblogAction } from '../../redux/actions/CreateBlogActions';
+import { useDispatch, useSelector } from 'react-redux';
 import jwt_decode from 'jwt-decode';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 function CreateBlog() {
+
+    
+    const { state } = useLocation();
+
+    const [loading, setLoading] = useState(false);
+
+
+    const states = useSelector((state) => state?.currentblog?.singleblog);
+
+    const navigate = useNavigate();
 
     const token = localStorage.getItem("blog_token");
     const final = jwt_decode(token);
@@ -75,18 +87,55 @@ function CreateBlog() {
 
             const data = {
                 title: title,
-                type: type,
+                category: type,
                 description: content,
                 avatar: avatar,
                 userId: final?.id
             }
-
-            dispatch(CreateblogActionData(data))
-
+            dispatch(CreateblogActionData(data, navigate, setLoading))
         }
     }
 
 
+
+    useEffect(() => {
+        dispatch(singleblogAction(state?.id))
+    }, [state?.id])
+
+
+    useEffect(() => {
+        if (states) {
+            setCreateBlog({
+                title: states?.title,
+                type: states?.category,
+                avatar: states?.avatar
+
+            })
+
+            setContent(states?.description)
+        }
+    }, [])
+
+
+    const UpadtePost = (e) => {
+        e.preventDefault();
+        if (title?.length === 0 || type?.length === 0 || content?.length === 0 || avatar?.length === 0) {
+            setError(true);
+        }
+
+        if (title && type && content && avatar) {
+
+            const data = {
+                title: title,
+                category: type,
+                description: content,
+                avatar: avatar,
+            }
+            dispatch(EditblogAction(state?.id, data, navigate, setLoading));
+        }
+    }
+
+    const optionData = ['Cricket', "IT Solutions", "Reactjs Developer", "Nodejs Developer", "Python Developer", "Cow", "Tree", "KTM Bike", "NS200", "News", "Art", "Laptops", "Mac", "IPhone"]
     return (
         <div>
             <div className='container'>
@@ -118,16 +167,19 @@ function CreateBlog() {
                                 </Form.Text>
                             </Form.Group> */}
 
-                            <Form.Label>Type</Form.Label>
+                            <Form.Label>Category</Form.Label>
                             <Form.Select aria-label="Default select example" name="type" value={type} onChange={handleChange}>
-                                <option>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option selected value="" disabled>--Select Categorys--</option>
+                                {optionData?.map((item) => {
+                                    return (
+                                        <option value={item}>{item}</option>
+                                    )
+                                })}
+
                             </Form.Select>
 
                             <Form.Text className="text-muted">
-                                {error && type?.length <= 0 ? <span className='text-danger'>Type is Required</span> : null}
+                                {error && type?.length <= 0 ? <span className='text-danger'>Category is Required</span> : null}
                             </Form.Text>
                         </Col>
 
@@ -156,7 +208,13 @@ function CreateBlog() {
                     </div>
 
 
-
+                    <div>
+                        {avatar ? <>
+                            <img src={avatar} alt="no image" />
+                        </> : <>
+                            <img src={avatar} alt="no image" />
+                        </>}
+                    </div>
 
 
                     <div className='d-flex align-items-center justify-content-center col-lg-12'>
@@ -174,13 +232,17 @@ function CreateBlog() {
                                 </Form.Text>
                             </Form.Group>
                         </Col>
-
-
                     </div>
-
                     <div className='col-lg-12'>
-                        <button className='create-blog' onClick={UploadCreateBlog}>
-                            Create Blog
+                        <button className='create-blog' onClick={state?.id ? UpadtePost : UploadCreateBlog}>
+
+                            {loading ? <>
+                                Loading...
+                            </> : <>
+
+                                {state?.id ? "Update Post" : "Create Post"}
+
+                            </>}
                         </button>
                     </div>
                 </div>

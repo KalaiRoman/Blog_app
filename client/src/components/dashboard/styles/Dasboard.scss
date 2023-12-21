@@ -1,7 +1,7 @@
 @use "../../../sass/abstract/" as *;
 
 .cards {
-    width: 32.1% !important;
+    width: 32% !important;
     border: none !important;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     background-color: white;
@@ -25,10 +25,10 @@
 
 .type-btn {
     background-color: cyan;
-    width: 120px;
+    width: 100%;
     border: none;
     outline: none;
     cursor: pointer;
     border-radius: 10px;
-    padding: 10px 0px;
+    padding: 10px 20px;
 }

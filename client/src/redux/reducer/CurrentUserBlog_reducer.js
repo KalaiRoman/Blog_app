@@ -4,6 +4,7 @@ const CurrentuserBlogs_Reducer = createSlice({
     initialState: {
         loading: false,
         CurrentUserBlogs: [],
+        singleblog: [],
         error: ""
     },
     reducers: {
@@ -30,6 +31,9 @@ const CurrentuserBlogs_Reducer = createSlice({
                 error: action.payload
             }
         },
+        SingleBlogSuccess(state, action) {
+            state.singleblog = action.payload
+        },
 
         ClearCurrentuserBlogssData: (state, action) => {
             return {
@@ -41,5 +45,5 @@ const CurrentuserBlogs_Reducer = createSlice({
 })
 
 const { actions, reducer } = CurrentuserBlogs_Reducer;
-export const { CurrentuserBlogsRequest, CurrentuserBlogsSuccess, CurrentuserBlogsFail, ClearCurrentuserBlogssData } = actions;
+export const { CurrentuserBlogsRequest, CurrentuserBlogsSuccess, CurrentuserBlogsFail, ClearCurrentuserBlogssData,SingleBlogSuccess } = actions;
 export default reducer;

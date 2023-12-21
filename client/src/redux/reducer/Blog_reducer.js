@@ -31,12 +31,6 @@ const Blogs_Reducer = createSlice({
                 error: action.payload
             }
         },
-        CurrentUserBlogSuccess(state,action){
-            return{
-                ...state,
-                CurrentuserBlogs:action.payalod
-            }
-        },
         ClearBlogssData: (state, action) => {
             return {
                 ...state,
@@ -47,5 +41,5 @@ const Blogs_Reducer = createSlice({
 })
 
 const { actions, reducer } = Blogs_Reducer;
-export const { BlogsRequest, BlogsSuccess, BlogsFail, ClearBlogssData,CurrentUserBlogSuccess } = actions;
+export const { BlogsRequest, BlogsSuccess, BlogsFail, ClearBlogssData, CurrentUserBlogSuccess } = actions;
 export default reducer;

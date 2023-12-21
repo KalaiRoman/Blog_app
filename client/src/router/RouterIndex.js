@@ -7,6 +7,7 @@ import Author from "../components/author/Author";
 import CreateBlog from "../components/createblog/CreateBlog";
 import AllBlogs from "../components/createblog/AllBlogs";
 import Profile from "../components/profile/Profile";
+import CurrentuserBlogs from "../components/createblog/CurrentuserBlogs";
 function RouterIndex() {
     return (
         <section>
@@ -15,6 +16,8 @@ function RouterIndex() {
                 <Route path="/register" element={<Signup />}></Route>
                 <Route path="/author" element={<Author />}></Route>
                 <Route path="/allblogs" element={<AllBlogs />}></Route>
+                <Route path="/currentuserblogs" element={<CurrentuserBlogs />}></Route>
+
                 <Route path="/createBlog" element={<CreateBlog />}></Route>
                 <Route path="/profile" element={<Profile />}></Route>
 

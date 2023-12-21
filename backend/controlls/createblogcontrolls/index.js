@@ -1,5 +1,6 @@
 import express from 'express';
-import { Allblogs, Createblog, Deleteblog, Editblog, Singleblog,AllblogsforCurrentUser } from './CreateBlog_Controlls.js';
+import { Allblogs, Createblog, Deleteblog, Editblog, Singleblog, AllblogsforCurrentUser } from './CreateBlog_Controlls.js';
+import { verifyToken } from './../../middleware/Tokenverification.js';
 
 const blogrouter = express.Router();
 
@@ -9,6 +10,6 @@ blogrouter.get("/allblogs", Allblogs)
 blogrouter.get("/allblogs/currentuser/:id", AllblogsforCurrentUser)
 
 blogrouter.put("/update/:id", Editblog)
-blogrouter.delete("/delete/:id", Deleteblog)
+blogrouter.delete("/delete/:id", verifyToken,Deleteblog)
 
 export default blogrouter;

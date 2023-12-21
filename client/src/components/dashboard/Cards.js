@@ -10,8 +10,10 @@ import ru from 'javascript-time-ago/locale/en.json';
 TimeAgo.addDefaultLocale(en);
 
 function Cards({ data }) {
+
+    const des = data?.description?.slice(0, 220);
     return (
-        <div>
+        <div className='p-1'>
             <div>
                 {data?.avatar ? <>
                     <img className="dashobard-image" src={data?.avatar} alt="no image" />
@@ -22,13 +24,23 @@ function Cards({ data }) {
             <div className='mt-3 fw-bold'>
                 {data?.title}
             </div>
-            <div className='fs-6 mt-2'>
-                {ReactHtmlParser(data?.description)}
+            <div className='fs-6 mt-2' style={{
+                height: "100px"
+            }}>
+                {ReactHtmlParser(des)}
             </div>
             <div className='d-flex gap-3'>
                 <div>
                     <div>
-                        <img className="dashobard-images" src={data?.user?.avatar} alt="no image" />
+                        {data?.user?.avatar ? <>
+
+                            <img className="dashobard-images" src={data?.user?.avatar} alt="no image" />
+
+                        </> : <>
+
+                            <img className="dashobard-images" src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image" />
+
+                        </>}
 
                     </div>
                 </div>
@@ -46,7 +58,7 @@ function Cards({ data }) {
                     <div>
                         <div>
                             <button className='type-btn'>
-                                {data?.type}
+                                {data?.category}
                             </button>
                         </div>
                     </div>

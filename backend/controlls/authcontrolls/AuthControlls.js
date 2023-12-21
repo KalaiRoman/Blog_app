@@ -27,9 +27,15 @@ export const AuthRegister = async (req, res, next) => {
 
 // login
 export const AuthLogin = async (req, res, next) => {
-    const { email, password } = req.body;
+    const { userNameorEmail, password } = req.body;
     try {
-        const existemail = await Auth_Shema.findOne({ email });
+        const existemail = await Auth_Shema.findOne({
+            $or: [{
+                "email": userNameorEmail
+            }, {
+                "userName": userNameorEmail
+            }]
+        });
         if (existemail) {
             const hashPassword = await bcrypt.compare(password, existemail.password);
 

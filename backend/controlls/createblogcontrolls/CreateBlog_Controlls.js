@@ -5,11 +5,11 @@ import HttpError from "../../models/errorModel.js";
 // create
 export const Createblog = async (req, res, next) => {
 
-    const { title, type, description, avatar, user, userId } = req.body;
+    const { title, category, description, avatar, user, userId } = req.body;
     try {
 
         const response = new Createblog_Shema({
-            title, type, description,
+            title, category, description,
             avatar,
             user: req.body.userId,
             userId: req.body.userId
@@ -27,9 +27,13 @@ export const Createblog = async (req, res, next) => {
 
 // edit
 export const Editblog = async (req, res, next) => {
+    const id = req.params.id;
     try {
+        const response = await Createblog_Shema.findByIdAndUpdate({ _id: id }, req.body, { new: true });
+        res.status(200).json({ message: "Blog Updated Successfully" })
 
     } catch (error) {
+        return next(new HttpError("Update blog error", 422))
 
     }
 }
@@ -38,9 +42,12 @@ export const Editblog = async (req, res, next) => {
 
 // single
 export const Singleblog = async (req, res, next) => {
+    const id = req.params.id;
     try {
-
+        const response = await Createblog_Shema.findById(id);
+        res.status(200).json({ message: "success", data: response })
     } catch (error) {
+        return next(new HttpError("Id blog error", 422))
 
     }
 }
@@ -76,9 +83,19 @@ export const AllblogsforCurrentUser = async (req, res, next) => {
 
 // delete
 export const Deleteblog = async (req, res, next) => {
+
+    const id = req.params.id;
     try {
 
+        const response = await Createblog_Shema.findByIdAndDelete(id);
+        const currentuser = await Auth_Shema.findById({ _id: req.userid });
+        const updatePost = currentuser?.posts - 1;
+        await Auth_Shema.findByIdAndUpdate({ _id: req.userid }, { posts: updatePost }, { new: true })
+
+        res.status(200).json({ message: "Blog Deleted Successfully" })
+
     } catch (error) {
+        return next(new HttpError("Id Missing Blog error", 422))
 
     }
 }

@@ -30,3 +30,30 @@ export async function getSingleUserBlogService(data) {
     }
 }
 
+
+export async function Blogsingleservice(data) {
+    try {
+        const response = await instanceBaseurl.get(`/blog/single/${data}`);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function editBlogsingleservice(id, data) {
+    try {
+        const response = await instanceBaseurl.put(`/blog/update/${id}`, data);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function deleteBlogsingleservice(id) {
+    try {
+        const response = await instanceBaseurl.delete(`/blog/delete/${id}`);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}

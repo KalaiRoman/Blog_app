@@ -15,17 +15,17 @@ const CreateBlog_shema = new mongoose.Schema({
         type: String,
         required: [true, "Avatar is required"]
     },
-    type: {
+    category: {
         type: String,
-        required: [true, "Type is required"]
+        required: [true, "Type is required"],
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'auth'
     },
-    userId:{
-        type:String,
-        required:true
+    userId: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true

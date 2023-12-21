@@ -10,45 +10,46 @@ function Author() {
     const token = localStorage.getItem("blog_token");
     const final = jwt_decode(token);
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
     const state = useSelector((state) => state?.alluser?.allusers);
     useEffect(() => {
         dispatch(AlluserActionData());
     }, []);
 
+    const createPathnavigate = () => {
+        navigate("/currentuserblogs");
 
+    }
 
-    const createPathnavigate = (id) => {
-
-        if (id) {
-            navigate("/allblogs", {
-                state: { id: id }
-            })
-        }
-        else {
-            navigate("/allblogs")
-        }
-
+    const createPathnavigatefalse = (id) => {
+        navigate("/allblogs", {
+            state: { id: id }
+        });
     }
     return (
         <div>
             <div className='container'>
                 <div className='row gap-4'>
-                    {state?.map((item, index) => {
-                        return (
-                            <div key={index} className={`${final?.id === item?._id ? "activecard col-lg-3" : "card col-lg-3 "}`} onClick={() => {
-                                if (final?.id === item?._id) {
-                                    createPathnavigate(item?._id)
-                                }
-                                else {
-                                    createPathnavigate(item?._id)
-                                }
-                            }}>
-                                <Cards data={item} />
-                            </div>
-                        )
-                    })}
+
+                    {state?.length > 0 ? <>
+                        {state?.map((item, index) => {
+                            return (
+                                <div key={index} className={`${final?.id === item?._id ? "activecard col-lg-3" : "card col-lg-3 "}`} onClick={() => {
+                                    if (final?.id === item?._id) {
+                                        createPathnavigate()
+                                    }
+                                    else {
+                                        createPathnavigatefalse(item?._id)
+                                    }
+                                }}>
+                                    <Cards data={item} />
+                                </div>
+                            )
+                        })}
+                    </> : <div className='d-flex align-items-center justify-content-center text-center'>
+                        <h2>No Authors Here !</h2>
+                    </div>}
+
                 </div>
             </div>
         </div>
