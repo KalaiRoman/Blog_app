@@ -48,7 +48,7 @@ function Dashboard() {
                                 })}
                             </Form.Select>
                         </div>
-                        <div className='col-lg-5'>
+                        <div className='col-lg-6'>
                             <button className='edit-btn' onClick={() => AllData("All")}>
                                 All Datas
                             </button>

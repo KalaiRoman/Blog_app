@@ -6,14 +6,21 @@ import TimeAgo from 'javascript-time-ago';
 
 import en from 'javascript-time-ago/locale/en.json';
 import ru from 'javascript-time-ago/locale/en.json';
+import { useNavigate } from 'react-router-dom';
 
 TimeAgo.addDefaultLocale(en);
 
 function Cards({ data }) {
 
-    const des = data?.description?.slice(0, 220);
+    const navigate = useNavigate();
+
+    const des = data?.description?.slice(0, 140);
+
+    const movepath = (id) => {
+        navigate("/singleblog", { state: { id: id } })
+    }
     return (
-        <div className='p-1'>
+        <div className='p-1' onClick={() => movepath(data?._id)}>
             <div>
                 {data?.avatar ? <>
                     <img className="dashobard-image" src={data?.avatar} alt="no image" />

@@ -8,11 +8,15 @@ import CreateBlog from "../components/createblog/CreateBlog";
 import AllBlogs from "../components/createblog/AllBlogs";
 import Profile from "../components/profile/Profile";
 import CurrentuserBlogs from "../components/createblog/CurrentuserBlogs";
+import Forgetpassword from "../components/auth/Forgetpassword";
+import SingleBlog from "../components/createblog/SingleBlog";
 function RouterIndex() {
     return (
         <section>
             <Routes>
                 <Route path="/login" element={<Signin />}></Route>
+                <Route path="/forgetpassword" element={<Forgetpassword />}></Route>
+
                 <Route path="/register" element={<Signup />}></Route>
                 <Route path="/author" element={<Author />}></Route>
                 <Route path="/allblogs" element={<AllBlogs />}></Route>
@@ -20,6 +24,8 @@ function RouterIndex() {
 
                 <Route path="/createBlog" element={<CreateBlog />}></Route>
                 <Route path="/profile" element={<Profile />}></Route>
+                <Route path="/singleblog" element={<SingleBlog />}></Route>
+
 
                 <Route path="/" exact element={<Dashboard />}></Route>
 
