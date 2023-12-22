@@ -57,3 +57,12 @@ export async function deleteBlogsingleservice(id) {
         throw err;
     }
 }
+
+export async function filterBlogservice(id) {
+    try {
+        const response = await instanceBaseurl.get(`/blog/filter/${id}`);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}

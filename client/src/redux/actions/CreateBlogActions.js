@@ -1,5 +1,5 @@
 import { ToastError, ToastSuccess } from "../../middleware/Toast_action";
-import { Blogsingleservice, createBlogService, deleteBlogsingleservice, editBlogsingleservice, getBlogService, getSingleUserBlogService } from "../../services/blogs/blog_services";
+import { Blogsingleservice, createBlogService, deleteBlogsingleservice, editBlogsingleservice, filterBlogservice, getBlogService, getSingleUserBlogService } from "../../services/blogs/blog_services";
 import { BlogsRequest, BlogsSuccess, CurrentUserBlogSuccess } from "../reducer/Blog_reducer";
 import { CurrentuserBlogsRequest, CurrentuserBlogsSuccess, SingleBlogSuccess } from "../reducer/CurrentUserBlog_reducer";
 
@@ -28,6 +28,18 @@ export const getBlogActionData = () => async (dispatch) => {
     dispatch(BlogsRequest())
     try {
         const response = await getBlogService();
+        if (response) {
+            dispatch(BlogsSuccess(response?.data));
+        }
+    } catch (error) {
+        ToastError(error?.response?.data?.message);
+    }
+}
+
+export const filterActionData = (id) => async (dispatch) => {
+    dispatch(BlogsRequest())
+    try {
+        const response = await filterBlogservice(id);
         if (response) {
             dispatch(BlogsSuccess(response?.data));
         }

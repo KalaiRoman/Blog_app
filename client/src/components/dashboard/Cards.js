@@ -29,7 +29,7 @@ function Cards({ data }) {
             }}>
                 {ReactHtmlParser(des)}
             </div>
-            <div className='d-flex gap-3'>
+            <div className='d-flex gap-3 mt-2'>
                 <div>
                     <div>
                         {data?.user?.avatar ? <>
