@@ -1,5 +1,6 @@
 import { ToastError, ToastSuccess } from "../../middleware/Toast_action";
 import { Blogsingleservice, createBlogService, deleteBlogsingleservice, editBlogsingleservice, filterBlogservice, getBlogService, getSingleUserBlogService } from "../../services/blogs/blog_services";
+import { createCommandService, deleteCommandService } from "../../services/command_service/command_service";
 import { BlogsRequest, BlogsSuccess, CurrentUserBlogSuccess } from "../reducer/Blog_reducer";
 import { CurrentuserBlogsRequest, CurrentuserBlogsSuccess, SingleBlogSuccess } from "../reducer/CurrentUserBlog_reducer";
 
@@ -107,5 +108,39 @@ export const DeletesingleblogAction = (id, setLoading, handleClose, userid) => a
     } catch (error) {
         setLoading(false);
         ToastError(error?.response?.data?.message);
+    }
+}
+
+
+export const CommandCreateActions = (id, data, userid, setLoading, handleShow) => async (dispatch) => {
+    setLoading(true)
+    try {
+        const response = await createCommandService(id, data);
+        if (response) {
+            setTimeout(() => {
+                setLoading(false);
+                dispatch(getBlogActionData())
+
+                handleShow();
+                ToastSuccess("Command Created Successfully")
+            }, 400);
+        }
+    } catch (error) {
+        setLoading(false);
+        // ToastError(error?.response?.data?.message);
+    }
+}
+
+export const CommandDeleteActions = (id, data) => async (dispatch) => {
+    try {
+        const response = await deleteCommandService(id, data);
+        if (response) {
+            dispatch(getBlogActionData())
+            setTimeout(() => {
+                ToastSuccess("Command Deleted Successfully")
+            }, 400);
+        }
+    } catch (error) {
+        // ToastError(error?.response?.data?.message);
     }
 }

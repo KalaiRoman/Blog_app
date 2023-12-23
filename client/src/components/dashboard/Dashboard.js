@@ -7,11 +7,14 @@ import Form from 'react-bootstrap/Form';
 function Dashboard() {
     const dispatch = useDispatch();
 
+    const [load,setLoad]=useState(false);
+
     const [selectoption, setSelectOption] = useState("");
     const state = useSelector((state) => state?.blog?.Blogdata);
     useEffect(() => {
+        setLoad(true)
         dispatch(getBlogActionData());
-    }, [])
+    }, [load])
 
 
 

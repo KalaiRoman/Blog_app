@@ -12,7 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 function CreateBlog() {
 
-    
+
     const { state } = useLocation();
 
     const [loading, setLoading] = useState(false);

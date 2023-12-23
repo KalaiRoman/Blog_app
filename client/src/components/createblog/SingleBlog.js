@@ -71,7 +71,7 @@ function SingleBlog() {
                                 {checktoken?.id === states?.user?._id ? <>
                                     <div className='button d-flex gap-5 align-items-center'>
                                         <div>
-                                            <button className='edit-btn' onClick={()=>editblog(states?._id)}>Edit</button>
+                                            <button className='edit-btn' onClick={() => editblog(states?._id)}>Edit</button>
                                         </div>
                                         <div>
                                             <button className='delete-btn'>Delete</button>
@@ -79,6 +79,10 @@ function SingleBlog() {
                                     </div>
                                 </> : null}
                             </div>
+                        </div>
+
+                        <div className='d-flex align-items-center justify-content-center mb-2 mt-2'>
+                            <img src={states?.avatar} alt="no image" style={{ width: "100%", height: "200px", objectFit: "contain" }} />
                         </div>
                         <div className='mt-5'>
                             {ReactHtmlParser(states?.description)}

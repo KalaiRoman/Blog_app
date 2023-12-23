@@ -11,7 +11,6 @@ function AllBlogs() {
     const final = jwt_decode(token);
     const { state } = useLocation();
 
-    console.log(state, "state")
     const dispatch = useDispatch();
     const states = useSelector((state) => state?.currentblog?.CurrentUserBlogs);
     useEffect(() => {

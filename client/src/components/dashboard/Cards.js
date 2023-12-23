@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import ReactTimeAgo from 'react-time-ago';
@@ -8,9 +8,35 @@ import en from 'javascript-time-ago/locale/en.json';
 import ru from 'javascript-time-ago/locale/en.json';
 import { useNavigate } from 'react-router-dom';
 
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
+import Form from 'react-bootstrap/Form';
+import { useDispatch } from 'react-redux';
+import { CommandCreateActions, CommandDeleteActions } from '../../redux/actions/CreateBlogActions';
+import jwt_decode from 'jwt-decode';
+
 TimeAgo.addDefaultLocale(en);
 
 function Cards({ data }) {
+
+
+
+
+    const token = localStorage.getItem("blog_token") ? localStorage.getItem("blog_token") : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+    const final = jwt_decode(token);
+
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+
+    const [command, setCommand] = useState("");
+    const [commanderror, setCommandError] = useState("");
+
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const navigate = useNavigate();
 
@@ -19,58 +45,170 @@ function Cards({ data }) {
     const movepath = (id) => {
         navigate("/singleblog", { state: { id: id } })
     }
+
+    const SumbmitCommand = () => {
+        if (command?.length === 0) {
+            setCommandError("Command is Required")
+        }
+        if (command) {
+            const datas = {
+                desc: command,
+                commanduserdid: final?.id,
+                userid: data?.user?._id
+            }
+            dispatch(CommandCreateActions(data?._id, datas, data?.user?._id, setLoading, handleShow))
+        }
+    }
+
+
+    const DeleteCommand = (commandid) => {
+        const datas = {
+            commandid: commandid,
+            commanduserdid: data?.user?._id,
+            userid: data?.user?._id,
+        }
+        dispatch(CommandDeleteActions(data?._id, datas))
+    }
+
+
+    useEffect(() => {
+
+    }, [data])
+
     return (
-        <div className='p-1' onClick={() => movepath(data?._id)}>
-            <div>
-                {data?.avatar ? <>
-                    <img className="dashobard-image" src={data?.avatar} alt="no image" />
-                </> : <>
-                    <img className="dashobard-image" src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image" />
-                </>}
-            </div>
-            <div className='mt-3 fw-bold'>
-                {data?.title}
-            </div>
-            <div className='fs-6 mt-2' style={{
-                height: "100px"
-            }}>
-                {ReactHtmlParser(des)}
-            </div>
-            <div className='d-flex gap-3 mt-2'>
+        <div className='p-1' >
+            <div onClick={() => movepath(data?._id)}>
+
                 <div>
-                    <div>
-                        {data?.user?.avatar ? <>
-
-                            <img className="dashobard-images" src={data?.user?.avatar} alt="no image" />
-
-                        </> : <>
-
-                            <img className="dashobard-images" src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image" />
-
-                        </>}
-
-                    </div>
+                    {data?.avatar ? <>
+                        <img className="dashobard-image" src={data?.avatar} alt="no image" />
+                    </> : <>
+                        <img className="dashobard-image" src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image" />
+                    </>}
                 </div>
-                <div className='d-flex gap-5'>
+                <div className='mt-3 fw-bold'>
+                    {data?.title}
+                </div>
+                <div className='fs-6 mt-2' style={{
+                    height: "100px"
+                }}>
+                    {ReactHtmlParser(des)}
+                </div>
+                <div className='d-flex gap-3 mt-2'>
                     <div>
                         <div>
-                            {data?.user?.userName}
-                        </div>
-                        <div>
-                            <small>
-                                <ReactTimeAgo date={new Date(data?.createdAt)} locale='en-US' />
-                            </small>
+                            {data?.user?.avatar ? <>
+
+                                <img className="dashobard-images" src={data?.user?.avatar} alt="no image" />
+
+                            </> : <>
+
+                                <img className="dashobard-images" src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image" />
+
+                            </>}
+
                         </div>
                     </div>
-                    <div>
+                    <div className='d-flex gap-5'>
                         <div>
-                            <button className='type-btn'>
-                                {data?.category}
-                            </button>
+                            <div>
+                                {data?.user?.userName}
+                            </div>
+                            <div>
+                                <small>
+                                    <ReactTimeAgo date={new Date(data?.createdAt)} locale='en-US' />
+                                </small>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <button className='type-btn'>
+                                    {data?.category}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div className='text-end fw-bold fs-6 mt-3 mb-1' onClick={handleShow}>
+                Comments ( <span className="text-danger">{data?.postcommands?.length}</span> )
+            </div>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+                centered
+                size='lg'
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        <div className='d-flex gap-3 mt-2'>
+                            <div>
+                                <div>
+                                    {data?.user?.avatar ? <>
+
+                                        <img className="dashobard-images" src={data?.user?.avatar} alt="no image" />
+
+                                    </> : <>
+
+                                        <img className="dashobard-images" src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image" />
+
+                                    </>}
+
+                                </div>
+                            </div>
+                            <div className='d-flex gap-5'>
+                                <div>
+                                    <div>
+                                        {data?.user?.userName}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div style={{ height: "300px", border: "1px solid grey", overflow: "hidden", overflowY: "auto", borderRadius: "10px" }}>
+                        <div>
+                            {data?.postcommands?.map((item, index) => {
+                                return (
+                                    <div className='d-flex justify-content-between p-2'>
+                                        <div>
+                                            {item?.desc}
+                                        </div>
+                                        <div>
+
+                                            {final?.id == item?.commanduserdid ? <>
+                                                <button className='delete-btn' onClick={() => DeleteCommand(item?._id)}>Delete</button>
+                                            </> : null}
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                    <div className='d-flex align-items-center justify-content-center gap-5 mt-4 mb-4'>
+                        <div className='mt-3'>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Control type="text" placeholder="Enter Command Post"
+                                    value={command}
+                                    onChange={(e) => setCommand(e?.target?.value)}
+                                />
+                                <Form.Text className=" text-danger mt-2">
+                                    {command?.length > 0 ? <></> : <>
+                                        {commanderror}
+                                    </>}
+                                </Form.Text>
+                            </Form.Group>
+                        </div>
+                        <div >
+                            <Button variant="primary" onClick={SumbmitCommand}>Create Command</Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </div>
     )
 }

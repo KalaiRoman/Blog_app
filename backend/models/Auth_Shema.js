@@ -22,7 +22,7 @@ const Auth_Shema = new mongoose.Schema({
     },
     profileDescription: {
         type: String
-    }
+    },
 }, {
     timestamps: true
 });

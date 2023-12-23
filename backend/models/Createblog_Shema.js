@@ -26,7 +26,30 @@ const CreateBlog_shema = new mongoose.Schema({
     userId: {
         type: String,
         required: true
-    }
+    },
+    postcommands: {
+        type: [{
+            desc: {
+                type: String,
+            },
+             commanduserdid: {
+                type: String,
+                required: true
+            },
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'auth'
+            }
+
+        }, {
+            timestamps: true
+        }],
+        default: []
+    },
+    likes: {
+        type: Array,
+        default: []
+    },
 }, {
     timestamps: true
 })
