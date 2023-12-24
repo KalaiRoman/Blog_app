@@ -4,10 +4,12 @@ import Cards from './Cards';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterActionData, getBlogActionData } from '../../redux/actions/CreateBlogActions';
 import Form from 'react-bootstrap/Form';
+import { useGlobalContextApi } from '../../contextApi/Context';
 function Dashboard() {
+
     const dispatch = useDispatch();
 
-    const [load,setLoad]=useState(false);
+    const [load, setLoad] = useState(false);
 
     const [selectoption, setSelectOption] = useState("");
     const state = useSelector((state) => state?.blog?.Blogdata);

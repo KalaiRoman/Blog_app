@@ -7,11 +7,14 @@ import JoditEditor from 'jodit-react';
 import './styles/Createblog.scss';
 import { CreateblogActionData, EditblogAction, singleblogAction } from '../../redux/actions/CreateBlogActions';
 import { useDispatch, useSelector } from 'react-redux';
-import jwt_decode from 'jwt-decode';
+
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useGlobalContextApi } from '../../contextApi/Context';
 function CreateBlog() {
 
+
+    const currentid = useGlobalContextApi();
 
     const { state } = useLocation();
 
@@ -22,8 +25,6 @@ function CreateBlog() {
 
     const navigate = useNavigate();
 
-    const token = localStorage.getItem("blog_token");
-    const final = jwt_decode(token);
     const dispatch = useDispatch();
     const [error, setError] = useState(false);
 
@@ -90,7 +91,7 @@ function CreateBlog() {
                 category: type,
                 description: content,
                 avatar: avatar,
-                userId: final?.id
+                userId: currentid?.currentuserid
             }
             dispatch(CreateblogActionData(data, navigate, setLoading))
         }

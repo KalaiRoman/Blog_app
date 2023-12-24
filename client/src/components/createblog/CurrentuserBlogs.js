@@ -3,18 +3,15 @@ import Button from 'react-bootstrap/Button';
 import Cards from './Cards';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBlogActionData, getCurrentuserallBlogActionData } from '../../redux/actions/CreateBlogActions';
-import jwt_decode from 'jwt-decode';
-
+import { getCurrentuserallBlogActionData } from '../../redux/actions/CreateBlogActions';
+import { useGlobalContextApi } from '../../contextApi/Context';
 function CurrentuserBlogs() {
-    const token = localStorage.getItem("blog_token");
-    const final = jwt_decode(token);
+    const currentid = useGlobalContextApi();
     const { state } = useLocation();
-
     const dispatch = useDispatch();
     const states = useSelector((state) => state?.currentblog?.CurrentUserBlogs);
     useEffect(() => {
-        dispatch(getCurrentuserallBlogActionData(final?.id));
+        dispatch(getCurrentuserallBlogActionData(currentid?.currentuserid));
     }, [state?.id])
 
     const navigate = useNavigate();
@@ -36,7 +33,7 @@ function CurrentuserBlogs() {
                         {states?.map((item, index) => {
                             return (
                                 <div key={index} className='cards col-lg-3'>
-                                    <Cards data={item} id={final?.id} />
+                                    <Cards data={item} id={currentid?.currentuserid} />
                                 </div>
                             )
                         })}

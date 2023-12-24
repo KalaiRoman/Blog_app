@@ -20,22 +20,26 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 import { Provider } from 'react-redux';
 import store from './redux/store/Store';
 import { Toaster } from 'react-hot-toast';
+import { AppProvider } from './contextApi/Context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <Toaster
-      position='top-center'
-      reverseOrder={false}
+  <AppProvider>
 
-    ></Toaster>
-    <BrowserRouter>
-      <Layout>
-        <App />
-      </Layout>
-    </BrowserRouter>
+    <Provider store={store}>
+      <Toaster
+        position='top-center'
+        reverseOrder={false}
 
-  </Provider>
+      ></Toaster>
+      <BrowserRouter>
+        <Layout>
+          <App />
+        </Layout>
+      </BrowserRouter>
+    </Provider>
+  </AppProvider>
+
 );
 
 

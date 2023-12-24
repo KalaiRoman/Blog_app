@@ -10,40 +10,36 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { CommandCreateActions, CommandDeleteActions, PostLikeActions } from '../../redux/actions/CreateBlogActions';
-import jwt_decode from 'jwt-decode';
-
+import { useGlobalContextApi } from '../../contextApi/Context';
 TimeAgo.addDefaultLocale(en);
 function Cards({ data }) {
 
+
+    const currentid = useGlobalContextApi();
 
     const emojesdata = [
         {
             id: 1,
             emoji: "😀",
-            description: "grinning face",
-            tags: ["smile", "happy"]
+
         },
         {
             id: 2,
             emoji: "😃",
-            description: "grinning face with big eyes",
-            tags: ["happy", "joy", "haha"]
+
         },
         {
             id: 3,
             emoji: "😄",
-            description: "grinning face with smiling eyes",
-            tags: ["happy", "joy", "laugh", "pleased"]
+
         },
         {
             id: 4,
             emoji: "😁",
-            description: "beaming face with smiling eyes",
-            tags: ["teeth"]
+
         }
     ]
 
@@ -51,13 +47,6 @@ function Cards({ data }) {
 
 
     const [likepo, setLikepo] = useState(data?.likes);
-
-
-
-
-    const token = localStorage.getItem("blog_token") ? localStorage.getItem("blog_token") : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
-    const final = jwt_decode(token);
-
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
@@ -85,7 +74,7 @@ function Cards({ data }) {
         if (command) {
             const datas = {
                 desc: command,
-                commanduserdid: final?.id,
+                commanduserdid: currentid?.currentuserid,
                 userid: data?.user?._id
             }
             setPostcm([...postcm, datas]);
@@ -98,7 +87,7 @@ function Cards({ data }) {
         const datas = {
             commandid: commandid,
             commanduserdid: data?.user?._id,
-            userid: final?.id,
+            userid: currentid?.currentuserid,
         }
         const filterposts = postcm?.filter((item, index) => { return item?._id !== commandid }
         )
@@ -114,17 +103,18 @@ function Cards({ data }) {
 
     const PostLk = (postid) => {
         const likedata = {
-            userid: final?.id,
+            userid: currentid?.currentuserid,
         }
-        if (likepo.includes(final?.id)) {
-            setLikepo(likepo?.filter((item) => item !== final?.id));
+        if (likepo.includes(currentid?.currentuserid)) {
+            setLikepo(likepo?.filter((item) => item !== currentid?.currentuserid));
             return;
         }
-        setLikepo(likepo.concat(final?.id));
+        setLikepo(likepo.concat(currentid?.currentuserid));
         dispatch(PostLikeActions(postid, likedata));
     }
     return (
         <div className='p-1' >
+
             <div onClick={() => movepath(data?._id)}>
                 <div>
                     {data?.avatar ? <>
@@ -174,7 +164,7 @@ function Cards({ data }) {
             </div>
             <div className='d-flex align-items-center justify-content-between mt-4 mb-1'>
                 <div className='' onClick={() => PostLk(data?._id)}>
-                    {data?.likes?.includes(final?.id) ? <>
+                    {data?.likes?.includes(currentid?.currentuserid) ? <>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/640px-Heart_coraz%C3%B3n.svg.png" alt="no image" className='unlike-heart' />
                     </> : <>
                         <img src="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png" alt="no image" className='unlike-heart' />
@@ -232,7 +222,7 @@ function Cards({ data }) {
                                         </div>
                                         <div>
 
-                                            {final?.id == item?.commanduserdid ? <>
+                                            {currentid?.currentuserid == item?.commanduserdid ? <>
                                                 <button className='delete-btn' onClick={() => DeleteCommand(item?._id)}>Delete</button>
                                             </> : null}
                                         </div>

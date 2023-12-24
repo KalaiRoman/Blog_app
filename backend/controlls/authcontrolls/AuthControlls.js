@@ -120,3 +120,42 @@ export const AllUsers = async (req, res, next) => {
 
     }
 }
+
+// forget password
+
+export const forgetpassword = async (req, res, next) => {
+    const { email } = req.body;
+    try {
+        const userCheck = await Auth_Shema.findOne({
+            $or: [{
+                "email": email
+            }, {
+                "userName": email
+            }]
+        });
+        if (userCheck) {
+            res.status(200).json({ message: "foregtpassword", userid: userCheck?._id });
+        }
+        else {
+            res.status(404).json({ message: "Email is Incoorcet" });
+
+        }
+    } catch (error) {
+        res.status(404).json({ message: error });
+
+    }
+}
+
+// PASSWORD update
+
+export const passwordChange = async (req, res, next) => {
+    const id = req.params.id;
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const comparepassword = await bcrypt.hashSync(req.body.password, salt)
+        const response = await Auth_Shema.findByIdAndUpdate({ _id: id }, { password: comparepassword }, { new: true });
+        if (response) { res.status(200).json({ message: "Passowrd Changed successfully" }); }
+    } catch (error) {
+        res.status(404).json({ message: "User Id Not Found", });
+    }
+}
