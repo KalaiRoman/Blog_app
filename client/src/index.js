@@ -22,6 +22,8 @@ import store from './redux/store/Store';
 import { Toaster } from 'react-hot-toast';
 import { AppProvider } from './contextApi/Context';
 
+// emjie css
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AppProvider>

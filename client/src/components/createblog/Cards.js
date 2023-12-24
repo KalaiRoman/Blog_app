@@ -43,9 +43,13 @@ function Cards({ data, id }) {
     const DeletePost = () => {
         dispatch(DeletesingleblogAction(deleteid, setLoading, handleClose, id))
     }
+
+    const movepath = (id) => {
+        navigate("/singleblog", { state: { id: id } })
+    }
     return (
         <div>
-            <div>
+            <div onClick={() => movepath(data?._id)}>
                 {data?.avatar ? <>
                     <img className="dashobard-image" src={data?.avatar} alt="no image" />
                 </> : <>
@@ -59,7 +63,7 @@ function Cards({ data, id }) {
                 {ReactHtmlParser(des)}
             </div>
 
-            {id ? <>
+            {id ? <div>
 
 
                 <div className='ms-3 mb-4 d-flex align-items-center justify-content-between'>
@@ -87,7 +91,7 @@ function Cards({ data, id }) {
                         <button className='delete-btn' onClick={() => Deleteblog(data?._id)}>Delete</button>
                     </div>
                 </div>
-            </> : <>
+            </div> : <>
 
                 <div>
                     <div className='d-flex gap-3'>

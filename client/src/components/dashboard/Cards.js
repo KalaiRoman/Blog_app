@@ -14,34 +14,16 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { CommandCreateActions, CommandDeleteActions, PostLikeActions } from '../../redux/actions/CreateBlogActions';
 import { useGlobalContextApi } from '../../contextApi/Context';
+
 TimeAgo.addDefaultLocale(en);
 function Cards({ data }) {
 
 
     const currentid = useGlobalContextApi();
 
-    const emojesdata = [
-        {
-            id: 1,
-            emoji: "😀",
+    const [emojies, setEmojies] = useState("");
 
-        },
-        {
-            id: 2,
-            emoji: "😃",
 
-        },
-        {
-            id: 3,
-            emoji: "😄",
-
-        },
-        {
-            id: 4,
-            emoji: "😁",
-
-        }
-    ]
 
     const [postcm, setPostcm] = useState(data?.postcommands);
 
@@ -112,6 +94,13 @@ function Cards({ data }) {
         setLikepo(likepo.concat(currentid?.currentuserid));
         dispatch(PostLikeActions(postid, likedata));
     }
+
+    const datasEmojies = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🥲", "🥹", "☺️", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🥸", "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😮‍💨", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🫣", "🤗", "🫡", "🤔", "🫢", "🤭", "🤫", "🤥", "😶", "😶‍🌫️", "😐", "😑", "😬", "🫨", "🫠", "🙄", "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "😵‍💫", "🫥", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈", "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "☠️", "👽", "👾", "🤖", "🎃", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾"]
+
+
+    const addEmoji = (e) => {
+        setCommand(command + e);
+    };
     return (
         <div className='p-1' >
 
@@ -217,9 +206,23 @@ function Cards({ data }) {
                             {postcm?.map((item, index) => {
                                 return (
                                     <div className='d-flex justify-content-between p-2'>
-                                        <div>
-                                            {item?.desc}
+
+                                        <div className='d-flex align-items-center gap-2'>
+                                            <div>
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7vB-49_BT-dirwttYZaeE_VByjlQ3raVJZg&usqp=CAU" alt="no image"
+
+                                                    style={{
+                                                        width: "40px",
+                                                        height: "40px",
+                                                        borderRadius: "50%"
+                                                    }}
+                                                />
+                                            </div>
+                                            <div>
+                                                {item?.desc}
+                                            </div>
                                         </div>
+
                                         <div>
 
                                             {currentid?.currentuserid == item?.commanduserdid ? <>
@@ -234,12 +237,12 @@ function Cards({ data }) {
                     <div className='d-flex align-items-center justify-content-center gap-3 mt-4 mb-4'>
                         <div>
                             <Form.Select aria-label="Default select example"
-                                value={command}
-                                onChange={(e) => setCommand(e?.target?.value)}
+                                value={emojies}
+                                onChange={(e) => addEmoji(e?.target?.value)}
                             >
                                 <option>--Emoji----</option>
-                                {emojesdata?.map((item, index) => {
-                                    return <option value={item?.emoji}>{item?.emoji}</option>
+                                {datasEmojies?.map((item, index) => {
+                                    return <option value={item}>{item}</option>
                                 })}
                             </Form.Select>
                         </div>
@@ -255,6 +258,8 @@ function Cards({ data }) {
                                     </>}
                                 </Form.Text>
                             </Form.Group>
+
+
                         </div>
                         <div >
                             <Button variant="primary" onClick={SumbmitCommand}>Create Command</Button>
