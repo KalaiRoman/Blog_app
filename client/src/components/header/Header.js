@@ -62,13 +62,14 @@ function Header() {
                                 Create Post
                             </div>
                         </> : <>
-                            <div className='cursor' onClick={loginpath}
+                            {/* <div className='cursor' onClick={loginpath}
                                 style={{
                                     color: path == "/currentuserblogs" ? "red" : "black"
                                 }}
                             >
                                 Create Post
-                            </div></>}
+                            </div> */}
+                        </>}
                         <div className='cursor' onClick={authLogin}
                             style={{
                                 color: path == "/author" ? "red" : "black"
