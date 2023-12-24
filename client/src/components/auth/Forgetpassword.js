@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { LoginAction } from '../../redux/actions/LoginActions';
+import { ForgetpasswordActions } from '../../redux/actions/LoginActions';
 
 function Forgetpassword() {
 
@@ -17,27 +17,25 @@ function Forgetpassword() {
         email: "",
     });
     const [error, setError] = useState(false);
-    const { email, password } = user;
+    const { email } = user;
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
     const navigtate = useNavigate();
     const SubmitData = (e) => {
         e.preventDefault();
-        if (email?.length === 0 || password?.length === 0) {
+        if (email) {
             setError(true);
         }
-
-        if (email && password) {
+        if (email) {
             const datas = {
-                userNameorEmail: email,
-                password: password
+                email: email,
             }
-            dispatch(LoginAction(datas, navigate))
+            dispatch(ForgetpasswordActions(datas, navigate))
         }
     }
     const SignupPath = () => {
-        navigtate("/register");
+        navigtate("/login");
     }
     return (
         <div className='sigin-main-section'>

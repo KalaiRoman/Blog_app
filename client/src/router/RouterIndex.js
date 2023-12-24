@@ -10,12 +10,15 @@ import Profile from "../components/profile/Profile";
 import CurrentuserBlogs from "../components/createblog/CurrentuserBlogs";
 import Forgetpassword from "../components/auth/Forgetpassword";
 import SingleBlog from "../components/createblog/SingleBlog";
+import PasswordChangeforget from "../components/auth/PasswordChangeforget";
 function RouterIndex() {
     return (
         <section>
             <Routes>
                 <Route path="/login" element={<Signin />}></Route>
                 <Route path="/forgetpassword" element={<Forgetpassword />}></Route>
+                <Route path="/changepassword" element={<PasswordChangeforget />}></Route>
+
 
                 <Route path="/register" element={<Signup />}></Route>
                 <Route path="/author" element={<Author />}></Route>

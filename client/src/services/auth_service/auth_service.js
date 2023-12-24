@@ -36,3 +36,21 @@ export async function singleUserServiceUpdate(id, data) {
         throw err;
     }
 }
+
+export async function forgetpasswordService(data) {
+    try {
+        const response = await instanceBaseurl.post(`/auth/forgetpassword/`, data);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function changepasswordService(id, data) {
+    try {
+        const response = await instanceBaseurl.put(`/auth/passwordchange/${id}`, data);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}
