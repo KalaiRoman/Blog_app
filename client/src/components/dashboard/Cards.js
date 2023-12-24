@@ -19,6 +19,34 @@ import jwt_decode from 'jwt-decode';
 TimeAgo.addDefaultLocale(en);
 function Cards({ data }) {
 
+
+    const emojesdata = [
+        {
+            id: 1,
+            emoji: "😀",
+            description: "grinning face",
+            tags: ["smile", "happy"]
+        },
+        {
+            id: 2,
+            emoji: "😃",
+            description: "grinning face with big eyes",
+            tags: ["happy", "joy", "haha"]
+        },
+        {
+            id: 3,
+            emoji: "😄",
+            description: "grinning face with smiling eyes",
+            tags: ["happy", "joy", "laugh", "pleased"]
+        },
+        {
+            id: 4,
+            emoji: "😁",
+            description: "beaming face with smiling eyes",
+            tags: ["teeth"]
+        }
+    ]
+
     const [postcm, setPostcm] = useState(data?.postcommands);
 
 
@@ -98,7 +126,6 @@ function Cards({ data }) {
     return (
         <div className='p-1' >
             <div onClick={() => movepath(data?._id)}>
-
                 <div>
                     {data?.avatar ? <>
                         <img className="dashobard-image" src={data?.avatar} alt="no image" />
@@ -118,15 +145,10 @@ function Cards({ data }) {
                     <div>
                         <div>
                             {data?.user?.avatar ? <>
-
                                 <img className="dashobard-images" src={data?.user?.avatar} alt="no image" />
-
                             </> : <>
-
                                 <img className="dashobard-images" src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image" />
-
                             </>}
-
                         </div>
                     </div>
                     <div className='d-flex gap-5'>
@@ -152,10 +174,8 @@ function Cards({ data }) {
             </div>
             <div className='d-flex align-items-center justify-content-between mt-4 mb-1'>
                 <div className='' onClick={() => PostLk(data?._id)}>
-
                     {data?.likes?.includes(final?.id) ? <>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/640px-Heart_coraz%C3%B3n.svg.png" alt="no image" className='unlike-heart' />
-
                     </> : <>
                         <img src="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png" alt="no image" className='unlike-heart' />
 
@@ -166,8 +186,6 @@ function Cards({ data }) {
                     Comments ( <span className="text-danger">{postcm?.length}</span> )
                 </div>
             </div>
-
-
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -223,7 +241,18 @@ function Cards({ data }) {
                             })}
                         </div>
                     </div>
-                    <div className='d-flex align-items-center justify-content-center gap-5 mt-4 mb-4'>
+                    <div className='d-flex align-items-center justify-content-center gap-3 mt-4 mb-4'>
+                        <div>
+                            <Form.Select aria-label="Default select example"
+                                value={command}
+                                onChange={(e) => setCommand(e?.target?.value)}
+                            >
+                                <option>--Emoji----</option>
+                                {emojesdata?.map((item, index) => {
+                                    return <option value={item?.emoji}>{item?.emoji}</option>
+                                })}
+                            </Form.Select>
+                        </div>
                         <div className='mt-3'>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Control type="text" placeholder="Enter Command Post"

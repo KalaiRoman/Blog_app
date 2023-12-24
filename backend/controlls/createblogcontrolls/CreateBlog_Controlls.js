@@ -5,7 +5,7 @@ import HttpError from "../../models/errorModel.js";
 // create
 export const Createblog = async (req, res, next) => {
 
-    const { title, category, description, avatar, user, userId, postcommands, likes } = req.body;
+    const { title, category, description, avatar, user, userId, } = req.body;
     try {
 
         const response = new Createblog_Shema({
@@ -13,14 +13,12 @@ export const Createblog = async (req, res, next) => {
             avatar,
             user: req.body.userId,
             userId: req.body.userId,
-            postcommands,
-            likes
         });
 
         const currentuser = await Auth_Shema.findById({ _id: req.body.userId });
         const updatePost = currentuser?.posts + 1;
         await Auth_Shema.findByIdAndUpdate({ _id: req.body.userId }, { posts: updatePost }, { new: true })
-        response.save();
+        await response.save();
         res.status(201).json({ message: "Blog Created Successfully" })
     } catch (error) {
         return next(new HttpError("create blog error", 422))
