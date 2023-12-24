@@ -22,6 +22,7 @@ function Cards({ data }) {
 
     const token = localStorage.getItem("blog_token") ? localStorage.getItem("blog_token") : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
     const userid = jwt_decode(token);
+
     const currentid = {
         currentuserid: userid?.id
     }
@@ -159,17 +160,29 @@ function Cards({ data }) {
                 </div>
             </div>
             <div className='d-flex align-items-center justify-content-between mt-4 mb-1'>
-                <div className='' onClick={() => PostLk(data?._id)}>
-                    {data?.likes?.includes(currentid?.currentuserid) ? <>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/640px-Heart_coraz%C3%B3n.svg.png" alt="no image" className='unlike-heart' />
-                    </> : <>
-                        <img src="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png" alt="no image" className='unlike-heart' />
+                {userid?.id ? <>
 
-                    </>}
-                    <span className='ms-2 fw-bold fs-6 '>{data?.likes?.length}</span>
-                </div>
+                    <div className='' onClick={() => PostLk(data?._id)}>
+                        {data?.likes?.includes(currentid?.currentuserid) ? <>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/640px-Heart_coraz%C3%B3n.svg.png" alt="no image" className='unlike-heart' />
+                        </> : <>
+                            <img src="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png" alt="no image" className='unlike-heart' />
+
+                        </>}
+                        <span className='ms-2 fw-bold fs-6 '>{data?.likes?.length}</span>
+                    </div>
+                </> : <div onClick={()=>window.location.assign("/login")}>
+                    Like
+                </div>}
+
                 <div className='text-end fw-bold fs-6  mb-1' onClick={handleShow}>
-                    Comments ( <span className="text-danger">{postcm?.length}</span> )
+                    {userid?.id ? <>
+
+                        Comments ( <span className="text-danger">{postcm?.length}</span> )
+
+                    </> : <div onClick={() => window.location.assign("/login")}>
+                        Comments
+                    </div>}
                 </div>
             </div>
             <Modal
