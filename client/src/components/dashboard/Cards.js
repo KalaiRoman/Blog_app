@@ -13,12 +13,16 @@ import Modal from 'react-bootstrap/Modal';
 
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
-import { CommandCreateActions, CommandDeleteActions } from '../../redux/actions/CreateBlogActions';
+import { CommandCreateActions, CommandDeleteActions, PostLikeActions } from '../../redux/actions/CreateBlogActions';
 import jwt_decode from 'jwt-decode';
 
 TimeAgo.addDefaultLocale(en);
-
 function Cards({ data }) {
+
+    const [postcm, setPostcm] = useState(data?.postcommands);
+
+
+    const [likepo, setLikepo] = useState(data?.likes);
 
 
 
@@ -56,17 +60,21 @@ function Cards({ data }) {
                 commanduserdid: final?.id,
                 userid: data?.user?._id
             }
+            setPostcm([...postcm, datas]);
+            setCommand("");
             dispatch(CommandCreateActions(data?._id, datas, data?.user?._id, setLoading, handleShow))
         }
     }
-
 
     const DeleteCommand = (commandid) => {
         const datas = {
             commandid: commandid,
             commanduserdid: data?.user?._id,
-            userid: data?.user?._id,
+            userid: final?.id,
         }
+        const filterposts = postcm?.filter((item, index) => { return item?._id !== commandid }
+        )
+        setPostcm(filterposts);
         dispatch(CommandDeleteActions(data?._id, datas))
     }
 
@@ -75,6 +83,18 @@ function Cards({ data }) {
 
     }, [data])
 
+
+    const PostLk = (postid) => {
+        const likedata = {
+            userid: final?.id,
+        }
+        if (likepo.includes(final?.id)) {
+            setLikepo(likepo?.filter((item) => item !== final?.id));
+            return;
+        }
+        setLikepo(likepo.concat(final?.id));
+        dispatch(PostLikeActions(postid, likedata));
+    }
     return (
         <div className='p-1' >
             <div onClick={() => movepath(data?._id)}>
@@ -130,10 +150,24 @@ function Cards({ data }) {
                     </div>
                 </div>
             </div>
+            <div className='d-flex align-items-center justify-content-between mt-4 mb-1'>
+                <div className='' onClick={() => PostLk(data?._id)}>
 
-            <div className='text-end fw-bold fs-6 mt-3 mb-1' onClick={handleShow}>
-                Comments ( <span className="text-danger">{data?.postcommands?.length}</span> )
+                    {data?.likes?.includes(final?.id) ? <>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/640px-Heart_coraz%C3%B3n.svg.png" alt="no image" className='unlike-heart' />
+
+                    </> : <>
+                        <img src="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png" alt="no image" className='unlike-heart' />
+
+                    </>}
+                    <span className='ms-2 fw-bold fs-6 '>{data?.likes?.length}</span>
+                </div>
+                <div className='text-end fw-bold fs-6  mb-1' onClick={handleShow}>
+                    Comments ( <span className="text-danger">{postcm?.length}</span> )
+                </div>
             </div>
+
+
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -172,7 +206,7 @@ function Cards({ data }) {
                 <Modal.Body>
                     <div style={{ height: "300px", border: "1px solid grey", overflow: "hidden", overflowY: "auto", borderRadius: "10px" }}>
                         <div>
-                            {data?.postcommands?.map((item, index) => {
+                            {postcm?.map((item, index) => {
                                 return (
                                     <div className='d-flex justify-content-between p-2'>
                                         <div>

@@ -20,3 +20,13 @@ export async function deleteCommandService(id, data) {
         throw err;
     }
 }
+
+export async function LikePostService(id, data) {
+    try {
+        const response = await instanceBaseurl.put(`/blog/postlike/${id}`, data);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}
+

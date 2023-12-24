@@ -1,6 +1,6 @@
 import { ToastError, ToastSuccess } from "../../middleware/Toast_action";
 import { Blogsingleservice, createBlogService, deleteBlogsingleservice, editBlogsingleservice, filterBlogservice, getBlogService, getSingleUserBlogService } from "../../services/blogs/blog_services";
-import { createCommandService, deleteCommandService } from "../../services/command_service/command_service";
+import { LikePostService, createCommandService, deleteCommandService } from "../../services/command_service/command_service";
 import { BlogsRequest, BlogsSuccess, CurrentUserBlogSuccess } from "../reducer/Blog_reducer";
 import { CurrentuserBlogsRequest, CurrentuserBlogsSuccess, SingleBlogSuccess } from "../reducer/CurrentUserBlog_reducer";
 
@@ -119,7 +119,7 @@ export const CommandCreateActions = (id, data, userid, setLoading, handleShow) =
         if (response) {
             setTimeout(() => {
                 setLoading(false);
-                dispatch(getBlogActionData())
+                // dispatch(getBlogActionData())
 
                 handleShow();
                 ToastSuccess("Command Created Successfully")
@@ -135,12 +135,26 @@ export const CommandDeleteActions = (id, data) => async (dispatch) => {
     try {
         const response = await deleteCommandService(id, data);
         if (response) {
-            dispatch(getBlogActionData())
+            // dispatch(getBlogActionData())
             setTimeout(() => {
                 ToastSuccess("Command Deleted Successfully")
             }, 400);
         }
     } catch (error) {
         // ToastError(error?.response?.data?.message);
+    }
+}
+
+export const PostLikeActions = (id, data) => async (dispatch) => {
+    try {
+        const response = await LikePostService(id, data);
+        if (response) {
+            // dispatch(getBlogActionData())
+            setTimeout(() => {
+                ToastSuccess(response?.message)
+            }, 400)
+        }
+    } catch (error) {
+        ToastError(error?.response?.data?.message);
     }
 }

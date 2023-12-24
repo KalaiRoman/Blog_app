@@ -189,3 +189,31 @@ export const PostCommanDelete = async (req, res, next) => {
 
     }
 }
+
+
+// like
+
+export const PostLike = async (req, res, next) => {
+    const { userid } = req.body;
+    try {
+
+        if (req.userid === userid) {
+            const responsePost = await Createblog_Shema.findById(req.params.id);
+            if (responsePost.likes.includes(userid)) {
+                await responsePost.updateOne({ $pull: { likes: userid } })
+                res.status(404).json({ message: "Post Dislike " })
+            }
+            else {
+                await responsePost.updateOne({ $push: { likes: userid } })
+                res.status(200).json({ message: "Post Liked" })
+            }
+        }
+        else {
+            res.status(404).json({ message: "Your Not Allowed Post Like" })
+        }
+
+    } catch (error) {
+        res.status(404).json({ message: "Simething Error like" })
+
+    }
+}
