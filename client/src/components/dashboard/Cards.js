@@ -14,12 +14,19 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { CommandCreateActions, CommandDeleteActions, PostLikeActions } from '../../redux/actions/CreateBlogActions';
 import { useGlobalContextApi } from '../../contextApi/Context';
+import jwt_decode from 'jwt-decode';
 
 TimeAgo.addDefaultLocale(en);
 function Cards({ data }) {
 
 
-    const currentid = useGlobalContextApi();
+    const token = localStorage.getItem("blog_token") ? localStorage.getItem("blog_token") : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+    const userid = jwt_decode(token);
+    const currentid = {
+        currentuserid: userid?.id
+    }
+
+    // const currentid = useGlobalContextApi();
 
     const [emojies, setEmojies] = useState("");
 
@@ -207,7 +214,7 @@ function Cards({ data }) {
                                 return (
                                     <div className='d-flex justify-content-between p-2'>
 
-                                        <div className='d-flex align-items-center gap-2'>
+                                        <div className='d-flex align-items-center gap-3'>
                                             <div>
                                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7vB-49_BT-dirwttYZaeE_VByjlQ3raVJZg&usqp=CAU" alt="no image"
 
