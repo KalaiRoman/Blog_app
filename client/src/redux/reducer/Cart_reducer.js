@@ -10,19 +10,19 @@ const Cart_reducer = createSlice({
     reducers: {
         CartAdd(state, action) {
             let newItem = action.payload;
-            const existItem = state.CartData.find((item) => item.id === action.payload.id);
+            const existItem = state.CartData.find((item) => item._id === action.payload._id);
             if (existItem) {
-                state.CartData = existItem ? state.CartData.map((item) => item.id === existItem.id ? newItem : item) : [...state.CartData, newItem]
+                state.CartData = existItem ? state.CartData.map((item) => item._id === existItem._id ? newItem : item) : [...state.CartData, newItem]
                 ToastSuccess("Already Added to Cart");
             }
             else {
-                state.CartData = existItem ? state.CartData.map((item) => item.id === existItem.id ? newItem : item) : [...state.CartData, newItem]
+                state.CartData = existItem ? state.CartData.map((item) => item._id === existItem._id ? newItem : item) : [...state.CartData, newItem]
                 localStorage.setItem("cartdata", JSON.stringify(state.CartData));
             }
         },
 
         CartDelete(state, action) {
-            const existItem = state.CartData.filter((item) => item.id !== action.payload);
+            const existItem = state.CartData.filter((item) => item._id !== action.payload);
             localStorage.setItem("cartdata", JSON.stringify(existItem));
             state.CartData = existItem
         },

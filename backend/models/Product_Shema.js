@@ -1,13 +1,17 @@
 import mongoose from 'mongoose';
 
 
-export const product_shema = new mongoose.Schema({
+export const Product_Shema = new mongoose.Schema({
     productname: {
         type: String,
         required: true
     },
-    price: {
+    oldprice: {
         type: String,
+        required: true
+    },
+    saleprice: {
+        type: String,   
         required: true
     },
     discount: {
@@ -35,7 +39,7 @@ export const product_shema = new mongoose.Schema({
         required: true
     },
     size: {
-        type: Array,
+        type: String,
         required: true
     },
     userid: {
@@ -50,4 +54,4 @@ export const product_shema = new mongoose.Schema({
     timestamps: true
 })
 
-export default mongoose.model("product", product_shema);
+export default mongoose.model("product", Product_Shema);

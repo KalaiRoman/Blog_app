@@ -43,17 +43,16 @@ function Cart() {
                         return (
                             <div className='cardss mt-3 mb-3 col-lg-12' key={index}>
                                 <div className='image-cart'>
-                                    <img src={item?.image} alt="" className='product-image' />
-
+                                    <img src={item?.thumbimage} alt="" className='product-image' />
                                 </div>
                                 <div className='price-cart'>
-                                    {item?.name}
+                                    {item?.productname}
                                     <div>
-                                        {item?.price}
+                                        ₹ {item?.saleprice}
                                     </div>
                                 </div>
                                 <div className='action-cart'>
-                                    <button className='edits-btn text-center' onClick={() => DeleteCart(item?.id)}>
+                                    <button className='edits-btn text-center' onClick={() => DeleteCart(item?._id)}>
                                         Delete
                                     </button>
                                 </div>
@@ -149,7 +148,7 @@ function Cart() {
                                 </div>
                                 <div className='fw-bold fs-5'>
                                     ₹ {cartData?.reduce((acc, current) => {
-                                        return acc + Number(current?.price)
+                                        return acc + Number(current?.saleprice)
                                     }, 0)}
                                 </div>
                             </div>
@@ -162,7 +161,7 @@ function Cart() {
                                 </div>
                                 <div>
                                     <h4>₹ {cartData?.reduce((acc, current) => {
-                                        return acc + Number(current?.price)
+                                        return acc + Number(current?.saleprice)
                                     }, 0)}</h4>
                                 </div>
                             </div>
