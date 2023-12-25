@@ -33,7 +33,7 @@ function Author() {
                     {state?.length > 0 ? <>
                         {state?.map((item, index) => {
                             return (
-                                <div key={index} className={`${currentid?.currentuserid === item?._id ? "activecard col-lg-3" : "card col-lg-3 "}`} onClick={() => {
+                                <div key={index} className={`${currentid?.currentuserid === item?._id ? "activecard col-lg-3" : "cardsss col-lg-3 "}`} onClick={() => {
                                     if (currentid?.currentuserid === item?._id) {
                                         createPathnavigate()
                                     }

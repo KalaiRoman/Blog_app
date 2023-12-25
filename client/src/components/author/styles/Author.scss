@@ -1,6 +1,6 @@
 @use "../../../sass/abstract/" as *;
 
-.card {
+.cardsss {
     width: 25% !important;
     border: none !important;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -27,7 +27,7 @@
     position: relative;
 }
 
-.activecard::after{
+.activecard::after {
     content: "you";
     position: absolute;
     width: 60px;
@@ -39,5 +39,4 @@
     text-align: center;
     color: white;
     font-weight: bold;
-
 }

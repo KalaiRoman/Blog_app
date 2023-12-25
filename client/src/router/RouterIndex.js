@@ -11,6 +11,9 @@ import CurrentuserBlogs from "../components/createblog/CurrentuserBlogs";
 import Forgetpassword from "../components/auth/Forgetpassword";
 import SingleBlog from "../components/createblog/SingleBlog";
 import PasswordChangeforget from "../components/auth/PasswordChangeforget";
+import Home from "../components/ecommercecomponent/Home/Home";
+import Products from "../components/ecommercecomponent/products/Products";
+import Cart from "../components/ecommercecomponent/cart/Cart";
 function RouterIndex() {
     return (
         <section>
@@ -18,6 +21,7 @@ function RouterIndex() {
                 <Route path="/login" element={<Signin />}></Route>
                 <Route path="/forgetpassword" element={<Forgetpassword />}></Route>
                 <Route path="/changepassword" element={<PasswordChangeforget />}></Route>
+
 
 
                 <Route path="/register" element={<Signup />}></Route>
@@ -29,8 +33,15 @@ function RouterIndex() {
                 <Route path="/profile" element={<Profile />}></Route>
                 <Route path="/singleblog" element={<SingleBlog />}></Route>
 
-
                 <Route path="/" exact element={<Dashboard />}></Route>
+
+
+                {/* ecommerce */}
+                <Route path="/ecommerce" element={<Home />}>
+                    <Route path="/ecommerce" element={<Products />}></Route>
+                    <Route path="cart" element={<Cart />}></Route>
+
+                </Route>
 
             </Routes>
         </section>

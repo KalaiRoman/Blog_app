@@ -45,5 +45,5 @@ const CurrentuserBlogs_Reducer = createSlice({
 })
 
 const { actions, reducer } = CurrentuserBlogs_Reducer;
-export const { CurrentuserBlogsRequest, CurrentuserBlogsSuccess, CurrentuserBlogsFail, ClearCurrentuserBlogssData,SingleBlogSuccess } = actions;
+export const { CurrentuserBlogsRequest, CurrentuserBlogsSuccess, CurrentuserBlogsFail, ClearCurrentuserBlogssData, SingleBlogSuccess } = actions;
 export default reducer;
