@@ -1,24 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Cart.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartDelete } from '../../../redux/reducer/Cart_reducer';
+import { useNavigate } from 'react-router-dom';
+import { currentUserAddress, currentUserDeleteAddress } from '../../../redux/actions/CreateAddressActions';
+import { deleteDddressService } from '../../../services/address_service/Address_service';
 function Cart() {
+
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const cartData = useSelector((state) => state?.cart?.CartData);
+    const address = useSelector((state) => state?.address);
+    const { loading, Addresss } = address;
     const [addresscolor, setAddressColor] = useState({});
     const AddressSelelct = (data) => {
         setAddressColor(data);
-        console.log(data, "data")
     }
-
     const datas = [1, 2, 3];
     const payments = ["Paypal", "PhonePay", "GooglePay"];
-
-
     const DeleteCart = (id) => {
         dispatch(CartDelete(id));
     }
+    const addressPath = () => {
+        navigate("/ecommerce/address")
+    }
+    useEffect(() => {
+        dispatch(currentUserAddress())
+    }, []);
 
+    const DeleteAddress = (id) => {
+        dispatch(currentUserDeleteAddress(id));
+    }
     return (
         <div className='main-cart'>
             <div className='ms-5 mb-3 mt-2'>
@@ -51,31 +63,47 @@ function Cart() {
                 </div>
                 <div className='right'>
                     <div className='address-cart'>
-                        <div className='ms-4'><h4>Address</h4></div>
+                        <div className='ms-4 d-flex align-content-center justify-content-between'>
+                            <div>
+                                <h4>Address</h4>
+                            </div>
+                            <div>
+                                <button className='address-btn' onClick={addressPath}>+ Add Address</button>
+                            </div>
+                        </div>
 
-                        {datas.slice(0,1)?.map((item, index) => {
-                            return (
-                                <div key={index} className='address-card' style={{
-                                    backgroundColor: addresscolor == item ? "#28FFBF" : ""
-                                }} >
+                        {loading ? <>Loaidng...</> : <>
+                            {Addresss?.map((item, index) => {
+                                return (
+                                    <div key={index} className='address-card' style={{
+                                        backgroundColor: addresscolor == item ? "#28FFBF" : ""
+                                    }} >
 
-                                    <div onClick={() => AddressSelelct(item)}>
-                                        <div>
-                                            jhkgjhkg
+                                        <div onClick={() => AddressSelelct(item)}>
+                                            <div>
+                                                <span>{item?.username}  <span className='text-danger'>Contact : {item?.contactno}, {item?.alternateno}</span></span>
+                                            </div>
+                                            <div>
+                                                <span>{item?.street}, {item?.city},{item?.pincode}</span>
+                                            </div>
+                                            <div>
+                                                {item?.address}
+                                            </div>
+
+
                                         </div>
 
+                                        <div className='d-flex mt-3 mb-2 gap-4 w-50'>
+                                            <button className='edit-btn'>Edit</button>
+                                            <button className='delete-btn' onClick={() => DeleteAddress(item?._id)}>Delete</button>
+                                        </div>
 
                                     </div>
+                                )
+                            })}
 
-                                    <div className='d-flex mt-3 mb-2 gap-4 w-50'>
-                                        <button className='edit-btn'>Edit</button>
-                                        <button className='delete-btn'>Delete</button>
+                        </>}
 
-                                    </div>
-
-                                </div>
-                            )
-                        })}
 
                     </div>
                     <div className='payment-cart'>

@@ -50,7 +50,7 @@ function Header() {
                     <div onClick={homePath} className='cursor ' >
                         Blog's
                     </div>
-                    <div className='d-flex gap-5 justify-content-between  align-items-center ' style={{width:"46%"}}>
+                    <div className='d-flex gap-5 justify-content-between  align-items-center ' style={{ width: "46%" }}>
                         {token ? <>
                             <div onClick={profielPath} className='cursor'
                                 style={{
@@ -59,31 +59,23 @@ function Header() {
                             >
                                 {state?.userName}
                             </div></> : <div className='cursor' onClick={loginpath}>Login</div>}
-                            <div className='cursor' onClick={()=>window.location.assign("/ecommerce")}
-                             style={{
+                        <div className='cursor' onClick={() => window.location.assign("/ecommerce")}
+                            style={{
                                 color: path == "/ecommerce" ? "red" : "black"
                             }}
-                            >
-                                Shopping
-                            </div>
-                        {token ? <>
+                        >
+                            Shopping
+                        </div>
+                        {token && <>
                             <div className='cursor' onClick={CreateBlogpath}
                                 style={{
                                     color: path == "/currentuserblogs" ? "red" : "black",
-                                    width:"100%",
-                                    textAlign:"center"
+                                    width: "100%",
+                                    textAlign: "center"
                                 }}
                             >
                                 Create Posts
                             </div>
-                        </> : <>
-                            {/* <div className='cursor' onClick={loginpath}
-                                style={{
-                                    color: path == "/currentuserblogs" ? "red" : "black"
-                                }}
-                            >
-                                Create Post
-                            </div> */}
                         </>}
                         <div className="cart-image" onClick={CartPath}>
                             <ion-icon name="cart-outline"></ion-icon>
