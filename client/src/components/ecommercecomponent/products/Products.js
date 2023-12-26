@@ -3,11 +3,23 @@ import './styles/Products.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartAdd } from '../../../redux/reducer/Cart_reducer';
 import { GetProductActions } from '../../../redux/actions/CreateProductActions';
+import { FavortActionData, FavortAllActionData } from '../../../redux/actions/FavortsActions';
+import jwt_decode from 'jwt-decode';
 function Products() {
+    const token = localStorage.getItem("blog_token");
+    const final = jwt_decode(token);
     const dispatch = useDispatch();
     const [filterCart, setFilterCart] = useState([]);
+    const [filterfavort, setFilterFavort] = useState([]);
+
     const stateCart = useSelector((state) => state?.cart?.CartData);
     const productsdata = useSelector((state) => state?.product);
+    const favortstate = useSelector((state) => state?.favort);
+
+    const fP= favortstate?.Favortss;
+
+    console.log(fP, 'Favortss')
+
 
     const { loading, Products } = productsdata;
 
@@ -52,16 +64,45 @@ function Products() {
 
     useEffect(() => {
         let filterid = [];
+
         stateCart?.map((item) => {
             filterid.push(item?._id);
         })
+
+        let favortsids = [];
+        fP?.map((item) => {
+         favortsids?.push(item?.productId);
+        })
+        setFilterFavort(favortsids);
         setFilterCart(filterid);
         dispatch(GetProductActions())
+        dispatch(FavortAllActionData());
+
     }, [stateCart])
+
+
+
+
+    useEffect(() => {
+
+       
+    }, [])
+
+
+
+    console.log(filterfavort,'filterfavort')
 
 
     const AddTocart = (data) => {
         dispatch(CartAdd(data));
+    }
+
+    const favortProduct = (productid) => {
+
+        const productfavortsid = {
+            productId: productid
+        }
+        dispatch(FavortActionData(productfavortsid));
     }
     return (
         <div>
@@ -73,11 +114,11 @@ function Products() {
                     return (
                         <div key={index}>
                             <div class="cardssss">
-                                <div class="card__img">
+                                <div class="card__imgs d-flex align-content-center justify-content-center">
                                     <img src={item?.thumbimage} alt="no image" className='image-product' />
                                 </div>
 
-                                <div className='text-start'>
+                                <div className='text-start mt-3'>
                                     {item?.productname}
                                 </div>
 
@@ -88,7 +129,7 @@ function Products() {
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <a href="" class="card__icon" ><ion-icon name="heart-outline"></ion-icon></a>
+                                    <div class="card__icon" onClick={() => favortProduct(item?._id)}><ion-icon name="heart-outline"></ion-icon></div>
                                     {filterCart?.includes(item?._id) ? <div className='text-success'>Added to cart</div> : <>
                                         <div class="card__icon" onClick={() => AddTocart(item)}><ion-icon name="cart-outline"></ion-icon></div>
                                     </>}

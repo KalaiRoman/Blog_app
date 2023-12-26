@@ -102,11 +102,13 @@ article:nth-child(3) {
 article:nth-child(4) {
     background-color: var(--second-color);
 }
-.card__img {
-    width: 180px;
-    height: auto;
-    padding: 3rem 0;
+.card__imgs {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: 0.5s;
+
+
 }
 .card__name {
     position: absolute;
@@ -175,5 +177,11 @@ footer {
 {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: 20px;
+    
 }
