@@ -5,7 +5,10 @@ import { CartAdd } from '../../../redux/reducer/Cart_reducer';
 import { GetProductActions } from '../../../redux/actions/CreateProductActions';
 import { FavortActionData, FavortAllActionData } from '../../../redux/actions/FavortsActions';
 import jwt_decode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 function Products() {
+
+    const navigate = useNavigate();
     const token = localStorage.getItem("blog_token");
     const final = jwt_decode(token);
     const dispatch = useDispatch();
@@ -14,11 +17,12 @@ function Products() {
 
     const stateCart = useSelector((state) => state?.cart?.CartData);
     const productsdata = useSelector((state) => state?.product);
-    const favortstate = useSelector((state) => state?.favort);
+    const favortstate = useSelector((state) => state?.singleuser?.Singleuser);
 
-    const fP= favortstate?.Favortss;
+    console.log(favortstate?.wishlist, 'favortstate')
 
-    console.log(fP, 'Favortss')
+
+
 
 
     const { loading, Products } = productsdata;
@@ -70,13 +74,10 @@ function Products() {
         })
 
         let favortsids = [];
-        fP?.map((item) => {
-         favortsids?.push(item?.productId);
-        })
+
         setFilterFavort(favortsids);
         setFilterCart(filterid);
         dispatch(GetProductActions())
-        dispatch(FavortAllActionData());
 
     }, [stateCart])
 
@@ -85,12 +86,11 @@ function Products() {
 
     useEffect(() => {
 
-       
+
     }, [])
 
 
 
-    console.log(filterfavort,'filterfavort')
 
 
     const AddTocart = (data) => {
@@ -107,19 +107,28 @@ function Products() {
     return (
         <div>
             <div className='container'>
-                <h4>Shopping</h4>
+                <div className='d-flex justify-content-between'>
+                    <div>
+                        <h4>Shopping</h4>
+                    </div>
+                    <div>
+                        <button className='edit-btn' onClick={() => window.location.assign("/ecommerce/addproduct")}>+ Add New Product</button>
+                    </div>
+                </div>
             </div>
             <main class="main bd-grid">
                 {Products?.map((item, index) => {
                     return (
                         <div key={index}>
-                            <div class="cardssss">
-                                <div class="card__imgs d-flex align-content-center justify-content-center">
-                                    <img src={item?.thumbimage} alt="no image" className='image-product' />
+                            <div class="cardssss" onClick={() => navigate(`/ecommerce/productview`, { state: { productid: item?._id } })}>
+                                <div className='image-card-style'>
+                                    <div class="card__imgs d-flex align-content-center justify-content-center">
+                                        <img src={item?.thumbimage} alt="no image" className='image-product' />
+                                    </div>
                                 </div>
 
                                 <div className='text-start mt-3'>
-                                    {item?.productname}
+                                    {item?.productname?.slice(0, 40)}
                                 </div>
 
                                 <div className='d-flex justify-content-between mb-3 mt-2'>
@@ -129,7 +138,14 @@ function Products() {
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="card__icon" onClick={() => favortProduct(item?._id)}><ion-icon name="heart-outline"></ion-icon></div>
+                                    {favortstate?.wishlist?.includes(item?._id) ? <>
+                                        <div class="card__icon" onClick={() => favortProduct(item?._id)}>
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/640px-Heart_coraz%C3%B3n.svg.png" alt="no image" className='unlike-heart' />
+
+                                        </div>
+                                    </> : <>
+                                        <div class="card__icon" onClick={() => favortProduct(item?._id)}><ion-icon name="heart-outline"></ion-icon></div>
+                                    </>}
                                     {filterCart?.includes(item?._id) ? <div className='text-success'>Added to cart</div> : <>
                                         <div class="card__icon" onClick={() => AddTocart(item)}><ion-icon name="cart-outline"></ion-icon></div>
                                     </>}

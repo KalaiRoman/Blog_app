@@ -12,7 +12,6 @@ export const SingleuserActionData = () => async (dispatch) => {
         const token = localStorage.getItem("blog_token");
         const final = jwt_decode(token);
 
-
         if (final) {
             const response = await singleUserService(final?.id);
 

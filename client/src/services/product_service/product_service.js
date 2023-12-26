@@ -17,3 +17,12 @@ export async function getproductServices(data) {
         throw err;
     }
 }
+
+export async function getCurrentsingleproductServices(id) {
+    try {
+        const response = await instanceBaseurl.get(`/product/getsingle/${id}`);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}

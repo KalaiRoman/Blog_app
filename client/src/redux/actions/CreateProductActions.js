@@ -1,6 +1,6 @@
 import { ToastSuccess } from "../../middleware/Toast_action";
-import { createproductService, getproductServices } from "../../services/product_service/product_service"
-import { ProductFail, ProductRequest, ProductSuccess } from "../reducer/Product_reducer";
+import { createproductService, getCurrentsingleproductServices, getproductServices } from "../../services/product_service/product_service"
+import { ProductFail, ProductRequest, ProductSingleSuccess, ProductSuccess } from "../reducer/Product_reducer";
 
 
 
@@ -29,6 +29,20 @@ export const GetProductActions = () => async (dispatch) => {
         if (response) {
             dispatch(ProductSuccess(response?.data));
 
+        }
+
+    } catch (error) {
+        dispatch(ProductFail("product get error"))
+
+    }
+}
+
+export const GetSingleProductActions = (id) => async (dispatch) => {
+    try {
+
+        const response = await getCurrentsingleproductServices(id);
+        if (response) {
+            dispatch(ProductSingleSuccess(response?.data));
         }
 
     } catch (error) {

@@ -11,7 +11,7 @@ export const Product_Shema = new mongoose.Schema({
         required: true
     },
     saleprice: {
-        type: String,   
+        type: String,
         required: true
     },
     discount: {
@@ -32,7 +32,8 @@ export const Product_Shema = new mongoose.Schema({
     },
     imagestore: {
         type: Array,
-        required: true
+        required: true,
+        default: []
     },
     color: {
         type: String,
@@ -49,7 +50,7 @@ export const Product_Shema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'auth'
-    }
+    },
 }, {
     timestamps: true
 })

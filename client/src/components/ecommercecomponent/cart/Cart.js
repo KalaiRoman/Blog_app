@@ -47,7 +47,7 @@ function Cart() {
                                 </div>
                                 <div className='price-cart'>
                                     {item?.productname}
-                                    <div>
+                                    <div className='mt-3 mb-3 fw-bold fs-5'>
                                         ₹ {item?.saleprice}
                                     </div>
                                 </div>

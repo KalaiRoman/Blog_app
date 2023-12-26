@@ -48,7 +48,13 @@ export const CreateProduct = async (req, res, next) => {
 // get single product
 
 export const getProduct = async (req, res, next) => {
+
+    const id = req.params.id;
     try {
+
+        const response = await Product_Shema.findById(id);
+        res.status(200).json({ message: "success", data: response });
+
 
     } catch (error) {
         res.status(404).json({ message: "get error" })

@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-
-
 const CreateBlog_shema = new mongoose.Schema({
     title: {
         type: String,
@@ -28,22 +26,24 @@ const CreateBlog_shema = new mongoose.Schema({
         required: true
     },
     postcommands: {
-        type: [{
-            desc: {
-                type: String,
-            },
-             commanduserdid: {
-                type: String,
-                required: true
-            },
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'auth'
-            }
+        type: [
+            {
+                desc: {
+                    type: String,
+                },
+                commanduserdid: {
+                    type: String,
+                    required: true
+                },
+                user: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'auth'
+                }
 
-        }, {
-            timestamps: true
-        }],
+            }, {
+                timestamps: true
+            }
+        ],
         default: []
     },
     likes: {

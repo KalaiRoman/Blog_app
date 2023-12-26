@@ -16,6 +16,7 @@ import Products from "../components/ecommercecomponent/products/Products";
 import Cart from "../components/ecommercecomponent/cart/Cart";
 import CreateAddress from "../components/ecommercecomponent/address/CreateAddress";
 import Addproduct from "../components/ecommercecomponent/products/Addproduct";
+import ProductView from "../components/ecommercecomponent/products/ProductView";
 function RouterIndex() {
     return (
         <section>
@@ -44,6 +45,8 @@ function RouterIndex() {
                     <Route path="cart" element={<Cart />}></Route>
                     <Route path="address" element={<CreateAddress />}></Route>
                     <Route path="addproduct" element={<Addproduct />}></Route>
+                    <Route path="productview" element={<ProductView />}></Route>
+
 
                 </Route>
 

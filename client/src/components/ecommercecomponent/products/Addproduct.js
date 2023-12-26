@@ -3,6 +3,7 @@ import { Form, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { CreateProductActions } from '../../../redux/actions/CreateProductActions';
+import { ToastError } from '../../../middleware/Toast_action';
 
 function Addproduct() {
     const dispatch = useDispatch();
@@ -18,6 +19,19 @@ function Addproduct() {
         size: "",
     });
 
+    const [multiimages, setMultimages] = useState([]);
+    const [multiimg, setMultimg] = useState("");
+
+
+    const handleImages = (image) => {
+        if (multiimages?.includes(image)) {
+            ToastError("Already Added Image")
+        }
+        else {
+            setMultimages([...multiimages, image]);
+            setMultimg("");
+        }
+    }
     const {
         productname,
         oldprice,
@@ -37,7 +51,7 @@ function Addproduct() {
     const SubmitData = (e) => {
         e.preventDefault();
         if (productname?.length === 0 || oldprice?.length === 0 || saleprice?.length === 0 || discount?.length === 0 || quantity?.length === 0 || description?.length === 0 || thumbimage?.length === 0
-            || color?.length === 0 || size?.length == 0) {
+            || color?.length === 0 || size?.length == 0 || multiimg?.length === 0) {
             setError(true);
         }
 
@@ -50,7 +64,7 @@ function Addproduct() {
             description &&
             thumbimage &&
             color &&
-            size) {
+            size && multiimages) {
             const datas = {
                 productname,
                 oldprice,
@@ -61,21 +75,21 @@ function Addproduct() {
                 thumbimage,
                 color,
                 size,
-                imagestore: []
+                imagestore: multiimages
             }
             dispatch(CreateProductActions(datas, navigtate))
         }
     }
     return (
         <div>
-            <div className='sigin-main-section'>
-                <div className='inside-main-section mt-5'>
+            <div className='sigin-main-section' style={{ height: "auto" }}>
+                <div className='inside-main-section mt-1'>
 
-                    <div className='form-section mt-5'>
-                        <div className='fw-bold fs-3 mb-5 mt-5'>
+                    <div className='form-section mt-2'>
+                        <div className='fw-bold fs-3 mb-5 '>
                             Product Create
                         </div>
-                        <Form>
+                        <div>
                             <Row>
                                 <Col>
                                     <Form.Group className="mb-3" controlId="formBasictext">
@@ -162,10 +176,6 @@ function Addproduct() {
                                 </Form.Group></Col>
 
 
-
-
-
-
                             <Form.Group className="mb-3" controlId="formBasictext">
                                 <Form.Label className='mb-2'>description</Form.Label>
                                 <Form.Control
@@ -180,11 +190,37 @@ function Addproduct() {
                             </Form.Group>
 
 
+                            <Col>
+                                <Form.Group className="mb-3" controlId="formBasictext">
+                                    <Form.Label className='mb-2'>multiimags</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter multiimg" className='form-box' name="multiimg" value={multiimg} onChange={(e) => setMultimg(e?.target?.value)} />
+                                    <Form.Text className="text-muted">
+                                        {error && multiimg?.length <= 0 ? <span className='text-danger'>Filed is Required</span> : null}
+                                    </Form.Text>
+                                </Form.Group>
+
+                                <div className='mb-4'>
+                                    <button className='edit-btn' onClick={() => handleImages(multiimg)}>Add Image</button>
+                                </div>
+                            </Col>
+
+
+                            <div className='mb-4 row  gap-2'>
+                                {multiimages?.map((item, index) => {
+                                    return (
+                                        <div className='cards col-lg-1'>
+                                            <img src={item} alt="no images" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+
 
                             <button className='submit-button mb-5' onClick={SubmitData}>
                                 Create Address
                             </button>
-                        </Form>
+                        </div>
 
 
                     </div>

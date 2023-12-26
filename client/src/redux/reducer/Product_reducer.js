@@ -4,6 +4,7 @@ const Product_Reducer = createSlice({
     initialState: {
         loading: false,
         Products: [],
+        singleProduct: [],
         error: ""
     },
     reducers: {
@@ -20,6 +21,13 @@ const Product_Reducer = createSlice({
                 Products: action.payload,
                 loading: false
 
+            }
+        },
+        ProductSingleSuccess(state, action) {
+            return {
+                ...state,
+                singleProduct: action.payload,
+                loading: false
             }
         },
         ProductFail(state, action) {
@@ -40,5 +48,5 @@ const Product_Reducer = createSlice({
 })
 
 const { actions, reducer } = Product_Reducer;
-export const { ProductRequest, ProductSuccess, ProductFail, ClearAllusersData } = actions;
+export const { ProductRequest, ProductSuccess, ProductFail, ProductSingleSuccess, ClearAllusersData } = actions;
 export default reducer;

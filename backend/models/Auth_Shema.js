@@ -23,6 +23,10 @@ const Auth_Shema = new mongoose.Schema({
     profileDescription: {
         type: String
     },
+    wishlist: {
+        type: Array,
+        default: 0
+    }
 }, {
     timestamps: true
 });
