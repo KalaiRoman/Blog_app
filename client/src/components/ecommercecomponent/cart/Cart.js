@@ -5,14 +5,16 @@ import { CartDelete } from '../../../redux/reducer/Cart_reducer';
 import { useNavigate } from 'react-router-dom';
 import { currentUserAddress, currentUserDeleteAddress } from '../../../redux/actions/CreateAddressActions';
 import { deleteDddressService } from '../../../services/address_service/Address_service';
+import { OrderAction } from './../../../redux/actions/orderActions';
 function Cart() {
-
+    const [paymenttype, setPaymenttype] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const cartData = useSelector((state) => state?.cart?.CartData);
     const address = useSelector((state) => state?.address);
     const { loading, Addresss } = address;
     const [addresscolor, setAddressColor] = useState({});
+
     const AddressSelelct = (data) => {
         setAddressColor(data);
     }
@@ -30,6 +32,16 @@ function Cart() {
 
     const DeleteAddress = (id) => {
         dispatch(currentUserDeleteAddress(id));
+    }
+
+
+    const ConfirmOrder = () => {
+        const datas = {
+            addressid: addresscolor?._id,
+            paymentMethod: paymenttype,
+            order: cartData
+        }
+        dispatch(OrderAction(datas));
     }
     return (
         <div className='main-cart'>
@@ -74,9 +86,12 @@ function Cart() {
                         {loading ? <>Loaidng...</> : <>
                             {Addresss?.map((item, index) => {
                                 return (
-                                    <div key={index} className='address-card' style={{
-                                        backgroundColor: addresscolor == item ? "#28FFBF" : ""
-                                    }} >
+                                    <div key={index}
+                                        className='address-card'
+                                        style={{
+                                            backgroundColor: addresscolor?._id == item?._id ? "#28FFBF" : ""
+                                        }}
+                                    >
 
                                         <div onClick={() => AddressSelelct(item)}>
                                             <div>
@@ -113,7 +128,12 @@ function Cart() {
                             <div className='payment-row row gap-3 ms-2'>
                                 {payments?.map((item, index) => {
                                     return (
-                                        <div className='cardss col-lg-5 text-center' key={index}>
+                                        <div className='cardss col-lg-5 text-center' key={index} onClick={() => setPaymenttype(item)}
+
+                                            style={{
+                                                backgroundColor: paymenttype == item ? "#28FFBF" : ""
+                                            }}
+                                        >
                                             <h5>{item}</h5>
                                         </div>
                                     )
@@ -166,6 +186,9 @@ function Cart() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <button className='edit-btn p-3' onClick={ConfirmOrder}>Confirm Order</button>
                     </div>
                 </div>
             </div>

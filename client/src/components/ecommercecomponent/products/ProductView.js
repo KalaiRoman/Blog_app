@@ -4,11 +4,10 @@ import './styles/Productview.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetSingleProductActions } from '../../../redux/actions/CreateProductActions';
 function ProductView() {
-
     const dispatch = useDispatch();
     const { state } = useLocation();
     const [currentindex, setCurrentIndex] = useState(0);
-
+    const [show, setShow] = useState(false);
     const produtdata = useSelector((state) => state?.product?.singleProduct);
     useEffect(() => {
         if (state?.productid) {
@@ -42,7 +41,40 @@ function ProductView() {
                     </div>
                 </div>
                 <div className='right-view'>
-                    riht
+                    <div className='mt-4 mb-3'>
+                        <h3>{produtdata?.productname}</h3>
+                    </div>
+                    <div className='d-flex gap-3 align-items-center'>
+                        <div>
+                            <div className='fw-bold fs-4'>₹ {produtdata?.saleprice}</div></div>
+                        <div className='fw-bold text-danger fs-4'>
+                            <span>₹ <del>{produtdata?.oldprice}</del></span>
+                        </div>
+                    </div>
+                    <div className='mb-3 mt-4'>
+                        Size : <span className='fw-bold text-primary'> {produtdata?.size}</span>
+                    </div>
+                    <div>
+                        Color : <span className='fw-bold'>{produtdata?.color}</span>
+                    </div>
+                    <div className='d-flex gap-4 flex-column w-50 mx-auto mt-5'>
+                        <div>
+                            <button className='edit-btn'>Add to Cart</button>
+                        </div>
+                        <div>
+                            <button className='delete-btn'> Buy Now</button>
+                        </div>
+                    </div>
+                    <div className='mt-4'>
+                        Description:
+                        <div className='fw-medium fs-6 mt-3'>
+                            {show ? <>
+                                {produtdata?.description} <span className="text-danger fw-bold cursor" onClick={() => setShow(false)}>Less More...</span>
+                            </> : <>
+                                {produtdata?.description?.slice(0, 400)}<span className='text-danger ms-3 cursor' onClick={() => setShow(true)}>Read More...</span>
+                            </>}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

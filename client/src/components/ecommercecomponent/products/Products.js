@@ -120,22 +120,25 @@ function Products() {
                 {Products?.map((item, index) => {
                     return (
                         <div key={index}>
-                            <div class="cardssss" onClick={() => navigate(`/ecommerce/productview`, { state: { productid: item?._id } })}>
-                                <div className='image-card-style'>
-                                    <div class="card__imgs d-flex align-content-center justify-content-center">
-                                        <img src={item?.thumbimage} alt="no image" className='image-product' />
+                            <div class="cardssss" >
+                                <div onClick={() => navigate(`/ecommerce/productview`, { state: { productid: item?._id } })}>
+                                    <div className='image-card-style'>
+                                        <div class="card__imgs d-flex align-content-center justify-content-center">
+                                            <img src={item?.thumbimage} alt="no image" className='image-product' />
+                                        </div>
+                                    </div>
+
+                                    <div className='text-start mt-3'>
+                                        {item?.productname?.slice(0, 40)}
+                                    </div>
+
+                                    <div className='d-flex justify-content-between mb-3 mt-2'>
+                                        <div className=''>Price  ₹ {item?.saleprice}</div>
+
+                                        <div className='text-danger'> ₹ {item?.oldprice}</div>
                                     </div>
                                 </div>
 
-                                <div className='text-start mt-3'>
-                                    {item?.productname?.slice(0, 40)}
-                                </div>
-
-                                <div className='d-flex justify-content-between mb-3 mt-2'>
-                                    <div className=''>Price  ₹ {item?.saleprice}</div>
-
-                                    <div className='text-danger'> ₹ {item?.oldprice}</div>
-                                </div>
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     {favortstate?.wishlist?.includes(item?._id) ? <>
