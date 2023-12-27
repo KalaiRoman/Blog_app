@@ -27,7 +27,7 @@ function ProductView() {
                                     {produtdata && produtdata?.imagestore?.map((item, index) => {
                                         return (
                                             <div className={currentindex === index ? "active-card mb-2 mt-2" : 'image-card-lefts mt-2 mb-2'} key={index} onClick={() => setCurrentIndex(index)}>
-                                                <img src={item} alt="no image" />
+                                                <img src={item} alt="no image" className='active-imagecard' />
                                             </div>
                                         )
                                     })}
@@ -36,7 +36,7 @@ function ProductView() {
                         </div>
                         <div className='left-inside-right'>
                             {<div>
-                                <img src={produtdata?.imagestore && produtdata?.imagestore[currentindex || 0]} alt="no image" />
+                                <img src={produtdata?.imagestore && produtdata?.imagestore[currentindex || 0]} alt="no image" className='right-image-product' />
                             </div>}
                         </div>
                     </div>
