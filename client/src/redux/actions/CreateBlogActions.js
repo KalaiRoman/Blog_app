@@ -88,7 +88,7 @@ export const singleblogAction = (id) => async (dispatch) => {
 
         dispatch(SingleBlogSuccess(response?.data));
     } catch (error) {
-        ToastError(error?.response?.data?.message);
+        console.log(error?.response?.data?.message);
     }
 }
 

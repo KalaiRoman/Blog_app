@@ -38,14 +38,52 @@ function CreateBlog() {
         [logs, setLogs]
     );
 
+    // const config = useMemo(
+    //     () => ({
+    //         readonly: false,
+    //         placeholder: "Enter Post Content"
+
+    //     }),
+    //     []
+    // );
+
+
     const config = useMemo(
         () => ({
+            zIndex: 0,
             readonly: false,
-            placeholder: "Enter Post Content"
-
+            activeButtonsInReadOnly: ['source', 'fullsize', 'print', 'about'],
+            toolbarButtonSize: 'middle',
+            theme: 'default',
+            enableDragAndDropFileToEditor: true,
+            saveModeInCookie: false,
+            spellcheck: true,
+            editorCssClass: false,
+            triggerChangeEvent: true,
+            height: 450,
+            direction: 'ltr',
+            language: 'pt_BR',
+            debugLanguage: false,
+            i18n: 'en',
+            tabIndex: -1,
+            toolbar: true,
+            enter: 'P',
+            useSplitMode: false,
+            colorPickerDefaultTab: 'background',
+            imageDefaultWidth: 100,
+            removeButtons: ['about', 'print', 'file'],
+            disablePlugins: ['paste', 'stat'],
+            events: {},
+            textIcons: false,
+            uploader: {
+                insertImageAsBase64URI: true,
+            },
+            placeholder: '',
+            showXPathInStatusbar: false,
         }),
         []
-    );
+    )
+
 
     const onChange = useCallback(
         (newContent) => {
@@ -115,7 +153,23 @@ function CreateBlog() {
 
             setContent(states?.description)
         }
+
     }, [])
+
+
+    useEffect(() => {
+        if (state?.id) {
+
+        } else {
+            setCreateBlog({
+                title: "",
+                description: "",
+                type: "",
+                avatar: ""
+            })
+            setContent("");
+        }
+    }, [states])
 
 
     const UpadtePost = (e) => {
@@ -159,14 +213,7 @@ function CreateBlog() {
 
                     <div className='d-flex align-items-center justify-content-center col-lg-12'>
                         <Col lg="6">
-                            {/* <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Type</Form.Label>
-                                <Form.Control type="text" placeholder="Enter description" name="type" value={type} onChange={handleChange} />
-                                <Form.Text className="text-muted">
-                                    {error && type?.length <= 0 ? <span className='text-danger'>Type is Required</span> : null}
 
-                                </Form.Text>
-                            </Form.Group> */}
 
                             <Form.Label>Category</Form.Label>
                             <Form.Select aria-label="Default select example" name="type" value={type} onChange={handleChange}>
@@ -211,9 +258,21 @@ function CreateBlog() {
 
                     <div>
                         {avatar ? <>
-                            <img src={avatar} alt="no image" />
+                            <img src={avatar} alt="no image"
+                                style={{
+                                    width: "200px",
+                                    height: "200px",
+                                    objectFit: "contain"
+                                }} />
                         </> : <>
-                            <img src={avatar} alt="no image" />
+                            <img src={avatar} alt="no image"
+
+                                style={{
+                                    width: "200px",
+                                    height: "200px",
+                                    objectFit: "contain"
+                                }}
+                            />
                         </>}
                     </div>
 
