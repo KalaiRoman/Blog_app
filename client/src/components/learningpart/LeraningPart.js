@@ -138,6 +138,21 @@ function LeraningPart() {
     const gt = [1, 2, 3, 4, 5, ["kalai", "thala", "wweocm"], ["welocme", [1, 2, 3]]];
 
 
+    // maximum value get
+
+    const maxdata = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1000, 5000, 456777, 237800, 8686868686];
+
+    const resultmax = Math.max(...maxdata?.map((item, index) => item));
+
+    // console.log(resultmax, 'resultmax')
+
+
+    // replace data
+
+    const replacename = "Hello World!";
+    const changeName = replacename.replace("Hello World!", "hello world!");
+    // console.log(changeName, "kl")
+
     return (
         <div className='container'>
 
