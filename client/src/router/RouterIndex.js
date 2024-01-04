@@ -18,6 +18,7 @@ import CreateAddress from "../components/ecommercecomponent/address/CreateAddres
 import Addproduct from "../components/ecommercecomponent/products/Addproduct";
 import ProductView from "../components/ecommercecomponent/products/ProductView";
 import Orders from "../components/ecommercecomponent/orders/Orders";
+import LeraningPart from "../components/learningpart/LeraningPart";
 function RouterIndex() {
     return (
         <section>
@@ -25,6 +26,8 @@ function RouterIndex() {
                 <Route path="/login" element={<Signin />}></Route>
                 <Route path="/forgetpassword" element={<Forgetpassword />}></Route>
                 <Route path="/changepassword" element={<PasswordChangeforget />}></Route>
+                <Route path="/leraning" element={<LeraningPart />}></Route>
+
 
 
 

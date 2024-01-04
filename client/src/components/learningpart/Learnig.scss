@@ -1,0 +1,12 @@
+@use "../../sass/abstract/" as *;
+
+
+.cardinactive
+{
+    border: 1px solid blue;
+}
+
+.cardactive
+{
+    border: 1px solid green;
+}

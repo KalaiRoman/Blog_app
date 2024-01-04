@@ -9,6 +9,7 @@ dotenv.config();
 ConnectDb();
 const app = express();
 app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json({ extended: true }))
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 // error handler

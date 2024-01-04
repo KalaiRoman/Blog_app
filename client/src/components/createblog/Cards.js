@@ -15,7 +15,7 @@ TimeAgo.addDefaultLocale(en);
 function Cards({ data, id }) {
 
 
-    const des = data?.description?.slice(0, 220);
+    const des = data?.description?.slice(0, 100);
 
     const [loading, setLoading] = useState(false);
 

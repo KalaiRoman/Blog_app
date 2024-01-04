@@ -51,7 +51,7 @@ function Cards({ data }) {
 
     const navigate = useNavigate();
 
-    const des = data?.description?.slice(0, 140);
+    const des = data?.description?.slice(0, 100);
 
     const movepath = (id) => {
         navigate("/singleblog", { state: { id: id } })
