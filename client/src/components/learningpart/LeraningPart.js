@@ -137,6 +137,8 @@ function LeraningPart() {
 
     const gt = [1, 2, 3, 4, 5, ["kalai", "thala", "wweocm"], ["welocme", [1, 2, 3]]];
 
+    // console.log(gt.flat(2))
+
 
     // maximum value get
 

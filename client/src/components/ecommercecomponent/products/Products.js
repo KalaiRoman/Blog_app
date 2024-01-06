@@ -133,9 +133,8 @@ function Products() {
                                     </div>
 
                                     <div className='d-flex justify-content-between mb-3 mt-2'>
-                                        <div className=''>Price  ₹ {item?.saleprice}</div>
-
-                                        <div className='text-danger'> ₹ {item?.oldprice}</div>
+                                        <div className='fw-bold d-flex gap-4'>Price  ₹ {item?.saleprice}</div>
+                                        <div className='text-danger'><del> ₹ {item?.oldprice}</del></div>
                                     </div>
                                 </div>
 
