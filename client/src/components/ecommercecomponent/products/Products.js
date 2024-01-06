@@ -6,6 +6,7 @@ import { GetProductActions } from '../../../redux/actions/CreateProductActions';
 import { FavortActionData, FavortAllActionData } from '../../../redux/actions/FavortsActions';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import { AddcartActions, GetcartActions } from '../../../redux/actions/CartActions';
 function Products() {
 
     const navigate = useNavigate();
@@ -18,6 +19,8 @@ function Products() {
     const stateCart = useSelector((state) => state?.cart?.CartData);
     const productsdata = useSelector((state) => state?.product);
     const favortstate = useSelector((state) => state?.singleuser?.Singleuser);
+    const usercart = useSelector((state) => state?.usercart?.UsercartData);
+
 
     console.log(favortstate?.wishlist, 'favortstate')
 
@@ -69,15 +72,17 @@ function Products() {
     useEffect(() => {
         let filterid = [];
 
-        stateCart?.map((item) => {
-            filterid.push(item?._id);
+        usercart?.map((item) => {
+            filterid.push(item?.product?._id);
         })
+        
 
         let favortsids = [];
 
         setFilterFavort(favortsids);
         setFilterCart(filterid);
         dispatch(GetProductActions())
+        dispatch(GetcartActions());
 
     }, [stateCart])
 
@@ -93,12 +98,16 @@ function Products() {
 
 
 
-    const AddTocart = (data) => {
+    const AddTocart = (data, cartid) => {
         dispatch(CartAdd(data));
+
+        const dataresponse = {
+            cartId: cartid
+        }
+        dispatch(AddcartActions(dataresponse))
     }
 
     const favortProduct = (productid) => {
-
         const productfavortsid = {
             productId: productid
         }
@@ -149,7 +158,7 @@ function Products() {
                                         <div class="card__icon" onClick={() => favortProduct(item?._id)}><ion-icon name="heart-outline"></ion-icon></div>
                                     </>}
                                     {filterCart?.includes(item?._id) ? <div className='text-success'>Added to cart</div> : <>
-                                        <div class="card__icon" onClick={() => AddTocart(item)}><ion-icon name="cart-outline"></ion-icon></div>
+                                        <div class="card__icon" onClick={() => AddTocart(item, item?._id)}><ion-icon name="cart-outline"></ion-icon></div>
                                     </>}
                                 </div>
                             </div>

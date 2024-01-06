@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { currentUserAddress, currentUserDeleteAddress } from '../../../redux/actions/CreateAddressActions';
 import { deleteDddressService } from '../../../services/address_service/Address_service';
 import { OrderAction } from './../../../redux/actions/orderActions';
+import { DeletecartActions, GetcartActions } from '../../../redux/actions/CartActions';
 function Cart() {
     const [paymenttype, setPaymenttype] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const cartData = useSelector((state) => state?.cart?.CartData);
     const address = useSelector((state) => state?.address);
+    const usercart = useSelector((state) => state?.usercart?.UsercartData);
     const { loading, Addresss } = address;
     const [addresscolor, setAddressColor] = useState({});
 
@@ -22,12 +24,15 @@ function Cart() {
     const payments = ["Paypal", "PhonePay", "GooglePay"];
     const DeleteCart = (id) => {
         dispatch(CartDelete(id));
+        dispatch(DeletecartActions(id))
+
     }
     const addressPath = () => {
         navigate("/ecommerce/address")
     }
     useEffect(() => {
         dispatch(currentUserAddress())
+        dispatch(GetcartActions())
     }, []);
 
     const DeleteAddress = (id) => {
@@ -51,16 +56,16 @@ function Cart() {
             <div className='inside-main-cart'>
 
                 <div className='left'>
-                    {cartData?.map((item, index) => {
+                    {usercart?.map((item, index) => {
                         return (
                             <div className='cardss mt-3 mb-3 col-lg-12' key={index}>
                                 <div className='image-cart'>
-                                    <img src={item?.thumbimage} alt="" className='product-image' />
+                                    <img src={item?.product?.thumbimage} alt="" className='product-image' />
                                 </div>
                                 <div className='price-cart'>
-                                    {item?.productname}
+                                    {item?.product?.productname}
                                     <div className='mt-3 mb-3 fw-bold fs-5'>
-                                        ₹ {item?.saleprice}
+                                        ₹ {item?.product?.saleprice}
                                     </div>
                                 </div>
                                 <div className='action-cart'>

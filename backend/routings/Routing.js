@@ -5,6 +5,7 @@ import addressrouter from '../controlls/Addresscontrolls/index.js';
 import productrouter from '../controlls/productcontrolls/index.js';
 import favortrouter from '../controlls/favortscontrolls/index.js';
 import orderrouter from '../controlls/ordercontrolls/index.js';
+import cartrouter from '../controlls/Cartcontrolls/index.js';
 const router = express.Router();
 //auth router
 router.use("/auth", authrouter);
@@ -13,6 +14,8 @@ router.use("/address", addressrouter);
 router.use("/product", productrouter);
 router.use("/favort", favortrouter);
 router.use("/order", orderrouter);
+router.use("/cart", cartrouter);
+
 
 
 export default router;

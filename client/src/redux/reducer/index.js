@@ -9,6 +9,7 @@ import Addressreducer from './Address_reducer.js';
 import ProductReducer from './Product_reducer.js';
 import Favortreducer from './Allfavorts_reducer.js';
 import Orderreducer from './Orders_reducer.js';
+import UserCartreducer from './User_cart_reducer.js'
 const RootReducer = combineReducers({
     login: "loginReducer",
     token: Tokenreducer,
@@ -20,7 +21,8 @@ const RootReducer = combineReducers({
     address: Addressreducer,
     product: ProductReducer,
     favort: Favortreducer,
-    orders: Orderreducer
+    orders: Orderreducer,
+    usercart: UserCartreducer
 });
 
 export default RootReducer;

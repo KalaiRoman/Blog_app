@@ -3,11 +3,13 @@ import './styles/Header.scss';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { SingleuserActionData } from '../../redux/actions/SingleuserAction';
+import { GetcartActions } from '../../redux/actions/CartActions';
 
 function Header() {
     const dispatch = useDispatch();
     const state = useSelector((state) => state?.singleuser?.Singleuser);
     const statecart = useSelector((state) => state?.cart?.CartData);
+    const usercart = useSelector((state) => state?.usercart?.UsercartData);
 
     const navigate = useNavigate();
     const homePath = () => {
@@ -36,6 +38,8 @@ function Header() {
 
     useEffect(() => {
         dispatch(SingleuserActionData());
+        dispatch(GetcartActions())
+
     }, [])
 
     const CartPath = () => {
@@ -79,7 +83,7 @@ function Header() {
                         </>}
                         <div className="cart-image" onClick={CartPath}>
                             <ion-icon name="cart-outline"></ion-icon>
-                            <span className='count-cart'>{statecart?.length}</span>
+                            <span className='count-cart'>{usercart?.length}</span>
                         </div>
                         <div className='cursor' onClick={authLogin}
                             style={{

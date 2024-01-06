@@ -4,12 +4,13 @@ import Cart_shema from "../../models/Cart_shema.js";
 
 export const createCart = async (req, res, next) => {
 
-    const { cartId, userid } = req.body;
+    const { cartId } = req.body;
     try {
 
-        const response = await Cart_shema({
+        const response = await new Cart_shema({
             cartId,
-            userid: req.userid
+            product: cartId,
+            userId: req.userid
         });
 
         await response.save();
@@ -17,6 +18,19 @@ export const createCart = async (req, res, next) => {
 
     } catch (error) {
         res.status(404).json({ message: "Add to cart error" });
+
+    }
+}
+
+// get cart products users
+
+export const getCart = async (req, res, next) => {
+    try {
+        const response = await Cart_shema.find({ userId: req.userid }).populate("product");
+        res.status(200).json({ message: "Delted to Cart", data: response });
+
+    } catch (error) {
+        res.status(404).json({ message: "get to cart error" });
 
     }
 }
@@ -35,3 +49,4 @@ export const deleteCart = async (req, res, next) => {
 
     }
 }
+
