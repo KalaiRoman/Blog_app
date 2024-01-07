@@ -4,6 +4,10 @@ const Favorts_shema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'product'
+    },
     userid: {
         type: String,
         required: true,

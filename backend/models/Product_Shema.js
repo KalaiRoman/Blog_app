@@ -51,6 +51,10 @@ export const Product_Shema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'auth'
     },
+    userquantity: {
+        type: String,
+        default: "1"
+    }
 }, {
     timestamps: true
 })

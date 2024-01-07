@@ -114,13 +114,10 @@ function Profile() {
                     <div className='d-flex gap-4 mb-5 mt-2 w-50 mx-auto'>
                         <button className='edit-btn' onClick={() => window.location.assign('/currentuserblogs')}>My Posts</button>
                         <button className='edit-btn' onClick={() => window.location.assign("/ecommerce/orders")}>My Orders</button>
+                        <button className='edit-btn' onClick={() => window.location.assign("/ecommerce/ourproducts")}>Your Products</button>
                         <button className='edit-btn'>My Favorts</button>
-
-
                     </div>
-
                     <div className='mx-auto d-flex align-items-center justify-content-center profileimage'>
-
                         {imageurl ? <>
                             <img className="profile-image" src={imageurl} alt="no image" />
                             <div className='editicon' onClick={handleShow}>

@@ -19,6 +19,7 @@ import Addproduct from "../components/ecommercecomponent/products/Addproduct";
 import ProductView from "../components/ecommercecomponent/products/ProductView";
 import Orders from "../components/ecommercecomponent/orders/Orders";
 import LeraningPart from "../components/learningpart/LeraningPart";
+import Ourproducts from "../components/ecommercecomponent/products/Ourproducts";
 function RouterIndex() {
     return (
         <section>
@@ -51,7 +52,7 @@ function RouterIndex() {
                     <Route path="addproduct" element={<Addproduct />}></Route>
                     <Route path="productview" element={<ProductView />}></Route>
                     <Route path="orders" element={<Orders />}></Route>
-
+                    <Route path="ourproducts" element={<Ourproducts />}></Route>
 
 
                 </Route>

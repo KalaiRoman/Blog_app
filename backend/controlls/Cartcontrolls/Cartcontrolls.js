@@ -1,8 +1,5 @@
 import Cart_shema from "../../models/Cart_shema.js";
-
-import mongoose from "mongoose";
 export const createCart = async (req, res, next) => {
-
     const { cartId } = req.body;
     try {
         let filtercartid = [];
@@ -38,7 +35,6 @@ export const getCart = async (req, res, next) => {
     try {
         const response = await Cart_shema.find({ userId: req.userid }).populate("product");
         res.status(200).json({ message: "Delted to Cart", data: response });
-
     } catch (error) {
         res.status(404).json({ message: "get to cart error" });
 

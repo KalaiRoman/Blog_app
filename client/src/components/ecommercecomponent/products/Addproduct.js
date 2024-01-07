@@ -1,12 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { CreateProductActions } from '../../../redux/actions/CreateProductActions';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { CreateProductActions, EditProductActions, GetSingleProductActions } from '../../../redux/actions/CreateProductActions';
 import { ToastError } from '../../../middleware/Toast_action';
 
 function Addproduct() {
+
+    const { state } = useLocation();
+
     const dispatch = useDispatch();
+
+    const produtdata = useSelector((state) => state?.product?.singleProduct);
+
     const [user, setUser] = useState({
         productname: "",
         oldprice: "",
@@ -24,6 +30,7 @@ function Addproduct() {
 
 
     const handleImages = (image) => {
+        console.log(image, "image")
         if (multiimages?.includes(image)) {
             ToastError("Already Added Image")
         }
@@ -78,6 +85,57 @@ function Addproduct() {
                 imagestore: multiimages
             }
             dispatch(CreateProductActions(datas, navigtate))
+        }
+    }
+
+    useEffect(() => {
+        if (state?.productid) {
+            dispatch(GetSingleProductActions(state?.productid));
+        }
+    }, [state?.productid]);
+
+
+    useEffect(() => {
+        if (state) {
+            setUser(produtdata)
+            setMultimages(produtdata?.imagestore)
+        }
+        else {
+            setMultimages([])
+
+        }
+    }, [produtdata])
+
+
+    const UpdateProduct = () => {
+        if (productname?.length === 0 || oldprice?.length === 0 || saleprice?.length === 0 || discount?.length === 0 || quantity?.length === 0 || description?.length === 0 || thumbimage?.length === 0
+            || color?.length === 0 || size?.length == 0 || multiimg?.length === 0) {
+            setError(true);
+        }
+
+        if (productname &&
+            oldprice
+            &&
+            saleprice &&
+            discount &&
+            quantity &&
+            description &&
+            thumbimage &&
+            color &&
+            size && multiimages) {
+            const datas = {
+                productname,
+                oldprice,
+                saleprice,
+                discount,
+                quantity,
+                description,
+                thumbimage,
+                color,
+                size,
+                imagestore: multiimages
+            }
+            dispatch(EditProductActions(state?.productid, datas, navigtate))
         }
     }
     return (
@@ -208,7 +266,10 @@ function Addproduct() {
                             <div className='mb-4 row  gap-2'>
                                 {multiimages?.map((item, index) => {
                                     return (
-                                        <div className='cards col-lg-1'>
+                                        <div className='cards col-lg-1 mb-2 mt-2' style={{ position: "relative" }}>
+                                            <div style={{ position: "absolute", right: "-2%", top: "-5%", width: "25px", height: "25px", border: "1px solid #00A9FF", borderRadius: "20px", color: "white", backgroundColor: "#00A9FF" }}>
+                                                <ion-icon name="close-outline"></ion-icon>
+                                            </div>
                                             <img src={item} alt="no images" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
                                         </div>
                                     )
@@ -217,13 +278,18 @@ function Addproduct() {
 
 
 
-                            <button className='submit-button mb-5' onClick={SubmitData}>
-                                Create Address
-                            </button>
+                            {state ? <>
+                                <button className='submit-button mb-5' onClick={UpdateProduct}>
+                                    Update Product
+                                </button>
+                            </> : <>
+                                <button className='submit-button mb-5' onClick={SubmitData}>
+                                    Create Product
+                                </button>
+                            </>}
                         </div>
-
-
                     </div>
+
                 </div>
             </div>
         </div>

@@ -55,14 +55,7 @@ function Header() {
                         Blog's
                     </div>
                     <div className='d-flex gap-5 justify-content-between  align-items-center ' style={{ width: "46%" }}>
-                        {token ? <>
-                            <div onClick={profielPath} className='cursor'
-                                style={{
-                                    color: path == "/profile" ? "red" : "black"
-                                }}
-                            >
-                                {state?.userName}
-                            </div></> : <div className='cursor' onClick={loginpath}>Login</div>}
+
                         <div className='cursor' onClick={() => window.location.assign("/ecommerce")}
                             style={{
                                 color: path == "/ecommerce" ? "red" : "black"
@@ -92,6 +85,22 @@ function Header() {
                         >
                             Author
                         </div>
+
+                        {token ? <>
+                            <div onClick={profielPath} className='cursor d-flex align-items-center justify-content-center'
+
+                            >
+
+
+                                {state?.avatar ? <>
+                                    <img src={state?.avatar} alt="no image" style={{ width: "30%", height: "30%", borderRadius: "50%", cursor: "pointer" }} />
+                                </> : <>
+                                    <img src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image"
+         style={{ width: "30%", height: "30%", borderRadius: "50%", cursor: "pointer" }}/>
+
+                                </>}
+
+                            </div></> : <div className='cursor' onClick={loginpath}>Login</div>}
 
                         {token && <div onClick={Logout} className='cursor'>Logout</div>}
                     </div>

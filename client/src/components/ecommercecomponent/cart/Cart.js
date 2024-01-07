@@ -68,7 +68,21 @@ function Cart() {
                                         ₹ {item?.product?.saleprice}
                                     </div>
                                 </div>
+
                                 <div className='action-cart'>
+
+                                    <div className='qunaity-btn'>
+                                        <div className='minus-btn'>
+                                            -
+                                        </div>
+                                        <div className='fw-bold'>
+                                            {item?.product?.userquantity}
+                                        </div>
+                                        <div className='plus-btn'>
+                                            +
+                                        </div>
+                                    </div>
+
                                     <button className='edits-btn text-center' onClick={() => DeleteCart(item?._id)}>
                                         Delete
                                     </button>
@@ -156,7 +170,7 @@ function Cart() {
                                     Quantity
                                 </div>
                                 <div className='fw-bold fs-5'>
-                                    {cartData?.length <= 9 ? <>0{cartData?.length}</> : <>{cartData?.length}</>}
+                                    {usercart?.length <= 9 ? <>0{usercart?.length}</> : <>{usercart?.length}</>}
                                 </div>
                             </div>
                             <div className='d-flex justify-content-between p-3'>
@@ -172,8 +186,8 @@ function Cart() {
                                     Price
                                 </div>
                                 <div className='fw-bold fs-5'>
-                                    ₹ {cartData?.reduce((acc, current) => {
-                                        return acc + Number(current?.saleprice)
+                                    ₹ {usercart?.reduce((acc, current) => {
+                                        return acc + Number(current?.product?.saleprice)
                                     }, 0)}
                                 </div>
                             </div>
@@ -182,11 +196,11 @@ function Cart() {
                             </div>
                             <div className='p-3 d-flex justify-content-between'>
                                 <div>
-                                    <h4> Total</h4>
+                                    <h4>Total</h4>
                                 </div>
                                 <div>
-                                    <h4>₹ {cartData?.reduce((acc, current) => {
-                                        return acc + Number(current?.saleprice)
+                                    <h4>₹ {usercart?.reduce((acc, current) => {
+                                        return acc + Number(current?.product?.saleprice)
                                     }, 0)}</h4>
                                 </div>
                             </div>

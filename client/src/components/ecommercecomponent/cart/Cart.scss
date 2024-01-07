@@ -32,6 +32,37 @@
                     align-items: center;
                     justify-content: center;
                     text-align: center;
+                    flex-direction: column;
+
+                    .qunaity-btn
+                    {
+                        display: flex;
+                        align-items: center;
+                        gap:20px;
+                        padding-bottom: 15%;
+                    }
+                    .minus-btn
+                    {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 2px solid #F8E8EE;
+                    }
+                    .plus-btn
+                    {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 2px solid #A0E9FF;
+                    }
                 }
                 .edits-btn {
                     width: 100%;
@@ -109,7 +140,7 @@
     cursor: pointer;
     background-color: #faf3f0;
     border-radius: 20px;
-    padding:10px;
+    padding: 10px;
 }
 
 .address-btn {

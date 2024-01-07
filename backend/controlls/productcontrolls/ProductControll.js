@@ -18,6 +18,7 @@ export const CreateProduct = async (req, res, next) => {
         imagestore,
         color,
         size,
+        userquantity
     } = req.body;
     try {
 
@@ -33,7 +34,8 @@ export const CreateProduct = async (req, res, next) => {
             color,
             size,
             userid: req.userid,
-            user: req.userid
+            user: req.userid,
+            userquantity: 1
         })
 
         response.save();
@@ -76,10 +78,30 @@ export const getAllProduct = async (req, res, next) => {
     }
 }
 
+// current user products
+
+export const getCurrentuserProducts = async (req, res, next) => {
+
+    try {
+        const response = await Product_Shema.find({ userid: req.userid }).populate("user");
+        res.status(200).json({ message: "success", data: response });
+
+    } catch (error) {
+        res.status(404).json({ message: "get all error" })
+
+    }
+}
+
 // edit
 
 export const editProduct = async (req, res, next) => {
+
+    const id = req.params.id
     try {
+
+        const update = await Product_Shema.findByIdAndUpdate(id, req.body, { new: true })
+
+        res.status(200).json({ message: "Product Updated" })
 
     } catch (error) {
         res.status(404).json({ message: "edit error" })
@@ -90,7 +112,10 @@ export const editProduct = async (req, res, next) => {
 // delete
 
 export const deleteProduct = async (req, res, next) => {
+    const id = req.params.id
     try {
+        const update = await Product_Shema.findByIdAndDelete(id)
+        res.status(200).json({ message: "Product Deleted" })
 
     } catch (error) {
         res.status(404).json({ message: "delete error" })

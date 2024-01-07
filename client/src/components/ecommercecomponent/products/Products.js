@@ -21,64 +21,10 @@ function Products() {
     const favortstate = useSelector((state) => state?.singleuser?.Singleuser);
     const usercart = useSelector((state) => state?.usercart?.UsercartData);
 
-
-    console.log(favortstate?.wishlist, 'favortstate')
-
-
-
-
-
     const { loading, Products } = productsdata;
 
-    const productData = [
-        {
-            id: 1,
-            name: "Shoes",
-            desc: "no descriptinos",
-            image: 'https://i.postimg.cc/8PkwdTYd/image.png',
-            quantity: "0",
-            price: "235",
-            discount: "256"
-        },
-        {
-            id: 2,
-            name: "Shoes",
-            desc: "no descriptinos",
-            image: 'https://i.postimg.cc/4dBHXR1Z/image.png',
-            quantity: "0",
-            price: "235",
-            discount: "256"
-        },
-        {
-            id: 3,
-            name: "Shoes",
-            desc: "no descriptinos",
-            image: 'https://i.postimg.cc/DfRL0nTy/image.png',
-            quantity: "0",
-            price: "235",
-            discount: "256"
-        },
-        {
-            id: 4,
-            name: "Shoes",
-            desc: "no descriptinos",
-            image: 'https://i.postimg.cc/DfRL0nTy/image.png',
-            quantity: "0",
-            price: "235",
-            discount: "256"
-        },
-    ]
-
     useEffect(() => {
-        let filterid = [];
 
-        usercart?.map((item) => {
-            filterid.push(item?.product?._id);
-        })
-
-        let favortsids = [];
-        setFilterFavort(favortsids);
-        setFilterCart(filterid);
         dispatch(GetProductActions())
         dispatch(GetcartActions());
     }, [stateCart])
@@ -87,7 +33,13 @@ function Products() {
 
 
     useEffect(() => {
+        let filterid = [];
 
+        usercart?.map((item) => {
+            filterid?.push(item?.product?._id);
+        })
+
+        setFilterCart(filterid);
 
     }, [])
 
@@ -115,10 +67,7 @@ function Products() {
             <div className='container'>
                 <div className='d-flex justify-content-between'>
                     <div>
-                        <h4>Shopping</h4>
-                    </div>
-                    <div>
-                        <button className='edit-btn' onClick={() => window.location.assign("/ecommerce/addproduct")}>+ Add New Product</button>
+                        <h4>Shopping Now</h4>
                     </div>
                 </div>
             </div>
@@ -135,7 +84,7 @@ function Products() {
                                     </div>
 
                                     <div className='text-start mt-3'>
-                                        {item?.productname?.slice(0, 40)}
+                                        {item?.productname?.slice(0, 35)}
                                     </div>
 
                                     <div className='d-flex justify-content-between mb-3 mt-2'>
@@ -143,18 +92,15 @@ function Products() {
                                         <div className='text-danger'><del> ₹ {item?.oldprice}</del></div>
                                     </div>
                                 </div>
-
-
                                 <div class="d-flex justify-content-between align-items-center">
                                     {favortstate?.wishlist?.includes(item?._id) ? <>
                                         <div class="card__icon" onClick={() => favortProduct(item?._id)}>
                                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/640px-Heart_coraz%C3%B3n.svg.png" alt="no image" className='unlike-heart' />
-
                                         </div>
                                     </> : <>
                                         <div class="card__icon" onClick={() => favortProduct(item?._id)}><ion-icon name="heart-outline"></ion-icon></div>
                                     </>}
-                                    {filterCart?.includes(item?._id) ? <div className='text-success'>Added to cart</div> : <>
+                                    {usercart?.some((items) => items?.product?._id === item?._id) ? <div className='text-success'>Added to cart</div> : <>
                                         <div class="card__icon" onClick={() => AddTocart(item, item?._id)}><ion-icon name="cart-outline"></ion-icon></div>
                                     </>}
                                 </div>
