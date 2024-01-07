@@ -1,26 +1,36 @@
 import Cart_shema from "../../models/Cart_shema.js";
 
-
-
+import mongoose from "mongoose";
 export const createCart = async (req, res, next) => {
 
     const { cartId } = req.body;
     try {
-
-        const response = await new Cart_shema({
-            cartId,
-            product: cartId,
-            userId: req.userid
-        });
-
-        await response.save();
-        res.status(201).json({ message: "Added to Cart" });
+        let filtercartid = [];
+        const existproduct = await Cart_shema.find({ userId: req.userid });
+        existproduct?.map((item, index) => {
+            filtercartid.push(item?.productId);
+        })
+        if (filtercartid.includes(cartId)) {
+            res.status(404).json({ message: "Already Added in Cart" });
+        }
+        else {
+            const response = await Cart_shema({
+                cartId,
+                product: cartId,
+                productId: cartId,
+                userId: req.userid
+            });
+            await response.save();
+            res.status(201).json({ message: "Added to Cart" });
+        }
 
     } catch (error) {
         res.status(404).json({ message: "Add to cart error" });
 
     }
 }
+
+
 
 // get cart products users
 

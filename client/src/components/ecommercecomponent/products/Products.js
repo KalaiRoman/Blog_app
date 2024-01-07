@@ -75,15 +75,12 @@ function Products() {
         usercart?.map((item) => {
             filterid.push(item?.product?._id);
         })
-        
 
         let favortsids = [];
-
         setFilterFavort(favortsids);
         setFilterCart(filterid);
         dispatch(GetProductActions())
         dispatch(GetcartActions());
-
     }, [stateCart])
 
 
@@ -99,7 +96,7 @@ function Products() {
 
 
     const AddTocart = (data, cartid) => {
-        dispatch(CartAdd(data));
+        // dispatch(CartAdd(data));
 
         const dataresponse = {
             cartId: cartid

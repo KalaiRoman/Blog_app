@@ -13,6 +13,10 @@ const Cart_shema = new mongoose.Schema({
     product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'product'
+    },
+    productId: {
+        type: String,
+        required: true
     }
 },
     {
