@@ -54,7 +54,7 @@ export const getProduct = async (req, res, next) => {
     const id = req.params.id;
     try {
 
-        const response = await Product_Shema.findById(id);
+        const response = await Product_Shema.findById(id).populate("user");
         res.status(200).json({ message: "success", data: response });
 
 
@@ -69,7 +69,7 @@ export const getProduct = async (req, res, next) => {
 export const getAllProduct = async (req, res, next) => {
 
     try {
-        const response = await Product_Shema.find().populate("user");
+        const response = await Product_Shema.find({}).populate("user").sort({ createdAt: -1 });
         res.status(200).json({ message: "success", data: response });
 
     } catch (error) {

@@ -4,7 +4,7 @@ function Cards({ data }) {
 
     return (
         <div>
-            
+
             <div className='d-flex '>
                 <div>
                     {data?.avatar ? <>
@@ -25,6 +25,7 @@ function Cards({ data }) {
                     {/* <div className='d-flex gap-2 mt-2 mb-4'>
                         Created On : {moment(data?.createdAt).format('ll')}
                     </div> */}
+                    
                 </div>
             </div>
 

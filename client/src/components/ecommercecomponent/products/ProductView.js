@@ -13,7 +13,11 @@ function ProductView() {
         if (state?.productid) {
             dispatch(GetSingleProductActions(state?.productid));
         }
-    }, [state?.productid, currentindex])
+    }, [state?.productid, currentindex]);
+
+    const sizes = produtdata?.size?.split(",");
+
+    console.log(produtdata, 'produtdata?.user?')
 
     return (
         <div className='main-view-product'>
@@ -52,7 +56,17 @@ function ProductView() {
                         </div>
                     </div>
                     <div className='mb-3 mt-4'>
-                        Size : <span className='fw-bold text-primary'> {produtdata?.size}</span>
+                        Size : <span className='fw-bold text-primary row '>
+                            <div className='row gap-3 mt-3 mb-2'>
+                                {sizes?.map((item, index) => {
+                                    return (
+                                        <div style={{ width: "auto", height: "auto", border: "1px solid #8ACDD7", padding: "4px 10px", borderRadius: "5px", textAlign: "center", cursor: "pointer" }}>
+                                            {item}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </span>
                     </div>
                     <div>
                         Color : <span className='fw-bold'>{produtdata?.color}</span>
@@ -65,13 +79,22 @@ function ProductView() {
                             <button className='delete-btn'> Buy Now</button>
                         </div>
                     </div>
-                    <div className='mt-4'>
+
+                    <div className=' mt-3 '>
+                        <div className='mb-1 fs-6'>
+                            Seller :  <span className='fw-bold ms-1' style={{ textTransform: "capitalize" }}>
+                                {produtdata?.user?.userName}
+                            </span>
+                        </div>
+
+                    </div>
+                    <div className='mt-3'>
                         Description:
                         <div className='fw-medium fs-6 mt-3'>
                             {show ? <>
                                 {produtdata?.description} <span className="text-danger fw-bold cursor" onClick={() => setShow(false)}>Less More...</span>
                             </> : <>
-                                {produtdata?.description?.slice(0, 400)}<span className='text-danger ms-3 cursor' onClick={() => setShow(true)}>Read More...</span>
+                                {produtdata?.description?.slice(0, 150)}<span className='text-danger ms-2 cursor' onClick={() => setShow(true)}>Read More...</span>
                             </>}
                         </div>
                     </div>

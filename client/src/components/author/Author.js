@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AlluserActionData } from '../../redux/actions/AllUserActions';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContextApi } from '../../contextApi/Context';
+import jwt_decode from 'jwt-decode';
 
 function Author() {
-    const currentid = useGlobalContextApi();
+    // const currentid = useGlobalContextApi();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const state = useSelector((state) => state?.alluser?.allusers);
     const [filterusers, setFilterUsers] = useState([]);
-
+    const token = localStorage.getItem("blog_token") ? localStorage.getItem("blog_token") : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+    const userid = jwt_decode(token);
     useEffect(() => {
         dispatch(AlluserActionData());
     }, []);
@@ -52,8 +54,8 @@ function Author() {
                     {state?.length > 0 ? <>
                         {filterusers?.map((item, index) => {
                             return (
-                                <div key={index} className={`${currentid?.currentuserid === item?._id ? "activecard col-lg-3" : "cardsss col-lg-3 "}`} onClick={() => {
-                                    if (currentid?.currentuserid === item?._id) {
+                                <div key={index} className={`${userid?.id === item?._id ? "activecard " : "cardsss  "}`} onClick={() => {
+                                    if (userid?.id === item?._id) {
                                         createPathnavigate()
                                     }
                                     else {

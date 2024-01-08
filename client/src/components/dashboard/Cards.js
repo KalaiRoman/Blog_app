@@ -56,7 +56,7 @@ function Cards({ data }) {
 
     const navigate = useNavigate();
 
-    const des = data?.description?.slice(0, 100);
+    const des = data?.description?.slice(0, 220);
 
     const movepath = (id) => {
         navigate("/singleblog", { state: { id: id } })
@@ -130,14 +130,14 @@ function Cards({ data }) {
                     </>}
                 </div>
                 <div className='mt-3 fw-bold'>
-                    {data?.title}
+                    {data?.title?.slice(0, 40)}
                 </div>
                 <div className='fs-6 mt-2' style={{
-                    height: "100px"
+                    height: "70px",
                 }}>
                     {ReactHtmlParser(des)}
                 </div>
-                <div className='d-flex gap-3 mt-2'>
+                <div className='d-flex gap-3 mt-2 align-items-center' style={{ height: "70px" }}>
                     <div>
                         <div>
                             {data?.user?.avatar ? <>
@@ -147,7 +147,7 @@ function Cards({ data }) {
                             </>}
                         </div>
                     </div>
-                    <div className='d-flex gap-5'>
+                    <div className='d-flex justify-content-between align-content-center w-100 '>
                         <div>
                             <div>
                                 {data?.user?.userName}
@@ -159,11 +159,10 @@ function Cards({ data }) {
                             </div>
                         </div>
                         <div>
-                            <div>
-                                <button className='type-btn'>
-                                    {data?.category}
-                                </button>
-                            </div>
+
+                            <button className='type-btn'>
+                                {data?.category}
+                            </button>
                         </div>
                     </div>
                 </div>
