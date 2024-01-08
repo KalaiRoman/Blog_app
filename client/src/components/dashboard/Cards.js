@@ -45,9 +45,14 @@ function Cards({ data }) {
 
 
     const [show, setShow] = useState(false);
+    const [show1, setShow1] = useState(false);
+
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleClose1 = () => setShow1(false);
+    const handleShow1 = () => setShow1(true);
 
     const navigate = useNavigate();
 
@@ -103,8 +108,12 @@ function Cards({ data }) {
         dispatch(PostLikeActions(postid, likedata));
     }
 
-    const datasEmojies = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🥲", "🥹", "☺️", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🥸", "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😮‍💨", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🫣", "🤗", "🫡", "🤔", "🫢", "🤭", "🤫", "🤥", "😶", "😶‍🌫️", "😐", "😑", "😬", "🫨", "🫠", "🙄", "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "😵‍💫", "🫥", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈", "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "☠️", "👽", "👾", "🤖", "🎃", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾"]
+    const datasEmojiess = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🥲", "🥹", "☺️", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🥸", "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😮‍💨", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🫣", "🤗", "🫡", "🤔", "🫢", "🤭", "🤫", "🤥", "😶", "😶‍🌫️", "😐", "😑", "😬", "🫨", "🫠", "🙄", "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "😵‍💫", "🫥", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈", "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "☠️", "👽", "👾", "🤖", "🎃", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾"]
 
+
+    const datas = "😀😃😄😁😆😅😂🤣🥲🥹😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😮‍💨😤😠😡🤬🤯😳🥵🥶😱😨😰😥😓🫣🤗🫡🤔🫢🤭🤫🤥😶😶😐😑😬🫨🫠🙄😯😦😧😮😲🥱😴🤤😪😵😵‍💫🤐🥴🤢🤮🤧😷🤒🤕🤑🤠👿👹👺🤡💩☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾👋🤚🖐✋🖖👌🤌🤏✌️🤞🫰🤟🤘🤙🫵🫱🫲🫸🫷🫳🫴👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🫶🙌👐🤲🤝🙏✍️💅🤳💪🫂🧳🌂☂️🧵🪡🪢🪭🧶👓🕶🥽🥼🦺👔👕👖🧣🧤🧥🧦👗👘🥻🩴🩱🩲🩳👙👚👛👜👝🎒👞👟🥾🥿👠👡🩰👢👑👒🎩🎓🧢⛑🪖💄💍💼";
+
+    const datasEmojies = Array.from(datas);
 
     const addEmoji = (e) => {
         setCommand(command + e);
@@ -171,7 +180,7 @@ function Cards({ data }) {
                         </>}
                         <span className='ms-2 fw-bold fs-6 '>{data?.likes?.length}</span>
                     </div>
-                </> : <div onClick={()=>window.location.assign("/login")}>
+                </> : <div onClick={() => window.location.assign("/login")}>
                     Like
                 </div>}
 
@@ -255,16 +264,8 @@ function Cards({ data }) {
                         </div>
                     </div>
                     <div className='d-flex align-items-center justify-content-center gap-3 mt-4 mb-4'>
-                        <div>
-                            <Form.Select aria-label="Default select example"
-                                value={emojies}
-                                onChange={(e) => addEmoji(e?.target?.value)}
-                            >
-                                <option>--Emoji----</option>
-                                {datasEmojies?.map((item, index) => {
-                                    return <option value={item}>{item}</option>
-                                })}
-                            </Form.Select>
+                        <div onClick={handleShow1} style={{ cursor: "pointer", width: "15%", border: "1px solid #E5D4FF", textAlign: "center", borderRadius: "10px", padding: "6px 0px", fontSize: "1.4rem" }}>
+                            😀
                         </div>
                         <div className='mt-3'>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -284,6 +285,70 @@ function Cards({ data }) {
                         <div >
                             <Button variant="primary" onClick={SumbmitCommand}>Create Command</Button>
                         </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+
+            <Modal
+                show={show1}
+                onHide={handleClose1}
+                backdrop="static"
+                keyboard={false}
+                centered
+                size='lg'
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        <div className='d-flex gap-3 mt-2'>
+                            <div>
+                                <div>
+                                    {data?.user?.avatar ? <>
+
+                                        <img className="dashobard-images" src={data?.user?.avatar} alt="no image" />
+
+                                    </> : <>
+
+                                        <img className="dashobard-images" src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image" />
+
+                                    </>}
+
+                                </div>
+                            </div>
+                            <div className='d-flex gap-5'>
+                                <div>
+                                    <div>
+                                        {data?.user?.userName}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+
+                    <div className='mt-4 mb-4 ms-2'>
+                        <div className='row gap-3'>
+
+                            {datasEmojies?.map((item, index) => {
+                                return <div onClick={() => {
+                                    addEmoji(item)
+                                    handleClose1()
+                                }} style={{
+                                    width: "30px",
+                                    height: "30px",
+                                    borderRadius: "10%",
+                                    border: "1px solid grey",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    cursor: "pointer",
+
+                                }}>{item}</div>
+                            })}
+
+                        </div>
+
                     </div>
                 </Modal.Body>
             </Modal>

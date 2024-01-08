@@ -47,7 +47,7 @@ function Ourproducts() {
                                         {productname}
                                     </div>
                                     <div className='fw-bold fs-5 mt-2'>
-                                        ₹ {saleprice}
+                                        ₹ {saleprice} <span style={{color:"red",paddingLeft:"10px"}}><del>₹ {item?.oldprice}</del></span>
                                     </div>
                                     <div className='mt-2'>
                                         Size : {size}

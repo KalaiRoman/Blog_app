@@ -50,62 +50,81 @@ function Header() {
     return (
         <div>
             <div class="navbar">
-                <div class="container-fluid d-flex justify-content-between align-items-center">
-                    <div onClick={homePath} className='cursor ' >
-                        Blog's
-                    </div>
-                    <div className='d-flex gap-5 justify-content-between  align-items-center ' style={{ width: "46%" }}>
 
-                        <div className='cursor' onClick={() => window.location.assign("/ecommerce")}
-                            style={{
-                                color: path == "/ecommerce" ? "red" : "black"
-                            }}
+                {state?.usertype == 1 ? <>
+                    {token ? <>
+                        <div onClick={profielPath} className='cursor d-flex align-items-center'
+
                         >
-                            Shopping
+                            {state?.avatar ? <>
+                                <img src={state?.avatar} alt="no image" style={{ width: "30%", height: "30%", borderRadius: "50%", cursor: "pointer" }} />
+                            </> : <>
+                                <img src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image"
+                                    style={{ width: "5%", height: "5%", borderRadius: "50%", cursor: "pointer" }} />
+
+                            </>}
+
+                        </div></> : <div className='cursor' onClick={loginpath}>Login</div>}
+
+                    {token && <div onClick={Logout} className='cursor'>Logout</div>}
+                </> : <>
+
+
+                    <div class="container-fluid d-flex justify-content-between align-items-center">
+                        <div onClick={homePath} className='cursor' >
+                            Blog's
                         </div>
-                        {token && <>
-                            <div className='cursor' onClick={CreateBlogpath}
+                        <div className='d-flex gap-5 justify-content-between  align-items-center ' style={{ width: "46%" }}>
+
+                            <div className='cursor' onClick={() => window.location.assign("/ecommerce")}
                                 style={{
-                                    color: path == "/currentuserblogs" ? "red" : "black",
-                                    width: "100%",
-                                    textAlign: "center"
+                                    color: path == "/ecommerce" ? "red" : "black"
                                 }}
                             >
-                                Create Posts
+                                Shopping
                             </div>
-                        </>}
-                        <div className="cart-image" onClick={CartPath}>
-                            <ion-icon name="cart-outline"></ion-icon>
-                            <span className='count-cart'>{usercart?.length}</span>
-                        </div>
-                        <div className='cursor' onClick={authLogin}
-                            style={{
-                                color: path == "/author" ? "red" : "black"
-                            }}
-                        >
-                            Author
-                        </div>
-
-                        {token ? <>
-                            <div onClick={profielPath} className='cursor d-flex align-items-center justify-content-center'
-
+                            {token && <>
+                                <div className='cursor' onClick={CreateBlogpath}
+                                    style={{
+                                        color: path == "/currentuserblogs" ? "red" : "black",
+                                        width: "100%",
+                                        textAlign: "center"
+                                    }}
+                                >
+                                    Create Posts
+                                </div>
+                            </>}
+                            <div className="cart-image" onClick={CartPath}>
+                                <ion-icon name="cart-outline"></ion-icon>
+                                <span className='count-cart'>{usercart?.length}</span>
+                            </div>
+                            <div className='cursor' onClick={authLogin}
+                                style={{
+                                    color: path == "/author" ? "red" : "black"
+                                }}
                             >
+                                Author
+                            </div>
 
+                            {token ? <>
+                                <div onClick={profielPath} className='cursor d-flex align-items-center justify-content-center'
 
-                                {state?.avatar ? <>
-                                    <img src={state?.avatar} alt="no image" style={{ width: "30%", height: "30%", borderRadius: "50%", cursor: "pointer" }} />
-                                </> : <>
-                                    <img src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image"
-         style={{ width: "30%", height: "30%", borderRadius: "50%", cursor: "pointer" }}/>
+                                >
+                                    {state?.avatar ? <>
+                                        <img src={state?.avatar} alt="no image" style={{ width: "30%", height: "30%", borderRadius: "50%", cursor: "pointer" }} />
+                                    </> : <>
+                                        <img src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image"
+                                            style={{ width: "30%", height: "30%", borderRadius: "50%", cursor: "pointer" }} />
 
-                                </>}
+                                    </>}
 
-                            </div></> : <div className='cursor' onClick={loginpath}>Login</div>}
+                                </div></> : <div className='cursor' onClick={loginpath}>Login</div>}
 
-                        {token && <div onClick={Logout} className='cursor'>Logout</div>}
-                    </div>
+                            {token && <div onClick={Logout} className='cursor'>Logout</div>}
+                        </div>
 
-                </div>
+                    </div></>}
+
             </div>
         </div>
     )

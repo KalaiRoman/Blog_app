@@ -37,7 +37,6 @@ export const UpdateProfileActionData = (data, handleClose) => async (dispatch) =
     try {
         const token = localStorage.getItem("blog_token");
         const final = jwt_decode(token);
-
         const response = await singleUserServiceUpdate(final?.id, data);
         if (response) {
             ToastSuccess("Profile Updated successfully");
@@ -45,10 +44,7 @@ export const UpdateProfileActionData = (data, handleClose) => async (dispatch) =
             handleClose();
         }
     } catch (error) {
-
-        ToastError(error?.response?.data?.message);
         dispatch(SingleuserFail(error?.response?.data?.message));
-
     }
 }
 

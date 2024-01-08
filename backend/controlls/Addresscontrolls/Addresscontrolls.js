@@ -44,7 +44,12 @@ export const editAddress = async (req, res, next) => {
     const id = req.params.id;
     try {
 
+        const resposne = await Address_Shema.findByIdAndUpdate(id, req.body, { new: true });
+
+        res.status(200).json({ message: "Updated Address" })
+
     } catch (error) {
+        res.status(404).json({ message: "error address update" });
 
     }
 }
@@ -60,6 +65,20 @@ export const allAddress = async (req, res, next) => {
 
     }
 }
+
+// all single adress currentuser
+export const singleAddress = async (req, res, next) => {
+    const id = req.params.id;
+    try {
+        const response = await Address_Shema.findById(id);
+        res.status(200).json({ message: "success", data: response })
+
+    } catch (error) {
+        res.status(404).json({ message: "error address get", });
+
+    }
+}
+
 
 // delete address
 

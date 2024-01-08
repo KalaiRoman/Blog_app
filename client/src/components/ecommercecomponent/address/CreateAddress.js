@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { AddressCreateActions } from './../../../redux/actions/CreateAddressActions';
-import { useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { AddressCreateActions, currentUsersingleAddressAction, editcurrentUserAddress } from './../../../redux/actions/CreateAddressActions';
+import { useDispatch, useSelector } from 'react-redux';
 function CreateAddress() {
+
+    const { state } = useLocation();
+
+    const addressstate = useSelector((state) => state?.address);
+    const singleAddress = addressstate?.singleAddress;
+
+    console.log(singleAddress, 'singleAddress')
     const dispatch = useDispatch();
     const [user, setUser] = useState({
         username: "",
@@ -15,6 +22,7 @@ function CreateAddress() {
         address: "",
         locationtype: ""
     });
+
 
     const {
         username,
@@ -57,6 +65,52 @@ function CreateAddress() {
                 locationtype
             }
             dispatch(AddressCreateActions(datas, navigtate))
+        }
+    }
+
+
+    useEffect(() => {
+        if (state?.addressId) {
+            dispatch(currentUsersingleAddressAction(state?.addressId));
+
+        }
+    }, [state?.addressId])
+    useEffect(() => {
+        if (state?.addressId) {
+            setUser(singleAddress ? singleAddress : {});
+        }
+        else {
+            setUser({});
+
+        }
+    }, [singleAddress]);
+
+    const UpdateAddress = (e) => {
+        e.preventDefault();
+        if (username?.length === 0 || contactno?.length === 0 || alternateno?.length === 0 || street?.length === 0 || city?.length === 0 || pincode?.length === 0 || address?.length === 0 ||
+            locationtype?.length === 0) {
+            setError(true);
+        }
+
+        if (username &&
+            contactno &&
+            alternateno &&
+            street &&
+            city &&
+            pincode &&
+            address &&
+            locationtype) {
+            const datas = {
+                username,
+                contactno,
+                alternateno,
+                street,
+                city,
+                pincode,
+                address,
+                locationtype
+            }
+            dispatch(editcurrentUserAddress(state?.addressId, datas, navigtate))
         }
     }
     return (
@@ -163,9 +217,18 @@ function CreateAddress() {
                                 </Form.Text>
                             </Form.Group>
 
-                            <button className='submit-button mb-5' onClick={SubmitData}>
-                                Create Address
-                            </button>
+                            {state ? <>
+
+                                <button className='submit-button mb-5' onClick={UpdateAddress}>
+                                    Update Address
+                                </button>
+                            </> : <>
+
+                                <button className='submit-button mb-5' onClick={SubmitData}>
+                                    Create Address
+                                </button>
+                            </>}
+
                         </Form>
 
 

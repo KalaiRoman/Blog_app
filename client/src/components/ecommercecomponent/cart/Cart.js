@@ -114,7 +114,7 @@ function Cart() {
 
                                         <div onClick={() => AddressSelelct(item)}>
                                             <div>
-                                                <span>{item?.username}  <span className='text-danger'>Contact : {item?.contactno}, {item?.alternateno}</span></span>
+                                                <span>{item?.username}  <span className='text-danger'>Contact : {item?.contactno}, {item?.alternateno}</span></span>, <span style={{ color: "black", fontWeight: "700" }}>{item?.locationtype}</span>
                                             </div>
                                             <div>
                                                 <span>{item?.street}, {item?.city},{item?.pincode}</span>
@@ -127,7 +127,7 @@ function Cart() {
                                         </div>
 
                                         <div className='d-flex mt-3 mb-2 gap-4 w-50'>
-                                            <button className='edit-btn'>Edit</button>
+                                            <button className='edit-btn' onClick={() => navigate("/ecommerce/address", { state: { addressId: item?._id } })}>Edit</button>
                                             <button className='delete-btn' onClick={() => DeleteAddress(item?._id)}>Delete</button>
                                         </div>
 

@@ -26,6 +26,14 @@ const Auth_Shema = new mongoose.Schema({
     wishlist: {
         type: Array,
         default: 0
+    },
+    role: {
+        type: String,
+        required: true
+    },
+    usertype: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true

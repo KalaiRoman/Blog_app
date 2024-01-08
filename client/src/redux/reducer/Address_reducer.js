@@ -4,6 +4,7 @@ const Address_Reducer = createSlice({
     initialState: {
         loading: false,
         Addresss: [],
+        singleAddress: [],
         error: ""
     },
     reducers: {
@@ -18,6 +19,14 @@ const Address_Reducer = createSlice({
             return {
                 ...state,
                 Addresss: action.payload,
+                loading: false
+
+            }
+        },
+        SingleAddressSuccess(state, action) {
+            return {
+                ...state,
+                singleAddress: action.payload,
                 loading: false
 
             }
@@ -40,5 +49,5 @@ const Address_Reducer = createSlice({
 })
 
 const { actions, reducer } = Address_Reducer;
-export const { AddressRequest, AddressSuccess, AddressFail, ClearAllusersData } = actions;
+export const { AddressRequest, AddressSuccess, AddressFail, SingleAddressSuccess, ClearAllusersData } = actions;
 export default reducer;

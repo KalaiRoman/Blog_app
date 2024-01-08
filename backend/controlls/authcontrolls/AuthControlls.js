@@ -2,7 +2,6 @@ import Auth_Shema from "../../models/Auth_Shema.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import HttpError from './../../models/errorModel.js';
-import Createblog_Shema from "../../models/Createblog_Shema.js";
 
 // register
 export const AuthRegister = async (req, res, next) => {
@@ -16,7 +15,9 @@ export const AuthRegister = async (req, res, next) => {
             password: hashPassword,
             posts: 0,
             avatar: "",
-            profileDescription: ""
+            profileDescription: "",
+            role: "user",
+            usertype: 2
         });
         await response.save();
         res.status(201).json({ message: "User Register Successfully", user: response });
@@ -38,7 +39,6 @@ export const AuthLogin = async (req, res, next) => {
         });
         if (existemail) {
             const hashPassword = await bcrypt.compare(password, existemail.password);
-
             if (hashPassword) {
                 const token = await jwt.sign({ id: existemail?._id?.toString(), expireIn: "2h" }, process.env.TOKENID);
                 res.status(200).json({ message: "User Login Successfully", user: existemail, token });

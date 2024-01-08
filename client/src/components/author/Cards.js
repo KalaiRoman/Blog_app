@@ -4,8 +4,8 @@ function Cards({ data }) {
 
     return (
         <div>
+            
             <div className='d-flex '>
-
                 <div>
                     {data?.avatar ? <>
                         <img className="userimage" src={data?.avatar} alt="no image" />

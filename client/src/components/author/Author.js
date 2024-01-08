@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Cards from './Cards'
 import './styles/Author.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,14 +11,33 @@ function Author() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const state = useSelector((state) => state?.alluser?.allusers);
+    const [filterusers, setFilterUsers] = useState([]);
+
     useEffect(() => {
         dispatch(AlluserActionData());
     }, []);
+
 
     const createPathnavigate = () => {
         navigate("/currentuserblogs");
 
     }
+
+    useEffect(() => {
+
+        let users = [];
+        if (state) {
+            state?.map((item, index) => {
+                if (item?.userName == "admin") {
+
+                }
+                else {
+                    users.push(item);
+                }
+            })
+        }
+        setFilterUsers(users)
+    }, [state])
 
     const createPathnavigatefalse = (id) => {
         navigate("/allblogs", {
@@ -31,7 +50,7 @@ function Author() {
                 <div className='row gap-4'>
 
                     {state?.length > 0 ? <>
-                        {state?.map((item, index) => {
+                        {filterusers?.map((item, index) => {
                             return (
                                 <div key={index} className={`${currentid?.currentuserid === item?._id ? "activecard col-lg-3" : "cardsss col-lg-3 "}`} onClick={() => {
                                     if (currentid?.currentuserid === item?._id) {
@@ -41,6 +60,7 @@ function Author() {
                                         createPathnavigatefalse(item?._id)
                                     }
                                 }}>
+
                                     <Cards data={item} />
                                 </div>
                             )

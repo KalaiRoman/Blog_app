@@ -57,7 +57,7 @@ export const Singleblog = async (req, res, next) => {
 export const Allblogs = async (req, res, next) => {
     try {
 
-        const response = await Createblog_Shema.find().populate("user");
+        const response = await Createblog_Shema.find().populate("user").sort({ createdAt: -1 });
 
         res.status(200).json({ message: "success", data: response })
 
@@ -71,7 +71,7 @@ export const Allblogs = async (req, res, next) => {
 export const AllblogsforCurrentUser = async (req, res, next) => {
     const id = req.params.id;
     try {
-        const response = await Createblog_Shema.find({ userId: id }).populate("user");
+        const response = await Createblog_Shema.find({ userId: id }).populate("user").sort({ createdAt: -1 });
 
         res.status(200).json({ message: "success", data: response })
 

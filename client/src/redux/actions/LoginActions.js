@@ -10,7 +10,12 @@ export const LoginAction = (data, navigate) => async (dispatch) => {
             localStorage.setItem("blog_token", JSON.stringify(response?.token));
             ToastSuccess("User Login Successfully")
             setTimeout(() => {
-                navigate("/");
+                if (response?.user?.usertype == 1) {
+                    navigate("/admin");
+                }
+                else {
+                    navigate("/");
+                }
                 dispatch(SingleuserActionData());
             }, 400);
         }
