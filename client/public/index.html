@@ -10,7 +10,6 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -36,5 +35,24 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+    <script type="text/JavaScript">
+      const Alert = e => {
+        e.preventDefault();
+        return alert(" This feature is Restricted!! ");
+      }
+      const disabledKeys = ["c", "C", "x", "J", "u", "I"];
+      document.addEventListener("contextmenu",Alert);
+      document.addEventListener("keydown", e => {
+        if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
+          Alert(e);
+        }
+      });
+      document.addEventListener("cut", e => {
+        Alert(e);
+      });
+      document.addEventListener("copy", e => {
+        Alert(e);
+      });
+    </script>
   </body>
 </html>

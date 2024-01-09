@@ -314,8 +314,6 @@ function Cards({ data }) {
                                     </>}
                                 </Form.Text>
                             </Form.Group>
-
-
                         </div>
                         <div >
                             <Button variant="primary" onClick={SumbmitCommand}>Send Command</Button>
