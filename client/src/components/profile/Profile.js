@@ -115,7 +115,7 @@ function Profile() {
                         <button className='edit-btn' onClick={() => window.location.assign('/currentuserblogs')}>My Posts</button>
                         <button className='edit-btn' onClick={() => window.location.assign("/ecommerce/orders")}>My Orders</button>
                         <button className='edit-btn' onClick={() => window.location.assign("/ecommerce/ourproducts")}>Your Products</button>
-                        <button className='edit-btn'>My Favorts</button>
+                        <button className='edit-btn' onClick={() => window.location.assign("/ecommerce/favorts")}>My Favorts</button>
                     </div>
                     <div className='mx-auto d-flex align-items-center justify-content-center profileimage'>
                         {imageurl ? <>

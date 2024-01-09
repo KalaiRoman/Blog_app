@@ -11,10 +11,11 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CommandCreateActions, CommandDeleteActions, PostLikeActions } from '../../redux/actions/CreateBlogActions';
 import { useGlobalContextApi } from '../../contextApi/Context';
 import jwt_decode from 'jwt-decode';
+import { AlluserActionData } from '../../redux/actions/AllUserActions';
 
 TimeAgo.addDefaultLocale(en);
 function Cards({ data }) {
@@ -56,7 +57,7 @@ function Cards({ data }) {
 
     const navigate = useNavigate();
 
-    const des = data?.description?.slice(0, 220);
+    const des = data?.description?.slice(0, 140);
 
     const movepath = (id) => {
         navigate("/singleblog", { state: { id: id } })
@@ -108,13 +109,13 @@ function Cards({ data }) {
         dispatch(PostLikeActions(postid, likedata));
     }
 
-    const datasEmojiess = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🥲", "🥹", "☺️", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🥸", "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😮‍💨", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🫣", "🤗", "🫡", "🤔", "🫢", "🤭", "🤫", "🤥", "😶", "😶‍🌫️", "😐", "😑", "😬", "🫨", "🫠", "🙄", "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "😵‍💫", "🫥", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈", "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "☠️", "👽", "👾", "🤖", "🎃", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾"]
+    const state = useSelector((state) => state?.alluser?.allusers);
 
-
+    useEffect(() => {
+        dispatch(AlluserActionData());
+    }, []);
     const datas = "😀😃😄😁😆😅😂🤣🥲🥹😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😮‍💨😤😠😡🤬🤯😳🥵🥶😱😨😰😥😓🫣🤗🫡🤔🫢🤭🤫🤥😶😶😐😑😬🫨🫠🙄😯😦😧😮😲🥱😴🤤😪😵😵‍💫🤐🥴🤢🤮🤧😷🤒🤕🤑🤠👿👹👺🤡💩☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾👋🤚🖐✋🖖👌🤌🤏✌️🤞🫰🤟🤘🤙🫵🫱🫲🫸🫷🫳🫴👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🫶🙌👐🤲🤝🙏✍️💅🤳💪🫂🧳🌂☂️🧵🪡🪢🪭🧶👓🕶🥽🥼🦺👔👕👖🧣🧤🧥🧦👗👘🥻🩴🩱🩲🩳👙👚👛👜👝🎒👞👟🥾🥿👠👡🩰👢👑👒🎩🎓🧢⛑🪖💄💍💼";
-
     const datasEmojies = Array.from(datas);
-
     const addEmoji = (e) => {
         setCommand(command + e);
     };
@@ -180,7 +181,15 @@ function Cards({ data }) {
                         <span className='ms-2 fw-bold fs-6 '>{data?.likes?.length}</span>
                     </div>
                 </> : <div onClick={() => window.location.assign("/login")}>
-                    Like
+                    <div className=''>
+                        {data?.likes?.includes(currentid?.currentuserid) ? <>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/640px-Heart_coraz%C3%B3n.svg.png" alt="no image" className='unlike-heart' />
+                        </> : <>
+                            <img src="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png" alt="no image" className='unlike-heart' />
+
+                        </>}
+                        <span className='ms-2 fw-bold fs-6 '>{data?.likes?.length}</span>
+                    </div>
                 </div>}
 
                 <div className='text-end fw-bold fs-6  mb-1' onClick={handleShow}>
@@ -229,32 +238,59 @@ function Cards({ data }) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div style={{ height: "300px", border: "1px solid grey", overflow: "hidden", overflowY: "auto", borderRadius: "10px" }}>
+                    <div style={{ height: "300px", border: "1px solid grey", overflow: "hidden", overflowY: "auto", borderRadius: "10px", paddingBottom: "10vh", paddingTop: "20px" }} className='scrollbar'>
                         <div>
                             {postcm?.map((item, index) => {
                                 return (
-                                    <div className='d-flex justify-content-between p-2'>
+                                    <div className='d-flex justify-content-between align-items-center p-2 ' key={index}>
+                                        {state?.map((items, index) => {
+                                            if (item?.commanduserdid === items?._id) {
+                                                return (
+                                                    <div>
+                                                        <div className='d-flex align-items-center align-content-center gap-3'>
+                                                            <div>
+                                                                {items?.avatar ? <>
+                                                                    <img src={items?.avatar} alt="no image"
+                                                                        style={{
+                                                                            width: "40px",
+                                                                            height: "40px",
+                                                                            borderRadius: "50%"
+                                                                        }}
+                                                                    />
+                                                                </> : <>
 
-                                        <div className='d-flex align-items-center gap-3'>
-                                            <div>
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7vB-49_BT-dirwttYZaeE_VByjlQ3raVJZg&usqp=CAU" alt="no image"
+                                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7vB-49_BT-dirwttYZaeE_VByjlQ3raVJZg&usqp=CAU" alt="no image"
+                                                                        style={{
+                                                                            width: "40px",
+                                                                            height: "40px",
+                                                                            borderRadius: "50%"
+                                                                        }}
+                                                                    />
+                                                                </>}
 
-                                                    style={{
-                                                        width: "40px",
-                                                        height: "40px",
-                                                        borderRadius: "50%"
-                                                    }}
-                                                />
-                                            </div>
-                                            <div>
-                                                {item?.desc}
-                                            </div>
-                                        </div>
+                                                            </div>
+                                                            <div style={{ width: "400px", padding: "10px", height: "auto", borderRadius: "10px", border: "1px solid #FFF6F6", backgroundColor: "#FFF6F6" }}>
+                                                                <div className='fw-bold mb-1'>
+                                                                    {items?.userName}
+                                                                </div>
+                                                                <div>
+                                                                    {item?.desc}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                        })}
+
+
 
                                         <div>
 
                                             {currentid?.currentuserid == item?.commanduserdid ? <>
-                                                <button className='delete-btn' onClick={() => DeleteCommand(item?._id)}>Delete</button>
+                                                <div className='' style={{ color: "red", display: "flex", alignItems: "center", justifyContent: "center" }} onClick={() => DeleteCommand(item?._id)}>
+                                                    <ion-icon name="trash-outline"></ion-icon>
+                                                </div>
                                             </> : null}
                                         </div>
                                     </div>
@@ -282,12 +318,11 @@ function Cards({ data }) {
 
                         </div>
                         <div >
-                            <Button variant="primary" onClick={SumbmitCommand}>Create Command</Button>
+                            <Button variant="primary" onClick={SumbmitCommand}>Send Command</Button>
                         </div>
                     </div>
                 </Modal.Body>
             </Modal>
-
 
             <Modal
                 show={show1}

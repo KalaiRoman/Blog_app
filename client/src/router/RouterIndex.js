@@ -21,6 +21,7 @@ import Orders from "../components/ecommercecomponent/orders/Orders";
 import LeraningPart from "../components/learningpart/LeraningPart";
 import Ourproducts from "../components/ecommercecomponent/products/Ourproducts";
 import HomeaAdmin from "../components/adminportal/HomeaAdmin";
+import FavortProducts from "../components/ecommercecomponent/products/FavortProducts";
 function RouterIndex() {
     return (
         <section>
@@ -54,6 +55,8 @@ function RouterIndex() {
                     <Route path="productview" element={<ProductView />}></Route>
                     <Route path="orders" element={<Orders />}></Route>
                     <Route path="ourproducts" element={<Ourproducts />}></Route>
+                    <Route path="favorts" element={<FavortProducts />}></Route>
+
                 </Route>
 
                 <Route path="/admin" element={<HomeaAdmin />}>

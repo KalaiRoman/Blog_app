@@ -1,6 +1,7 @@
 import { allfavortService, createfavortService, deletefavortService } from "../../services/favorts_service/favort_service"
 import { FavortsRequest, FavortsSuccess } from "../reducer/Allfavorts_reducer";
 import { ToastSuccess } from './../../middleware/Toast_action';
+import { GetProductActions } from "./CreateProductActions";
 import { SingleuserActionData } from "./SingleuserAction";
 
 export const FavortActionData = (data) => async (dispatch) => {
@@ -9,7 +10,21 @@ export const FavortActionData = (data) => async (dispatch) => {
         const response = await createfavortService(data);
         if (response) {
             dispatch(SingleuserActionData())
-           ToastSuccess(response?.message);
+            ToastSuccess(response?.message);
+        }
+    } catch (error) {
+
+    }
+}
+
+export const FavortActionDatauser = (data) => async (dispatch) => {
+    try {
+
+        const response = await createfavortService(data);
+        if (response) {
+            dispatch(SingleuserActionData())
+            dispatch(GetProductActions())
+            ToastSuccess(response?.message);
         }
     } catch (error) {
 

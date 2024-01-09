@@ -20,6 +20,9 @@ function HomeaAdmin() {
 
     return (
         <div className='container'>
+            <div className='mb-4 mt-3'>
+                <h3>Admin Portal</h3>
+            </div>
             <div className='row d-flex gap-4'>
                 <div className='cards d-flex align-content-center justify-content-center text-center' style={{ width: "18rem" }}>
                     <div className='mb-2 fw-bold fs-3'>

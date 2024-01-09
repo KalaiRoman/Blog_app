@@ -11,10 +11,7 @@ import Favorts_shema from "../../models/Favorts_shema.js";
 export const createfavorts = async (req, res, next) => {
     const { productId } = req.body;
     try {
-
-
         const response = await Auth_Shema.findById(req.userid);
-
         const user = response?.wishlist?.find((item) => item.toString() == productId);
 
         if (user) {
@@ -36,7 +33,6 @@ export const createfavorts = async (req, res, next) => {
 
     }
 }
-
 
 export const Allfavorts = async (req, res, next) => {
     try {
