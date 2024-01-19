@@ -247,7 +247,7 @@ function Cards({ data }) {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div style={{ height: "300px", border: "1px solid grey", overflow: "hidden", overflowY: "auto", borderRadius: "10px", paddingBottom: "10vh", paddingTop: "20px" }} className='scrollbar'>
+                    <div style={{ height: "300px", border: "1px solid grey", overflow: "hidden", overflowY: "auto", borderRadius: "10px", paddingBottom: "4vh", paddingTop: "20px" }} className='scrollbar'>
                         <div>
                             {postcm?.map((item, index) => {
                                 return (

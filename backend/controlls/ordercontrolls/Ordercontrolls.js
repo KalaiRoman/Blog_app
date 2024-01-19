@@ -44,10 +44,9 @@ export const updateorder = async (req, res, next) => {
 
 export const allorder = async (req, res, next) => {
     try {
-        const update = await Order_shema.find({ userid: req.userid });
-
-        console.log(update,'update')
-        res.status(200).json({ message: "success", data: update })
+        // front show only order details 
+        const update = await Order_shema.find({ userid: req.userid }, { order: true });
+        res.status(200).json({ message: "success", data: update });
 
     } catch (error) {
         res.status(404).json({ message: "Order get Error" })

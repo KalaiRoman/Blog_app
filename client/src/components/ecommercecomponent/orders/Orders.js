@@ -8,7 +8,6 @@ function Orders() {
 
     const states = useSelector((state) => state?.orders?.Orderss)
 
-    console.log(states, 'state')
 
 
     useEffect(() => {
@@ -24,9 +23,9 @@ function Orders() {
         <div className='container'>
             <div>
 
-               <div className='mb-4 mt-1'>
-               <h2>My Orders</h2>
-               </div>
+                <div className='mb-4 mt-1'>
+                    <h2>My Orders</h2>
+                </div>
 
                 {states?.loading ? <>Loading...</> : <>
 
@@ -37,7 +36,7 @@ function Orders() {
                                     <div>
                                         {items?.order?.map((item, index) => {
                                             return (
-                                                <div>
+                                                <div key={index}>
                                                     <div className='d-flex justify-content-between align-items-center mb-4 mt-2'>
                                                         <div>
                                                             <div>
