@@ -35,24 +35,41 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
-    <script type="text/JavaScript">
-      const Alert = e => {
-        e.preventDefault();
-        return alert(" This feature is Restricted!! ");
+    <!-- <script type="text/JavaScript">
+            const Alert = e => {
+              e.preventDefault();
+              return alert(" This feature is Restricted!! ");
+            }
+            const disabledKeys = ["c", "C", "x", "J", "u", "I","R","r"];
+            document.addEventListener("contextmenu",Alert);
+            document.addEventListener("keydown", e => {
+              if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12" || e.key === "Shift") {
+                Alert(e);
+              }
+            });
+            document.addEventListener("cut", e => {
+              Alert(e);
+            });
+            document.addEventListener("copy", e => {
+              Alert(e);
+            });
+            // Check if the browser supports the getDisplayMedia API
+      if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+        // Request permission to record the screen
+        navigator.mediaDevices.getDisplayMedia({ video: true })
+          .then(function (stream) {
+            // Screen recording is allowed
+            Alert(e);
+            // Do something with the stream if needed
+          })
+          .catch(function (error) {
+            // Handle the errosr
+            Alert(e);
+          });
+      } else {
+        // Browser doesn't support screen recording
+        console.error("Screen recording is not supported in this browser.");
       }
-      const disabledKeys = ["c", "C", "x", "J", "u", "I"];
-      document.addEventListener("contextmenu",Alert);
-      document.addEventListener("keydown", e => {
-        if ((e.ctrlKey && disabledKeys.includes(e.key)) || e.key === "F12") {
-          Alert(e);
-        }
-      });
-      document.addEventListener("cut", e => {
-        Alert(e);
-      });
-      document.addEventListener("copy", e => {
-        Alert(e);
-      });
-    </script>
+    </script> -->
   </body>
 </html>

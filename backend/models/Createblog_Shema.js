@@ -38,11 +38,16 @@ const CreateBlog_shema = new mongoose.Schema({
                 user: {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: 'auth'
-                }
-
-            }, {
-                timestamps: true
-            }
+                },
+                createdAt: {
+                    type: String,
+                    default: () => new Date().toISOString(),
+                },
+                updatedAt: {
+                    type: String,
+                    default: () => new Date().toISOString(),
+                },
+            },
         ],
         default: []
     },
@@ -54,4 +59,5 @@ const CreateBlog_shema = new mongoose.Schema({
     timestamps: true
 })
 
+mongoose.models = {};
 export default mongoose.model("blogs", CreateBlog_shema);

@@ -23,7 +23,7 @@ function Products() {
     const usercart = useSelector((state) => state?.usercart?.UsercartData);
 
     const { loading, Products } = productsdata;
-    
+
 
     useEffect(() => {
 
@@ -86,7 +86,7 @@ function Products() {
                                     </div>
 
                                     <div className='text-start mt-3'>
-                                        {item?.productname?.slice(0, 35)}
+                                        {item?.productname?.slice(0, 25)}
                                     </div>
 
                                     <div className='d-flex justify-content-between mb-3 mt-2'>

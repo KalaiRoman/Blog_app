@@ -22,6 +22,13 @@ import LeraningPart from "../components/learningpart/LeraningPart";
 import Ourproducts from "../components/ecommercecomponent/products/Ourproducts";
 import HomeaAdmin from "../components/adminportal/HomeaAdmin";
 import FavortProducts from "../components/ecommercecomponent/products/FavortProducts";
+import Sortmethod from "../components/Learningcomponents/Sortmethod";
+import Mainlearning from "../components/Learningcomponents/Mainlearning";
+import Includesmethod from "../components/Learningcomponents/Includesmethod";
+import Maxnumbercheck from "../components/Learningcomponents/Maxnumbercheck";
+import Callbackfunction from "../components/Learningcomponents/Callbackfunction";
+import StringtoArrayconvert from "../components/Learningcomponents/StringtoArrayconvert";
+import Restoperator from "../components/Learningcomponents/Restoperator";
 function RouterIndex() {
     return (
         <section>
@@ -61,6 +68,19 @@ function RouterIndex() {
 
                 <Route path="/admin" element={<HomeaAdmin />}>
                     <Route path="admin" element={<HomeaAdmin />}></Route>
+                </Route>
+
+
+                <Route path="/learning" element={<Mainlearning />}>
+                    <Route path="/learning" element={<Sortmethod />}></Route>
+                    <Route path="includes" element={<Includesmethod />}></Route>
+                    <Route path="max" element={<Maxnumbercheck />}></Route>
+                    <Route path="call" element={<Callbackfunction />}></Route>
+                    <Route path="convertarray" element={<StringtoArrayconvert />}></Route>
+                    <Route path="restoperator" element={<Restoperator />}></Route>
+
+
+
                 </Route>
             </Routes>
         </section>

@@ -16,10 +16,13 @@ import { CommandCreateActions, CommandDeleteActions, PostLikeActions } from '../
 import { useGlobalContextApi } from '../../contextApi/Context';
 import jwt_decode from 'jwt-decode';
 import { AlluserActionData } from '../../redux/actions/AllUserActions';
+import { useRef } from 'react';
 
 TimeAgo.addDefaultLocale(en);
 function Cards({ data }) {
 
+
+    const messagesref = useRef(null);
 
     const token = localStorage.getItem("blog_token") ? localStorage.getItem("blog_token") : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
     const userid = jwt_decode(token);
@@ -119,6 +122,12 @@ function Cards({ data }) {
     const addEmoji = (e) => {
         setCommand(command + e);
     };
+
+
+
+    useEffect(() => {
+        messagesref?.current?.scrollIntoView();
+    }, [postcm])
     return (
         <div className='p-1' >
 
@@ -258,7 +267,6 @@ function Cards({ data }) {
                                                                         }}
                                                                     />
                                                                 </> : <>
-
                                                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7vB-49_BT-dirwttYZaeE_VByjlQ3raVJZg&usqp=CAU" alt="no image"
                                                                         style={{
                                                                             width: "40px",
@@ -270,8 +278,11 @@ function Cards({ data }) {
 
                                                             </div>
                                                             <div style={{ width: "400px", padding: "10px", height: "auto", borderRadius: "10px", border: "1px solid #FFF6F6", backgroundColor: "#FFF6F6" }}>
-                                                                <div className='fw-bold mb-1'>
+                                                                <div className='fw-bold d-flex justify-content-between mb-1'>
                                                                     {items?.userName}
+                                                                    <div>
+                                                                        {moment(item?.createdAt).format('ll')}
+                                                                    </div>
                                                                 </div>
                                                                 <div>
                                                                     {item?.desc}
@@ -296,6 +307,7 @@ function Cards({ data }) {
                                     </div>
                                 )
                             })}
+                            <div ref={messagesref}></div>
                         </div>
                     </div>
                     <div className='d-flex align-items-center justify-content-center gap-3 mt-4 mb-4'>

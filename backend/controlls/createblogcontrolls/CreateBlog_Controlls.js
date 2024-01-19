@@ -5,7 +5,7 @@ import HttpError from "../../models/errorModel.js";
 // create
 export const Createblog = async (req, res, next) => {
 
-    const { title, category, description, avatar, user, userId, } = req.body;
+    const { title, category, description, avatar } = req.body;
     try {
 
         const response = new Createblog_Shema({
