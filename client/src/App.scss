@@ -1,4 +1,22 @@
 @use "sass" as *;
 
+.warning-image-box {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    animation: rounds 3s ease-in-out infinite;
+}
 
-
+.cursor {
+    cursor: pointer !important;
+}
+.ok-btn {
+    width: 40%;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: orange;
+    color: white;
+    outline: none;
+    border: none;
+}

@@ -8,8 +8,6 @@ function Orders() {
 
     const states = useSelector((state) => state?.orders?.Orderss)
 
-
-
     useEffect(() => {
         dispatch(OrderAllDatasAction());
     }, [])
@@ -18,39 +16,35 @@ function Orders() {
         dispatch(OrderUpdatesAction(id))
     }
 
-
     return (
         <div className='container'>
             <div>
-
                 <div className='mb-4 mt-1'>
                     <h2>My Orders</h2>
                 </div>
-
                 {states?.loading ? <>Loading...</> : <>
-
                     {states?.map((items, index) => {
                         return (
-                            <div className='card col-lg-10 p-3 mb-4 mt-1 d-flex'>
+                            <div className='card col-lg-10 p-3 mb-4 mt-1 d-flex' style={{backgroundColor:!items?.orderstatus?"#FDCEDF":"white"}}>
                                 <div className='d-flex justify-content-between align-items-center'>
-                                    <div>
+                                    <div key={index}>
                                         {items?.order?.map((item, index) => {
                                             return (
                                                 <div key={index}>
                                                     <div className='d-flex justify-content-between align-items-center mb-4 mt-2'>
                                                         <div>
                                                             <div>
-                                                                <img src={item?.thumbimage} alt="no image" style={{
+                                                                <img src={item?.product?.thumbimage} alt="no image" style={{
                                                                     width: "150px",
                                                                     height: "150px",
                                                                     objectFit: "contain"
                                                                 }} />
                                                             </div>
                                                             <div className='mt-3 mb-1'>
-                                                                {item?.productname?.slice(0, 100)}
+                                                                {item?.product?.productname?.slice(0, 100)}
                                                             </div>
                                                             <div className='mt-2 fw-bold fs-5'>
-                                                                ₹ {item?.saleprice}
+                                                                ₹ {item?.product?.saleprice}
                                                             </div>
                                                         </div>
 
@@ -59,11 +53,9 @@ function Orders() {
                                             )
                                         })}
                                     </div>
-
                                     <div>
-
                                         {items?.orderstatus ? <>
-                                            <button className="edit-btn" onClick={() => cancelOrder(items?._id)}>Cancel Order</button>
+                                            <button className="edit-btn" onClick={() => cancelOrder(items?._id)}>Cancel Orders</button>
                                         </> : <>
                                             <button className="delete-btn">Cancel Order</button>
                                         </>}

@@ -28,3 +28,21 @@ export async function deleteCartService(id) {
         throw err;
     }
 }
+
+export async function updatequantityCartService(id) {
+    try {
+        const response = await instanceBaseurl.put(`/cart/updateinc/${id}`);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}
+
+export async function updatequantityDecCartService(id) {
+    try {
+        const response = await instanceBaseurl.put(`/cart/updatedec/${id}`);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}

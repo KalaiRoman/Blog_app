@@ -1,4 +1,4 @@
-import { cartCreateService, deleteCartService, getCartService } from "../../services/cart_service/cart_service"
+import { cartCreateService, deleteCartService, getCartService, updatequantityCartService, updatequantityDecCartService } from "../../services/cart_service/cart_service"
 import { UsercartRequest, UsercartSuccess } from "../reducer/User_cart_reducer";
 import { ToastError, ToastSuccess } from './../../middleware/Toast_action';
 
@@ -36,6 +36,32 @@ export const DeletecartActions = (id) => async (dispatch) => {
 export const AddcartActions = (data) => async (dispatch) => {
     try {
         const response = await cartCreateService(data);
+
+        if (response) {
+            ToastSuccess(response?.message);
+            dispatch(GetcartActions());
+        }
+    } catch (error) {
+        ToastError(error?.response?.data?.message);
+    }
+}
+
+export const UpdateQuantitycartActions = (id) => async (dispatch) => {
+    try {
+        const response = await updatequantityCartService(id);
+
+        if (response) {
+            ToastSuccess(response?.message);
+            dispatch(GetcartActions());
+        }
+    } catch (error) {
+        ToastError(error?.response?.data?.message);
+    }
+}
+
+export const UpdateQuantityDecrementcartActions = (id) => async (dispatch) => {
+    try {
+        const response = await updatequantityDecCartService(id);
 
         if (response) {
             ToastSuccess(response?.message);

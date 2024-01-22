@@ -29,6 +29,7 @@ import Maxnumbercheck from "../components/Learningcomponents/Maxnumbercheck";
 import Callbackfunction from "../components/Learningcomponents/Callbackfunction";
 import StringtoArrayconvert from "../components/Learningcomponents/StringtoArrayconvert";
 import Restoperator from "../components/Learningcomponents/Restoperator";
+import CountProgram from './../components/Learningcomponents/CountProgram';
 function RouterIndex() {
     return (
         <section>
@@ -78,6 +79,8 @@ function RouterIndex() {
                     <Route path="call" element={<Callbackfunction />}></Route>
                     <Route path="convertarray" element={<StringtoArrayconvert />}></Route>
                     <Route path="restoperator" element={<Restoperator />}></Route>
+                    <Route path="count" element={<CountProgram />}></Route>
+
 
 
 

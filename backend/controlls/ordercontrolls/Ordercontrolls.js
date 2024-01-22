@@ -2,12 +2,25 @@
 
 // create
 
+import Cart_shema from "../../models/Cart_shema.js";
 import Order_shema from "../../models/Order_shema.js";
+import Product_Shema from "../../models/Product_Shema.js";
 
 export const createOrder = async (req, res, next) => {
     const {
         order, paymentMethod, addressid } = req.body;
     try {
+
+        const olduserCart = await Cart_shema.deleteMany({ userId: req.userid });
+        // const upadteQuantity = await Product_Shema.updateMany({ userid: req.userid }, { $set: { quantity: -1 } });
+
+        const orderids = [];
+        order?.map((item) => {
+            orderids.push(item?.product?._id);
+        })
+        const currentuser = await Product_Shema.findById({ _id: orderids.toString() });
+        const updatequantity = Number(currentuser?.quantity - 1);
+        const upadtes = orderids?.length > 1 ? await Product_Shema.updateMany({ _id: orderids.toString() }, { quantity: `${updatequantity}` }, { new: true }) : await Product_Shema.findByIdAndUpdate({ _id: orderids.toString() }, { quantity: `${updatequantity}` }, { new: true });
         const response = await Order_shema({
             user: req.userid,
             address: addressid,
@@ -45,7 +58,7 @@ export const updateorder = async (req, res, next) => {
 export const allorder = async (req, res, next) => {
     try {
         // front show only order details 
-        const update = await Order_shema.find({ userid: req.userid }, { order: true });
+        const update = await Order_shema.find({ userid: req.userid }, { order: true, orderstatus: true });
         res.status(200).json({ message: "success", data: update });
 
     } catch (error) {
