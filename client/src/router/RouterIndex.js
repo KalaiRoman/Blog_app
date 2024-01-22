@@ -30,6 +30,9 @@ import Callbackfunction from "../components/Learningcomponents/Callbackfunction"
 import StringtoArrayconvert from "../components/Learningcomponents/StringtoArrayconvert";
 import Restoperator from "../components/Learningcomponents/Restoperator";
 import CountProgram from './../components/Learningcomponents/CountProgram';
+import Objetmap from "../components/Learningcomponents/Objetmap";
+import DuplicateValue from "../components/Learningcomponents/DuplicateValue";
+import SwicthMethod from "../components/Learningcomponents/SwicthMethod";
 function RouterIndex() {
     return (
         <section>
@@ -80,6 +83,12 @@ function RouterIndex() {
                     <Route path="convertarray" element={<StringtoArrayconvert />}></Route>
                     <Route path="restoperator" element={<Restoperator />}></Route>
                     <Route path="count" element={<CountProgram />}></Route>
+                    <Route path="object" element={<Objetmap />}></Route>
+                    <Route path="order" element={<DuplicateValue />}></Route>
+                    <Route path="swicth" element={<SwicthMethod />}></Route>
+
+
+
 
 
 
