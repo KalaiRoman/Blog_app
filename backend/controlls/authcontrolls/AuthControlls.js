@@ -2,16 +2,19 @@ import Auth_Shema from "../../models/Auth_Shema.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import HttpError from './../../models/errorModel.js';
+import { auth_Validation_Shema } from "../../helpers/Validation_Shema.js";
 
 // register
 export const AuthRegister = async (req, res, next) => {
-    const { userName, email, password, posts, avatar, profileDescription } = req.body;
+    // const { userName, email, password } = req.body;
     try {
+        const validatenames = { userName: req.body.userName, email: req.body.email }
+        const result = await auth_Validation_Shema.validateAsync(validatenames);
         const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hashSync(password, salt);
+        const hashPassword = await bcrypt.hashSync(req.body.password, salt);
         const response = await Auth_Shema({
-            userName,
-            email,
+            userName: result?.userName,
+            email: result?.email,
             password: hashPassword,
             posts: 0,
             avatar: "",

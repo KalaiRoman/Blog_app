@@ -33,6 +33,9 @@ import CountProgram from './../components/Learningcomponents/CountProgram';
 import Objetmap from "../components/Learningcomponents/Objetmap";
 import DuplicateValue from "../components/Learningcomponents/DuplicateValue";
 import SwicthMethod from "../components/Learningcomponents/SwicthMethod";
+import GetComponentValues from "../components/Learningcomponents/GetComponentValues";
+import Readmorebutton from './../components/Learningcomponents/Readmorebutton';
+import Tab from "../components/Learningcomponents/Tab";
 function RouterIndex() {
     return (
         <section>
@@ -86,6 +89,12 @@ function RouterIndex() {
                     <Route path="object" element={<Objetmap />}></Route>
                     <Route path="order" element={<DuplicateValue />}></Route>
                     <Route path="swicth" element={<SwicthMethod />}></Route>
+                    <Route path="reuseable" element={<GetComponentValues />}></Route>
+                    <Route path="readmore" element={<Readmorebutton />}></Route>
+                    <Route path="tab" element={<Tab />}></Route>
+
+
+
 
 
 

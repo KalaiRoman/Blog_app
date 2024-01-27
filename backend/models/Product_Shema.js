@@ -4,7 +4,8 @@ import mongoose from 'mongoose';
 export const Product_Shema = new mongoose.Schema({
     productname: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     oldprice: {
         type: String,
@@ -24,7 +25,8 @@ export const Product_Shema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     thumbimage: {
         type: String,
