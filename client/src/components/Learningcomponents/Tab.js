@@ -1,7 +1,16 @@
 import React, { useId, useState } from 'react'
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import './Tab.scss'
+
+const variants = {
+    open: { opacity: 1, x: 0 },
+    closed: { opacity: 0, x: "-100%" },
+}
 function Tab() {
+
+    const { scrollYProgress } = useScroll();
+
+    const [isOpen, setIsOpen] = useState(false)
 
     const data = ["one", "two", "three", "four"];
 
@@ -10,8 +19,15 @@ function Tab() {
     const id = useId();
 
 
+
+
+
     return (
         <div>
+
+            <motion.div style={{ scaleX: scrollYProgress }} />
+
+            <h2>welcome</h2>
             <div className='tab-section cursor'>
                 {data?.map((item, index) => {
                     return (

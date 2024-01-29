@@ -36,6 +36,7 @@ import SwicthMethod from "../components/Learningcomponents/SwicthMethod";
 import GetComponentValues from "../components/Learningcomponents/GetComponentValues";
 import Readmorebutton from './../components/Learningcomponents/Readmorebutton';
 import Tab from "../components/Learningcomponents/Tab";
+import ObjecttoArrayconvert from './../components/Learningcomponents/ObjecttoArrayconvert';
 function RouterIndex() {
     return (
         <section>
@@ -44,8 +45,6 @@ function RouterIndex() {
                 <Route path="/forgetpassword" element={<Forgetpassword />}></Route>
                 <Route path="/changepassword" element={<PasswordChangeforget />}></Route>
                 <Route path="/leraning" element={<LeraningPart />}></Route>
-
-
 
 
                 <Route path="/register" element={<Signup />}></Route>
@@ -92,6 +91,8 @@ function RouterIndex() {
                     <Route path="reuseable" element={<GetComponentValues />}></Route>
                     <Route path="readmore" element={<Readmorebutton />}></Route>
                     <Route path="tab" element={<Tab />}></Route>
+                    <Route path="objectarray" element={<ObjecttoArrayconvert />}></Route>
+
 
 
 

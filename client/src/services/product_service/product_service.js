@@ -12,6 +12,7 @@ export async function createproductService(data) {
 export async function getproductServices(data) {
     try {
         const response = await instanceBaseurl.get(`/product/getall`);
+        // ?page=1&size=10
         return response.data;
     } catch (err) {
         throw err;
@@ -22,6 +23,7 @@ export async function getproductServices(data) {
 export async function CurrentuserProductServices() {
     try {
         const response = await instanceBaseurl.get(`/product/getuser/products`);
+        // ?page=1&size=10
         return response.data;
     } catch (err) {
         throw err;
