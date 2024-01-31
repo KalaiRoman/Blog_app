@@ -3,11 +3,27 @@ import mongoose from "mongoose";
 const ConnectDb = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URL)
-        console.log("DB Connected")
     } catch (error) {
-        console.log("DB Error")
 
     }
 }
+
+mongoose.connection.on("error", (err) => {
+    console.log(err?.message)
+})
+mongoose.connection.on("connected", (err) => {
+    console.log("Monogose db Connected")
+})
+mongoose.connection.on("disconnected", (err) => {
+    console.log("Mongo db Disconnected")
+})
+
+process.on("SIGINT", () => {
+    mongoose.connection.close(() => {
+        console.log("Close Mongoose Db");
+        process.exit(0);
+    }
+    )
+})
 
 export default ConnectDb;

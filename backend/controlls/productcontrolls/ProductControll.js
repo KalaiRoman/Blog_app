@@ -70,20 +70,21 @@ export const getAllProduct = async (req, res, next) => {
 
     const { page, size } = req.query;
 
-    if (!page) {
-        page = 1
-    }
+    // if (!page) {
+    //     page = 1
+    // }
 
-    if (!size) {
-        size = 10
-    }
+    // if (!size) {
+    //     size = 10
+    // }
 
-    const limit = parseInt(size);
+    // const limit = parseInt(size);
 
-    const skip = (page - 1) * size;
+    // const skip = (page || 1 - 1) * size;
 
     try {
-        const response = await Product_Shema.find({}).populate("user").sort({ createdAt: -1 }).limit(limit).skip(skip);
+        const response = await Product_Shema.find({}).populate("user").sort({ createdAt: -1 })
+        // .limit(limit).skip(skip);
         res.status(200).json({ message: "success", data: response });
 
     } catch (error) {
@@ -98,19 +99,20 @@ export const getCurrentuserProducts = async (req, res, next) => {
 
     const { page, size } = req.query;
 
-    if (!page) {
-        page = 1
-    }
+    // if (!page) {
+    //     page = 1
+    // }
 
-    if (!size) {
-        size = 10
-    }
+    // if (!size) {
+    //     size = 10
+    // }
 
-    const limit = parseInt(size);
+    // const limit = parseInt(size);
 
-    const skip = (page - 1) * size;
+    // const skip = (page || 1 - 1) * size;
     try {
-        const response = await Product_Shema.find({ userid: req.userid }).populate("user").limit(limit).skip(skip);
+        const response = await Product_Shema.find({ userid: req.userid }).populate("user")
+        // .limit(limit).skip(skip);
         res.status(200).json({ message: "success", data: response });
 
     } catch (error) {
