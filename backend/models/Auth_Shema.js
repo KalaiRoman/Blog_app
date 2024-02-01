@@ -39,4 +39,7 @@ const Auth_Shema = new mongoose.Schema({
     timestamps: true
 });
 
+mongoose.models = {};
+
+
 export default mongoose.model("auth", Auth_Shema);

@@ -36,6 +36,6 @@ export const Resume_shema = new mongoose.Schema({
         timestamps: true
     })
 
-mongoose.model = {};
+mongoose.models = {};
 
 export default mongoose.model("resume", Resume_shema)

@@ -21,4 +21,7 @@ const Favorts_shema = new mongoose.Schema({
         timestamps: true
     })
 
+mongoose.models = {};
+
+
 export default mongoose.model("favorts", Favorts_shema);

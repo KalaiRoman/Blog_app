@@ -37,6 +37,9 @@ import GetComponentValues from "../components/Learningcomponents/GetComponentVal
 import Readmorebutton from './../components/Learningcomponents/Readmorebutton';
 import Tab from "../components/Learningcomponents/Tab";
 import ObjecttoArrayconvert from './../components/Learningcomponents/ObjecttoArrayconvert';
+import Resume from "../components/resume/Resume";
+import CreateResume from "../components/resume/CreateResume";
+import QrCode from "../components/qrCode/QrCode";
 function RouterIndex() {
     return (
         <section>
@@ -55,6 +58,12 @@ function RouterIndex() {
                 <Route path="/createBlog" element={<CreateBlog />}></Route>
                 <Route path="/profile" element={<Profile />}></Route>
                 <Route path="/singleblog" element={<SingleBlog />}></Route>
+                <Route path="/resume" element={<Resume />}></Route>
+                <Route path="/createresume" element={<CreateResume />}></Route>
+                <Route path="/qr" element={<QrCode />}></Route>
+
+
+
 
                 <Route path="/" exact element={<Dashboard />}></Route>
 

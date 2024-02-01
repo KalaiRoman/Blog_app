@@ -2,7 +2,7 @@
 
 // create resume
 
-import Resume_Shema from "../../models/Resume_Shema"
+import Resume_Shema from "../../models/Resume_Shema.js"
 
 export const createResume = async (req, res, next) => {
     const {

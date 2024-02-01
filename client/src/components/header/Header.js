@@ -83,6 +83,22 @@ function Header() {
                             >
                                 Shopping
                             </div>
+
+                            <div className='cursor' onClick={() => window.location.assign("/resume")}
+                                style={{
+                                    color: path == "/resume" ? "red" : "black"
+                                }}
+                            >
+                                Resume
+                            </div>
+
+                            <div className='cursor' onClick={() => window.location.assign("/qr")}
+                                style={{
+                                    color: path == "/qr" ? "red" : "black"
+                                }}
+                            >
+                                QRC
+                            </div>
                             {token && <>
                                 <div className='cursor' onClick={CreateBlogpath}
                                     style={{

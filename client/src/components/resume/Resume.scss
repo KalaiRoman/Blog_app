@@ -1,0 +1,27 @@
+@use "../../sass/abstract/" as *;
+
+.main-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .inside-main-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        gap: 20px;
+        .left-container {
+            width: 50%;
+            background-color: white;
+            border-radius: 20px;
+            height: 630px;
+        }
+        .right-container {
+            width: 50%;
+            background-color: white;
+            border-radius: 20px;
+            overflow-y: auto;
+            height: 630px;
+            overflow: hidden;
+        }
+    }
+}

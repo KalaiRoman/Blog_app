@@ -23,4 +23,7 @@ const Cart_shema = new mongoose.Schema({
         timestamps: true
     })
 
+mongoose.models = {};
+
+
 export default mongoose.model("cart", Cart_shema);

@@ -48,5 +48,7 @@ const Address_shema = new mongoose.Schema({
         timestamps: true
     })
 
+mongoose.models = {};
+
 
 export default mongoose.model("address", Address_shema);
