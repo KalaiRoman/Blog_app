@@ -16,7 +16,6 @@ export const createResume = async (req, res, next) => {
         WorkExperience
     } = req.body;
     try {
-
         const response = await new Resume_Shema({
             userId: req.userid,
             personDetails,
@@ -28,7 +27,6 @@ export const createResume = async (req, res, next) => {
             WorkExperience,
             user: req.userid,
         })
-
         response.save();
         res.status(201).json({ message: "Resume Created", status: "true" })
 
@@ -56,7 +54,7 @@ export const editResume = async (req, res, next) => {
 
 export const getAllResume = async (req, res, next) => {
     try {
-        const allResumes = await Resume_Shema.find({ userid: req.userid }).sort(-1);
+        const allResumes = await Resume_Shema.find({ userId: req.userid }).sort({ createdAt: -1 });
         res.status(200).json({ message: "success", data: allResumes });
 
     } catch (error) {
@@ -67,7 +65,7 @@ export const getAllResume = async (req, res, next) => {
 
 export const getSingleResume = async (req, res, next) => {
     try {
-        const allResumes = await Resume_Shema.findById(req.params.id);
+        const allResumes = await Resume_Shema.findById({ _id: req.params.id });
         res.status(200).json({ message: "success", data: allResumes });
     } catch (error) {
         res.status(404).json({ message: "false", message: "getSingle Error Resume" })

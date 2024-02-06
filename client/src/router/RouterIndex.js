@@ -40,6 +40,7 @@ import ObjecttoArrayconvert from './../components/Learningcomponents/ObjecttoArr
 import Resume from "../components/resume/Resume";
 import CreateResume from "../components/resume/CreateResume";
 import QrCode from "../components/qrCode/QrCode";
+import UpdateLoading from "../components/Learningcomponents/UpdateLoading";
 function RouterIndex() {
     return (
         <section>
@@ -101,6 +102,8 @@ function RouterIndex() {
                     <Route path="readmore" element={<Readmorebutton />}></Route>
                     <Route path="tab" element={<Tab />}></Route>
                     <Route path="objectarray" element={<ObjecttoArrayconvert />}></Route>
+                    <Route path="console" element={<UpdateLoading />}></Route>
+
 
 
 
