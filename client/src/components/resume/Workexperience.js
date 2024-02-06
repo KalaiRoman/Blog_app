@@ -2,7 +2,16 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-function Workexperience({ handleShow6, show6, handleClose6, worklistForms, handleChangeWorker, SubmitWorkerData, AddNewWorkExperience, alldatas }) {
+function Workexperience({ handleShow6, show6, handleClose6, worklistForms, handleChangeWorker, SubmitWorkerData, AddNewWorkExperience, alldatas, setworkerDetails }) {
+
+
+    const filterData = (id) => {
+        const filtersData = alldatas?.filter((item) => item?.id !== id);
+        setworkerDetails(filtersData);
+    }
+
+
+    console.log(alldatas, 'alldatas')
     return (
         <div>
             <button className='edit-btn' onClick={handleShow6}>WorkExperience</button>
@@ -51,7 +60,23 @@ function Workexperience({ handleShow6, show6, handleClose6, worklistForms, handl
                                         position: "relative"
                                     }}
                                 >
-                                    {item?.worktitle}
+                                    <div>
+                                        {item?.worktitle}
+                                    </div>
+                                    <div>
+                                        {item?.workcompanyName}
+                                    </div>
+                                    <div>
+                                        {item?.workDescription}
+                                    </div>
+                                    <div>
+                                        {item?.workdate}
+                                    </div>
+
+                                    <div>
+                                        {item?.worklocation}
+                                    </div>
+
                                     <div style={{
                                         position: "absolute",
                                         color: "white",
@@ -60,7 +85,7 @@ function Workexperience({ handleShow6, show6, handleClose6, worklistForms, handl
                                         background: "red",
                                         borderRadius: "50%",
                                         cursor: "pointer",
-                                        top: "-20%",
+                                        top: "-4%",
                                         right: "-2%",
                                         display: "flex",
                                         alignItems: "center",
@@ -68,7 +93,9 @@ function Workexperience({ handleShow6, show6, handleClose6, worklistForms, handl
                                         zIndex: "98989898989898",
                                         padding: "5px"
 
-                                    }}>
+                                    }}
+                                        onClick={() => filterData(item?.id)}
+                                    >
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </div>
                                 </div>

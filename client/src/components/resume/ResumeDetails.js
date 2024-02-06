@@ -8,6 +8,9 @@ function ResumeDetails({ alldatas }) {
         Hobbies,
         Languages,
         WorkExperience } = alldatas ? alldatas : {};
+
+
+
     useEffect(() => {
     }, [alldatas])
     return (
@@ -63,8 +66,23 @@ function ResumeDetails({ alldatas }) {
                         <div>
                             {WorkExperience?.map((item, index) => {
                                 return (
-                                    <div key={index}>
-                                        {item?.workcompanyname}
+                                    <div key={index} className='card col-lg-12 mt-2 mb-3'>
+                                        <div>
+                                            {item?.worktitle}
+                                        </div>
+                                        <div>
+                                            {item?.workcompanyName}
+                                        </div>
+                                        <div>
+                                            {item?.workDescription}
+                                        </div>
+                                        <div className='flex-end text-end text-info'>
+                                            {item?.workdate}
+                                        </div>
+
+                                        <div>
+                                            {item?.worklocation}
+                                        </div>
                                     </div>
                                 )
                             })}

@@ -93,7 +93,7 @@ function Resume() {
                                         </div>
                                         <div className='w-75'>
                                             <div className=''>
-                                                <ConvertPdf />
+                                                <ConvertPdf name={item?.personDetails[0]?.name} data={item} />
                                             </div>
                                         </div>
 

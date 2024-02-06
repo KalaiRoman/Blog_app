@@ -9,6 +9,9 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Workexperience from './Workexperience';
 import ResumeDetails from './ResumeDetails';
+import { v4 as uuidv4 } from 'uuid';
+
+
 function CreateResume() {
     const navigate = useNavigate();
     const { state } = useLocation();
@@ -107,7 +110,7 @@ function CreateResume() {
     }
 
     const handleChangeWorker = (e) => {
-        setWorkUsers({ ...user, [e.target.name]: e.target.value });
+        setWorkUsers({ ...workuser, [e.target.name]: e.target.value });
     }
 
     const SubmitPersonalData = () => {
@@ -125,7 +128,17 @@ function CreateResume() {
     }
 
     const AddNewWorkExperience = () => {
-        setworkerDetails([...workerdetails, workuser]);
+
+        const overallWorks = {
+            worktitle,
+            workcompanyName,
+            workDescription,
+            workdate,
+            worklocation,
+            id: uuidv4()
+        }
+
+        setworkerDetails([...workerdetails, overallWorks]);
         setWorkUsers({
             worktitle: "",
             workcompanyName: "",
@@ -134,9 +147,6 @@ function CreateResume() {
             workdate: "",
         })
     }
-
-
-
     const SubmitWorkerData = () => {
         const datas = {
             personDetails: [user],
@@ -164,10 +174,25 @@ function CreateResume() {
 
 
     useEffect(() => {
-        getSingleResumeService(state?.id).then((res) => {
-            setUsers(res?.data?.personDetails[0])
-        }).catch((err) => {
-        })
+
+        if (state?.id) {
+            getSingleResumeService(state?.id).then((res) => {
+                const datas = {
+                    personDetails: [res?.data?.personDetails[0]],
+                    Educations: [],
+                    Skills: [],
+                    Projects: [],
+                    Hobbies: [],
+                    Languages: [],
+                    WorkExperience: res?.data?.WorkExperience
+                }
+                setAlldatas(datas);
+                setworkerDetails(res?.data?.WorkExperience)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+
     }, [state]);
 
     const updateResumeData = () => {
@@ -211,6 +236,7 @@ function CreateResume() {
                                 SubmitWorkerData={SubmitWorkerData}
                                 AddNewWorkExperience={AddNewWorkExperience}
                                 alldatas={workerdetails}
+                                setworkerDetails={setworkerDetails}
                             />
                         </div>
                     </div>
