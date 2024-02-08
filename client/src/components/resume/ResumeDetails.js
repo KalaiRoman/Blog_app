@@ -17,19 +17,19 @@ function ResumeDetails({ alldatas }) {
         <div>
             {personDetails && personDetails[0]?.name ? <>
                 <div className='cards w-100'>
-                    <div className='p-3 d-flex justify-content-between'>
-                        <div>
+                    <div className='p-3 d-flex '>
+                        <div style={{ width: "80%" }}>
                             <div className='fw-bold fs-3'>
                                 {personDetails[0]?.name}
                             </div>
                             <div className='mt-2'>
                                 {personDetails[0]?.role}
                             </div>
-                            <div className='mt-2'>
+                            <div className='mt-2' style={{ width: "100%" }}>
                                 {personDetails[0]?.description}
                             </div>
                         </div>
-                        <div>
+                        <div style={{ width: "20%" }}>
                             <img src={personDetails[0]?.profileimage} alt="no image"
                                 style={{
                                     width: "100px",

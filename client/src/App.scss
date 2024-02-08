@@ -1,5 +1,7 @@
 @use "sass" as *;
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .warning-image-box {
     width: 100px;
     height: 100px;

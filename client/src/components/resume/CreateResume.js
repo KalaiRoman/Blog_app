@@ -187,6 +187,7 @@ function CreateResume() {
                     WorkExperience: res?.data?.WorkExperience
                 }
                 setAlldatas(datas);
+                setUsers(res?.data?.personDetails[0])
                 setworkerDetails(res?.data?.WorkExperience)
             }).catch((err) => {
                 console.log(err)
