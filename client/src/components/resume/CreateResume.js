@@ -238,6 +238,8 @@ function CreateResume() {
                                 AddNewWorkExperience={AddNewWorkExperience}
                                 alldatas={workerdetails}
                                 setworkerDetails={setworkerDetails}
+                                setWorkUsers={setWorkUsers}
+                                workuser={workuser}
                             />
                         </div>
                     </div>

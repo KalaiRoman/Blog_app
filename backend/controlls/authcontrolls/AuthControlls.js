@@ -43,7 +43,8 @@ export const AuthLogin = async (req, res, next) => {
         if (existemail) {
             const hashPassword = await bcrypt.compare(password, existemail.password);
             if (hashPassword) {
-                const token = await jwt.sign({ id: existemail?._id?.toString(), expireIn: "2d" }, process.env.TOKENID);
+                const token = await jwt.sign({ id: existemail?._id?.toString(), expireIn: "30s" }, process.env.TOKENID);
+                res.cookie("accessToken", token, { path: "/", expires: new Date(Date.now() + 1000 * 30), httpOnly: true, samesite: "lax" });
                 res.status(200).json({ message: "User Login Successfully", user: existemail, token });
             }
             else {

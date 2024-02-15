@@ -41,6 +41,7 @@ import Resume from "../components/resume/Resume";
 import CreateResume from "../components/resume/CreateResume";
 import QrCode from "../components/qrCode/QrCode";
 import UpdateLoading from "../components/Learningcomponents/UpdateLoading";
+import Checkbox from "../components/Learningcomponents/Checkbox";
 function RouterIndex() {
     return (
         <section>
@@ -103,6 +104,8 @@ function RouterIndex() {
                     <Route path="tab" element={<Tab />}></Route>
                     <Route path="objectarray" element={<ObjecttoArrayconvert />}></Route>
                     <Route path="console" element={<UpdateLoading />}></Route>
+                    <Route path="check" element={<Checkbox />}></Route>
+
 
 
 

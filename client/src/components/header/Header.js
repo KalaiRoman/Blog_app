@@ -70,11 +70,11 @@ function Header() {
                 </> : <>
 
 
-                    <div class="container-fluid d-flex justify-content-between align-items-center">
+                    <div class="container-fluid d-flex justify-content-around align-items-center">
                         <div onClick={homePath} className='cursor' >
                             Blog's
                         </div>
-                        <div className='d-flex gap-5 justify-content-between  align-items-center ' style={{ width: "46%" }}>
+                        <div className='d-flex gap-5 justify-content-around  align-items-center ' style={{ width: "46%" }}>
 
                             <div className='cursor' onClick={() => window.location.assign("/ecommerce")}
                                 style={{
@@ -123,14 +123,15 @@ function Header() {
                             </div>
 
                             {token ? <>
-                                <div onClick={profielPath} className='cursor d-flex align-items-center justify-content-center'
+                                <div onClick={profielPath} className='cursor d-flex align-items-center'
 
                                 >
                                     {state?.avatar ? <>
-                                        <img src={state?.avatar} alt="no image" style={{ width: "30%", height: "30%", borderRadius: "50%", cursor: "pointer" }} />
+
+                                        <img src={state?.avatar} alt="no image" style={{ width: "100%", borderRadius: "50%", cursor: "pointer", border: "1px solid red" }} />
                                     </> : <>
                                         <img src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'} alt="no image"
-                                            style={{ width: "30%", height: "30%", borderRadius: "50%", cursor: "pointer" }} />
+                                            style={{ width: "100px", height: "100px", borderRadius: "50%", cursor: "pointer" }} />
 
                                     </>}
 

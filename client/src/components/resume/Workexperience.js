@@ -1,17 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-function Workexperience({ handleShow6, show6, handleClose6, worklistForms, handleChangeWorker, SubmitWorkerData, AddNewWorkExperience, alldatas, setworkerDetails }) {
+function Workexperience({ handleShow6, setWorkUsers, workuser, show6, handleClose6, worklistForms, handleChangeWorker, SubmitWorkerData, AddNewWorkExperience, alldatas, setworkerDetails }) {
 
 
+    const [filterid, setFilterId] = useState(null);
     const filterData = (id) => {
         const filtersData = alldatas?.filter((item) => item?.id !== id);
         setworkerDetails(filtersData);
     }
+    const updateDatawork = (item) => {
+        setWorkUsers(item)
+        setFilterId(item?.id)
+    }
+
+    const editdataupdatenow = () => {
+        const { worktitle,
+            workcompanyName,
+            workDescription,
+            workdate,
+            worklocation } = workuser;
+
+        setworkerDetails(alldatas?.map(item => item.id === filterid ? { ...item, worktitle: worktitle, workcompanyName: workcompanyName, workDescription: workDescription, workdate: workdate, worklocation: worklocation } : item));
+        setWorkUsers({
+            worktitle: "",
+            workcompanyName: "",
+            workDescription: "",
+            worklocation: "",
+            workdate: "",
+        })
+        setFilterId(null);
+    }
 
 
-    console.log(alldatas, 'alldatas')
+    useEffect(() => {
+
+    }, [filterid])
+
     return (
         <div>
             <button className='edit-btn' onClick={handleShow6}>WorkExperience</button>
@@ -47,9 +73,17 @@ function Workexperience({ handleShow6, show6, handleClose6, worklistForms, handl
                     </div>
 
                     <div>
-                        <button onClick={AddNewWorkExperience} className='delete-btn'>
-                            Add +
-                        </button>
+
+                        {filterid ? <>
+                            <button onClick={editdataupdatenow} className='delete-btn'>
+                                Update
+                            </button>
+                        </> : <>
+                            <button onClick={AddNewWorkExperience} className='delete-btn'>
+                                Add +
+                            </button>
+                        </>}
+
                     </div>
 
                     <div className='row d-flex gap-2 mt-4'>
@@ -75,6 +109,28 @@ function Workexperience({ handleShow6, show6, handleClose6, worklistForms, handl
 
                                     <div>
                                         {item?.worklocation}
+                                    </div>
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            color: "white",
+                                            width: "25px",
+                                            height: "25px",
+                                            background: "red",
+                                            borderRadius: "50%",
+                                            cursor: "pointer",
+                                            top: "-4%",
+                                            right: "10%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            zIndex: "98989898989898",
+                                            padding: "5px"
+
+                                        }}
+                                        onClick={() => updateDatawork(item)}
+                                    >
+                                        <ion-icon name="create-outline"></ion-icon>
                                     </div>
 
                                     <div style={{
