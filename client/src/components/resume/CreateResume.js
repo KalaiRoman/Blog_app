@@ -74,6 +74,20 @@ function CreateResume() {
     const [workerdetails, setworkerDetails] = useState([]);
 
 
+    // languages
+
+    const [languages, setLanguages] = React.useState([]);
+    const handleChange = (id) => {
+        if (languages?.includes(id)) {
+            return setLanguages(languages?.filter((item) => item !== id));
+        }
+        else {
+            setLanguages([...languages, id])
+        }
+    }
+
+
+
 
     const [alldatas, setAlldatas] = useState(null);
 
@@ -154,7 +168,7 @@ function CreateResume() {
             Skills: [],
             Projects: [],
             Hobbies: [],
-            Languages: [],
+            Languages: languages,
             WorkExperience: workerdetails
         }
         setAlldatas(datas);
@@ -189,6 +203,7 @@ function CreateResume() {
                 setAlldatas(datas);
                 setUsers(res?.data?.personDetails[0])
                 setworkerDetails(res?.data?.WorkExperience)
+                setLanguages(res?.data?.Languages);
             }).catch((err) => {
                 console.log(err)
             })
@@ -208,6 +223,33 @@ function CreateResume() {
         }
 
 
+    }
+
+
+    // languages
+
+
+
+    const languagesList = ["Tamil", "English", "Telungu", "Hindi", "Mandarin",
+        "Bengali", "Indonesian", "Marathi", "Urdu",
+        "Arabic"]
+
+
+    // language submit action
+
+
+    const LanguageSubmit = () => {
+        const datas = {
+            personDetails: [user],
+            Educations: [],
+            Skills: [],
+            Projects: [],
+            Hobbies: [],
+            Languages: languages,
+            WorkExperience: workerdetails
+        }
+        setAlldatas(datas);
+        handleClose5();
     }
 
     return (
@@ -397,20 +439,29 @@ function CreateResume() {
                 onHide={handleClose5}
                 backdrop="static"
                 keyboard={false}
+                centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal title</Modal.Title>
+                    <Modal.Title>Languages</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    I will not close if you click outside me. Do not even try to press
-                    escape key.
+                    <div style={{ cursor: "pointer" }} className='row d-flex gap-2'>
+                        {languagesList?.map((item) => {
+                            return (
+                                <div className='d-flex mb-2 gap-3 col-lg-5' onChange={() => handleChange(item)}>
+                                    <input type="checkbox" checked={languages?.includes(item)} />
+                                    <label>{item}</label>
+                                </div>
+                            )
+                        })}
+                    </div>
+
+                    <div className='d-flex align-items-center justify-content-center mt-4 mb-4'>
+                        <button className='edit-btn w-50 d-flex align-items-center justify-content-center' onClick={LanguageSubmit}>Save</button>
+                    </div>
+
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose5}>
-                        Close
-                    </Button>
-                    <Button variant="primary">Understood</Button>
-                </Modal.Footer>
+
             </Modal>
 
             {/* sixith */}

@@ -4,6 +4,37 @@ import jwt from 'jsonwebtoken';
 import HttpError from './../../models/errorModel.js';
 import { auth_Validation_Shema } from "../../helpers/Validation_Shema.js";
 
+import nodemailer from 'nodemailer'
+
+import twilio from 'twilio';
+import otpGenerator from 'otp-generator';
+import otp_shema from "../../models/otp_shema.js";
+
+
+
+
+
+
+// const twilioaccountid = process.env.TWILIO_ACCOUNT_ID;
+// const twiliotoken = process.env.TWILIO_TOKEN;
+
+
+
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: "kalairoman70@gmail.com",
+        pass: "rkaasoiricuaignl",
+    }
+});
+
+
+
+
+
+
+
 // register
 export const AuthRegister = async (req, res, next) => {
     // const { userName, email, password } = req.body;
@@ -20,7 +51,8 @@ export const AuthRegister = async (req, res, next) => {
             avatar: "",
             profileDescription: "",
             role: "user",
-            usertype: 2
+            usertype: 2,
+            phoneNumber
         });
         await response.save();
         res.status(201).json({ message: "User Register Successfully", user: response });
@@ -32,19 +64,28 @@ export const AuthRegister = async (req, res, next) => {
 // login
 export const AuthLogin = async (req, res, next) => {
     const { userNameorEmail, password } = req.body;
+
+
+
     try {
         const existemail = await Auth_Shema.findOne({
             $or: [{
                 "email": userNameorEmail
             }, {
                 "userName": userNameorEmail
+            },
+            {
+                "phoneNumber": userNameorEmail
             }]
         });
+
         if (existemail) {
             const hashPassword = await bcrypt.compare(password, existemail.password);
             if (hashPassword) {
                 const token = await jwt.sign({ id: existemail?._id?.toString(), expireIn: "30s" }, process.env.TOKENID);
                 res.cookie("accessToken", token, { path: "/", expires: new Date(Date.now() + 1000 * 30), httpOnly: true, samesite: "lax" });
+
+
                 res.status(200).json({ message: "User Login Successfully", user: existemail, token });
             }
             else {
@@ -161,5 +202,69 @@ export const passwordChange = async (req, res, next) => {
         if (response) { res.status(200).json({ message: "Passowrd Changed successfully" }); }
     } catch (error) {
         res.status(404).json({ message: "User Id Not Found", });
+    }
+}
+
+
+
+
+// otp genrate
+
+
+export const OtpgenrateUser = async (req, res, err) => {
+
+    const { userid, phoneNumber, email } = req.body;
+
+    console.log(phoneNumber, 'phoneNumber')
+    try {
+        const response = await otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
+        await otp_shema.findOneAndUpdate({
+            phoneNumber: phoneNumber,
+            email: email
+        }, { otp: response, user: userid }, { new: true, upsert: true, setDefaultsOnInsert: true });
+
+        if (phoneNumber) {
+            // await twilio(process.env.TWILIO_ACCOUNT_ID, process.env.TWILIO_TOKEN, {
+            //     lazyLoading: true
+            // }).messages.create({
+            //     body: `Your Otp : ${response}`,
+            //     to: `+91${phoneNumber}`,
+            //     from: process.env.TWILIO_PHONENUMBER
+            // })
+        }
+
+        var mailOptions = {
+            from: 'kalairoman70@gmail.com',
+            to: email,
+            subject: 'OTP YOUR MAIL!',
+            html: `<div><h1>Your Otp : ${response} </h1></div>`
+        };
+        await transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error, "error kalai");
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+        res.status(200).json({ message: "Success", otp: `Your Otp : ${response}` });
+    } catch (error) {
+        res.status(404).json({ message: "Otp Genrate Error " });
+    }
+};
+
+
+export const otpVerification = async (req, res, next) => {
+    const { userid, otp } = req.body;
+    try {
+        const responseCheck = await otp_shema.find({ user: userid });
+        const OtpCheck = responseCheck[0];
+        if (OtpCheck?.otp == otp) {
+            res.status(200).json({ message: "Otp is Correct" })
+        }
+        else {
+            res.status(200).json({ message: "Otp is Wrong" })
+        }
+    } catch (error) {
+        res.status(404).json({ message: "Otp Verify Error " });
     }
 }

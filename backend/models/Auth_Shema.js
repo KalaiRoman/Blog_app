@@ -9,6 +9,11 @@ const Auth_Shema = new mongoose.Schema({
         unique: true,
         required: [true, "Email is Required"],
     },
+    phoneNumber: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     password: {
         type: String,
         required: [true, "Password is Required"],

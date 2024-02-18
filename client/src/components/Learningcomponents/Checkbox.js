@@ -1,9 +1,7 @@
 import React from 'react'
 
 function Checkbox() {
-
     const [datas, setDatas] = React.useState([]);
-
     const handleChange = (id) => {
         if (datas?.includes(id)) {
             return setDatas(datas?.filter((item) => item !== id));
@@ -12,8 +10,6 @@ function Checkbox() {
             setDatas([...datas, id])
         }
     }
-
-    console.log(datas, 'datas')
     return (
         <div>
             {Array(10).fill("kalai")?.map((item, index) => {
