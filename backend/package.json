@@ -25,6 +25,7 @@
     "nodemon": "^3.0.2",
     "npm": "^10.2.5",
     "otp-generator": "^4.0.1",
+    "razorpay": "^2.9.2",
     "twilio": "^4.22.0"
   }
 }

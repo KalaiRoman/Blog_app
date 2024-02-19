@@ -42,6 +42,7 @@ import CreateResume from "../components/resume/CreateResume";
 import QrCode from "../components/qrCode/QrCode";
 import UpdateLoading from "../components/Learningcomponents/UpdateLoading";
 import Checkbox from "../components/Learningcomponents/Checkbox";
+import MailsendUsers from "../components/adminportal/MailsendUsers";
 function RouterIndex() {
     return (
         <section>
@@ -86,6 +87,9 @@ function RouterIndex() {
                 <Route path="/admin" element={<HomeaAdmin />}>
                     <Route path="admin" element={<HomeaAdmin />}></Route>
                 </Route>
+
+                <Route path="mailusers" element={<MailsendUsers />}></Route>
+
 
 
                 <Route path="/learning" element={<Mainlearning />}>

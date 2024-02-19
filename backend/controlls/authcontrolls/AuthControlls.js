@@ -9,6 +9,7 @@ import nodemailer from 'nodemailer'
 import twilio from 'twilio';
 import otpGenerator from 'otp-generator';
 import otp_shema from "../../models/otp_shema.js";
+import mail_shema from "../../models/mail_shema.js";
 
 
 
@@ -79,12 +80,12 @@ export const AuthLogin = async (req, res, next) => {
             }]
         });
 
+
         if (existemail) {
             const hashPassword = await bcrypt.compare(password, existemail.password);
             if (hashPassword) {
-                const token = await jwt.sign({ id: existemail?._id?.toString(), expireIn: "30s" }, process.env.TOKENID);
-                res.cookie("accessToken", token, { path: "/", expires: new Date(Date.now() + 1000 * 30), httpOnly: true, samesite: "lax" });
-
+                const token = await jwt.sign({ id: existemail?._id?.toString() }, process.env.TOKENID, { expiresIn: "1d" });
+                res.cookie("accessTokens", token, { httpOnly: true });
 
                 res.status(200).json({ message: "User Login Successfully", user: existemail, token });
             }
@@ -215,7 +216,6 @@ export const OtpgenrateUser = async (req, res, err) => {
 
     const { userid, phoneNumber, email } = req.body;
 
-    console.log(phoneNumber, 'phoneNumber')
     try {
         const response = await otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
         await otp_shema.findOneAndUpdate({
@@ -237,7 +237,7 @@ export const OtpgenrateUser = async (req, res, err) => {
             from: 'kalairoman70@gmail.com',
             to: email,
             subject: 'OTP YOUR MAIL!',
-            html: `<div><h1>Your Otp : ${response} </h1></div>`
+            html: `<div style="text-align:center,background-color:"red"><h1>Your Otp : ${response} </h1></div>`
         };
         await transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
@@ -266,5 +266,53 @@ export const otpVerification = async (req, res, next) => {
         }
     } catch (error) {
         res.status(404).json({ message: "Otp Verify Error " });
+    }
+}
+
+
+export const BulkMailUpload = async (req, res, next) => {
+    const {
+        mailusers,
+        subjectTitle,
+        description,
+        mailimage,
+        senderName
+    } = req.body;
+    try {
+
+        // const allusermails = [];
+        // const responseAllusers = await Auth_Shema.find({});
+        // responseAllusers?.map((item, index) => {
+        //     allusermails.push(item?.email)
+        // })
+        var mailOptions = {
+            from: 'kalairoman70@gmail.com',
+            to: mailusers,
+            subject: subjectTitle,
+            html: `<div><h1>Hi All,</h1>
+            <img src=${mailimage} alt="no image"/>
+            <div>${description}</div>
+            <div style="padding-top:"20px">Best Regard,</div>
+            <div>${senderName}</div>
+            </div></div>`
+        };
+        await transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error, "error kalai");
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+        const response = await mail_shema({
+            mailusers,
+            subjectTitle,
+            description,
+            mailimage,
+            senderName
+        })
+
+        response.save();
+        res.status(200).json({ message: "Mail Sended" })
+    } catch (error) {
     }
 }

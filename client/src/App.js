@@ -3,9 +3,9 @@ import RouterIndex from './router/RouterIndex'
 import Modal from 'react-bootstrap/Modal';
 import waringimg from './assests/images/warning-image.png'
 import './App.scss';
-
+import jwt_decode from 'jwt-decode';
+import { ToastSuccess } from './middleware/Toast_action';
 function App() {
-
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -61,6 +61,33 @@ function App() {
 
 
   }, [scrollTop]);
+
+
+  const token = localStorage.getItem("blog_token");
+
+
+
+
+  useEffect(() => {
+
+
+    if (token) {
+      const jwt = jwt_decode(token);
+      const currentTime = Date.now() / 1000; // Converting milliseconds to seconds
+      if (jwt.exp < currentTime) {
+        // Token has expired
+        console.log("Token has expired");
+        localStorage.clear();
+        window.location.assign("/login")
+        // window.alert("expired token")
+        // ToastSuccess("expoire token")
+      } else {
+        // Token is still valid
+        console.log("Token is still valid");
+      }
+    }
+
+  }, [token])
 
   return (
     <div>

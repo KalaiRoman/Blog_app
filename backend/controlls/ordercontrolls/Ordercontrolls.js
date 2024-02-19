@@ -6,6 +6,14 @@ import Cart_shema from "../../models/Cart_shema.js";
 import Order_shema from "../../models/Order_shema.js";
 import Product_Shema from "../../models/Product_Shema.js";
 
+// import Razorpay from 'razorpay';
+
+
+// const razerPayInstance = new Razorpay({
+//     key_id: 'rzp_test_mXFT95pK95u8Rm',
+//     key_secret: 'Iw5mR7eG6owK7bGjyrVEtydo',
+// })
+
 export const createOrder = async (req, res, next) => {
     const {
         order, paymentMethod, addressid } = req.body;
@@ -29,6 +37,34 @@ export const createOrder = async (req, res, next) => {
             userid: req.userid,
             orderstatus: true
         })
+
+        // const options = {
+        //     amount: "200",
+        //     currency: "INR",
+        //     receipt: "kalaimca685@gmail.com"
+        // };
+
+        // razerPayInstance.orders.create(options, (err, order) => {
+        //     if (err) {
+        //         // Handle error
+        //         console.error("Error creating order:", err);
+        //         res.status(500).send({ success: false, mes: "order failed" });
+        //     } else {
+        //         // Order created successfully
+        //         res.status(200).send({
+        //             success: true,
+        //             mes: "order success",
+        //             amount: "200",
+        //             order_id: order.id,
+        //             name: "kalai",
+        //             description: "Paying For Course",
+        //             image: "logo",
+        //             email: "kalaimca685@gmail.com",
+        //             key_id: 'Iw5mR7eG6owK7bGjyrVEtydo'
+        //         });
+        //     }
+        // });
+
         await response.save();
         res.status(201).json({ message: "Order Created" })
     } catch (error) {

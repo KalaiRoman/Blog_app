@@ -7,6 +7,7 @@ import { currentUserAddress, currentUserDeleteAddress } from '../../../redux/act
 import { deleteDddressService } from '../../../services/address_service/Address_service';
 import { OrderAction } from './../../../redux/actions/orderActions';
 import { DeletecartActions, GetcartActions, UpdateQuantityDecrementcartActions, UpdateQuantitycartActions } from '../../../redux/actions/CartActions';
+import { createOrderService } from '../../../services/order_service/order_services';
 function Cart() {
     const [paymenttype, setPaymenttype] = useState("");
     const navigate = useNavigate();
@@ -38,12 +39,79 @@ function Cart() {
     }
 
 
-    const ConfirmOrder = () => {
+
+    function loadScript(src) {
+        return new Promise((resolve) => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.onload = () => {
+                resolve(true);
+            };
+            script.onerror = () => {
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
+    }
+
+
+    const ConfirmOrder = async () => {
         const datas = {
             addressid: addresscolor?._id,
             paymentMethod: paymenttype,
-            order: usercart
+            order: usercart,
+            currency: "INR",
+
         }
+
+        // const res = await loadScript(
+        //     "https://checkout.razorpay.com/v1/checkout.js"
+        // );
+        // if (!res) {
+        //     alert("Razorpay SDK failed to load. Are you online?");
+        //     return;
+        // }
+
+        // createOrderService(datas)
+        //     .then((res) => {
+        //         const data = res.data;
+        //         const user_payment_id = data.user_payment_id;
+        //         const options = {
+        //             key: 'Iw5mR7eG6owK7bGjyrVEtydo',
+        //             currency: data.currency,
+        //             amount: "200",
+        //             order_id: data.id,
+        //             name: "kalai",
+        //             description: "Paying For Course",
+        //             image: "logo",
+        //             handler: async function (data) {
+        //                 // const update_userpayment = { 
+        //                 //   user_payment_id,
+        //                 //   paymentId: data.razorpay_payment_id,
+        //                 //   master_id: cartid,
+        //                 //   orderId: data.razorpay_order_id,
+        //                 //   signature: data.razorpay_signature,
+        //                 //   coupon: applyCode,
+        //                 // };
+        //                 // payPutService(update_userpayment)
+        //                 //   .then(async (res) => {
+        //                 //     setLoading(false);
+        //                 //     Cookies.remove("Buynowourses");
+        //                 //   })
+        //                 //   .catch((error) => {
+        //                 //     setLoading(false);
+        //                 //   });
+        //             },
+        //             modal: {
+        //                 ondismiss: async function () {
+        //                 },
+        //             },
+        //         };
+        //         const paymentObject = new window.Razorpay(options);
+        //         paymentObject.open();
+        //     })
+        //     .catch((err) => {
+        //     });
         dispatch(OrderAction(datas, navigate));
     }
 
@@ -65,6 +133,9 @@ function Cart() {
 
         }
     }
+
+
+
 
 
     return (
