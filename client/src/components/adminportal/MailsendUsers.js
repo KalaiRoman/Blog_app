@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import { AlluserActionData } from '../../redux/actions/AllUserActions';
 import { Button } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 function MailsendUsers() {
 
     const dispatch = useDispatch();
@@ -31,30 +32,44 @@ function MailsendUsers() {
         setSelectusers(pushdata);
 
     }
+
+
+    const clearAll = () => {
+        setSelectusers([]);
+
+    }
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
     return (
         <div className='w-100 mx-auto container'>
-            <div>
+            <div className='d-flex justify-between align-items-center mb-5'>
                 <div>
-                    Select Users {selectusers?.length}
+                    <Button onClick={handleShow}>Send Mail</Button>
+                </div>
+                <div className='mb-4 d-flex gap-4'>
+                    <Button onClick={selectAlluses}>Select All Users {selectusers?.length}</Button>
+                    <Button onClick={clearAll}>Clear All {selectusers?.length}</Button>
+
                 </div>
             </div>
-            <div>
-                <Button onClick={selectAlluses}>Select All Users</Button>
-            </div>
+
             <Table striped bordered hover size="sm">
                 <thead>
                     <tr>
                         <th>Actions</th>
-                        <th>id</th>
-                        <th>user Name</th>
                         <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
                     {users?.map((item, index) => {
                         return (
-                            <tr key={index}>
-                                <td>
+                            <tr key={index} className='mb-5 mt-3'>
+                                <td className='mt-4 mb-4'>
                                     <div className='d-flex gap-2' style={{ cursor: "pointer" }} onClick={() => handleChange(item?.email)}>
                                         <input type="checkbox" value={item?.email}
                                             checked={selectusers?.includes(item?.email)}
@@ -63,8 +78,6 @@ function MailsendUsers() {
                                     </div>
                                 </td>
 
-                                <td>{index + 1}</td>
-                                <td>{item?.userName}</td>
                                 <td>{item?.email}</td>
                             </tr>
                         )
@@ -73,6 +86,27 @@ function MailsendUsers() {
 
                 </tbody>
             </Table>
+
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Modal title</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    I will not close if you click outside me. Do not even try to press
+                    escape key.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary">Understood</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }
