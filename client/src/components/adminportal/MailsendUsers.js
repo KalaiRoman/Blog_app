@@ -4,12 +4,51 @@ import Table from 'react-bootstrap/Table';
 import { AlluserActionData } from '../../redux/actions/AllUserActions';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
+import { ToastSuccess } from './../../middleware/Toast_action';
+import Form from 'react-bootstrap/Form';
+import { mailsendservice } from '../../services/auth_service/auth_service';
 function MailsendUsers() {
 
     const dispatch = useDispatch();
     const users = useSelector((state) => state?.alluser?.allusers);
 
     const [selectusers, setSelectusers] = useState([])
+
+
+    const [userss, setUsers] = useState({
+        subjectTitle: "",
+        description: "",
+        mailimage: "",
+        senderName: ""
+    });
+
+    const {
+        subjectTitle,
+        description,
+        mailimage,
+        senderName } = userss;
+
+
+    const handleChanges = (e) => {
+        setUsers({ ...userss, [e.target.name]: e.target.value })
+    }
+
+    const listusersdata = [
+        {
+            id: 1, name: "subjectTitle", values: subjectTitle, label: "Subject",
+
+        }, {
+            id: 2, name: "description", values: description, label: "Description",
+
+        },
+        {
+            id: 3, name: "mailimage", values: mailimage, label: "Mail Image",
+        },
+        {
+            id: 4, name: "senderName", values: senderName, label: "Sender Name"
+
+        }
+    ]
 
     useEffect(() => {
         dispatch(AlluserActionData());
@@ -42,7 +81,36 @@ function MailsendUsers() {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        if (selectusers?.length > 0) {
+            setShow(true)
+        }
+        else {
+            ToastSuccess("Please Select Users")
+        }
+    };
+
+
+    const SendMailusers = async () => {
+        try {
+            const data = {
+                mailusers: selectusers,
+                subjectTitle,
+                description,
+                mailimage,
+                senderName
+            }
+
+            const response = await mailsendservice(data);
+            if (response) {
+                ToastSuccess("All user Send Mail Successfully");
+                handleClose();
+                clearAll();
+            }
+        } catch (error) {
+
+        }
+    }
 
 
     return (
@@ -92,20 +160,37 @@ function MailsendUsers() {
                 onHide={handleClose}
                 backdrop="static"
                 keyboard={false}
+                centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal title</Modal.Title>
+                    <Modal.Title>Mail Send User</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    I will not close if you click outside me. Do not even try to press
-                    escape key.
+                    <div>
+                        {listusersdata?.map((item, index) => {
+                            return (
+                                <div key={index}>
+                                    <Form.Group className="mb-3" controlId={item?.label}>
+                                        <Form.Label>{item?.label}</Form.Label>
+                                        <Form.Control type={"text"} placeholder={`Enter ${item?.label}`}
+                                            value={item?.values}
+                                            onChange={handleChanges}
+                                            name={item?.name}
+                                        />
+                                        <Form.Text className="text-muted">
+
+                                        </Form.Text>
+                                    </Form.Group>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <button className='edit-btn' onClick={SendMailusers}>Send Mail</button>
+                    <div>
+
+                    </div>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary">Understood</Button>
-                </Modal.Footer>
+
             </Modal>
         </div>
     )

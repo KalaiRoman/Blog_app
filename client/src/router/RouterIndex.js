@@ -90,8 +90,6 @@ function RouterIndex() {
 
                 <Route path="mailusers" element={<MailsendUsers />}></Route>
 
-
-
                 <Route path="/learning" element={<Mainlearning />}>
                     <Route path="/learning" element={<Sortmethod />}></Route>
                     <Route path="includes" element={<Includesmethod />}></Route>

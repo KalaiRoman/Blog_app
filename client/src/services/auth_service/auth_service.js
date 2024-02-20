@@ -54,3 +54,13 @@ export async function changepasswordService(id, data) {
         throw err;
     }
 }
+
+
+export async function mailsendservice(data) {
+    try {
+        const response = await instanceBaseurl.post(`/auth/upload/mail/alluser`, data);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}
