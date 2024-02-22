@@ -278,16 +278,12 @@ export const BulkMailUpload = async (req, res, next) => {
         mailimage,
         senderName
     } = req.body;
-    try {
 
-        // const allusermails = [];
-        // const responseAllusers = await Auth_Shema.find({});
-        // responseAllusers?.map((item, index) => {
-        //     allusermails.push(item?.email)
-        // })
+    try {
+        const responseAllusers = await Auth_Shema.find({ _id: { $in: mailusers } }).distinct("email");
         var mailOptions = {
             from: 'kalairoman70@gmail.com',
-            to: mailusers,
+            bcc: mailusers,
             subject: subjectTitle,
             html: `<div><h1>Hi All,</h1>
             <img src=${mailimage} alt="no image"/>
@@ -310,9 +306,10 @@ export const BulkMailUpload = async (req, res, next) => {
             mailimage,
             senderName
         })
-
         response.save();
         res.status(200).json({ message: "Mail Sended" })
     } catch (error) {
+
+        console.log(error)
     }
 }

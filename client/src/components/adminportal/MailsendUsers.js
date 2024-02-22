@@ -66,7 +66,7 @@ function MailsendUsers() {
 
         const pushdata = [];
         users?.map((item, index) => {
-            pushdata.push(item?.email);
+            pushdata.push(item?._id);
         })
         setSelectusers(pushdata);
 
@@ -137,9 +137,9 @@ function MailsendUsers() {
                         return (
                             <tr key={index} className='mb-5 mt-3'>
                                 <td className='mt-4 mb-4'>
-                                    <div className='d-flex gap-2' style={{ cursor: "pointer" }} onClick={() => handleChange(item?.email)}>
-                                        <input type="checkbox" value={item?.email}
-                                            checked={selectusers?.includes(item?.email)}
+                                    <div className='d-flex gap-2' style={{ cursor: "pointer" }} onClick={() => handleChange(item?._id)}>
+                                        <input type="checkbox" value={item?._id}
+                                            checked={selectusers?.includes(item?._id)}
                                         />
                                         <label>{item?.userName}</label>
                                     </div>
