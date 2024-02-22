@@ -100,7 +100,6 @@ function MailsendUsers() {
                 mailimage,
                 senderName
             }
-
             const response = await mailsendservice(data);
             if (response) {
                 ToastSuccess("All user Send Mail Successfully");
