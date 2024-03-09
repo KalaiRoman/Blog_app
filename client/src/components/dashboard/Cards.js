@@ -123,8 +123,6 @@ function Cards({ data }) {
         setCommand(command + e);
     };
 
-
-
     useEffect(() => {
         messagesref?.current?.scrollIntoView();
     }, [postcm])
@@ -142,9 +140,10 @@ function Cards({ data }) {
                 <div className='mt-3 fw-bold'>
                     {data?.title?.slice(0, 40)}
                 </div>
-                <div className='fs-6 mt-2' style={{
-                    height: "70px",
-                }}>
+                <div className='fs-6 mt-2'
+                    style={{
+                        height: "70px"
+                    }}>
                     {ReactHtmlParser(des)}
                 </div>
                 <div className='d-flex gap-3 mt-2 align-items-center' style={{ height: "70px" }}>

@@ -40,6 +40,8 @@ var transporter = nodemailer.createTransport({
 export const AuthRegister = async (req, res, next) => {
     // const { userName, email, password } = req.body;
     try {
+
+
         const validatenames = { userName: req.body.userName, email: req.body.email }
         const result = await auth_Validation_Shema.validateAsync(validatenames);
         const salt = await bcrypt.genSalt(10);
@@ -278,12 +280,11 @@ export const BulkMailUpload = async (req, res, next) => {
         mailimage,
         senderName
     } = req.body;
-
     try {
         const responseAllusers = await Auth_Shema.find({ _id: { $in: mailusers } }).distinct("email");
         var mailOptions = {
             from: 'kalairoman70@gmail.com',
-            bcc: mailusers,
+            bcc: responseAllusers,
             subject: subjectTitle,
             html: `<div><h1>Hi All,</h1>
             <img src=${mailimage} alt="no image"/>

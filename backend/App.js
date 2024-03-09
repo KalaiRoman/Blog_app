@@ -30,6 +30,6 @@ app.use("/blog", router);
 app.use(notFound);
 app.use(errorMiddleware)
 app.use(errorMiddlewarecheck)
-app.listen(9000, () => console.log(`Server running ${process.env.PORT}`))
+app.listen(9000, () => console.log(`Server running http://localhost:${process.env.PORT}`))
 
 
