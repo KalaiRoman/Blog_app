@@ -8,6 +8,7 @@ import orderrouter from '../controlls/ordercontrolls/index.js';
 import cartrouter from '../controlls/Cartcontrolls/index.js';
 import Resumerouter from '../controlls/ResumeControlls/index.js';
 import image_router from '../controlls/imagecontrolls/index.js';
+import csv_router from '../controlls/csvcontrolls/index.js';
 const router = express.Router();
 //auth router
 router.use("/auth", authrouter);
@@ -22,6 +23,10 @@ router.use("/resume", Resumerouter);
 // image
 
 router.use("/clu", image_router);
+
+// csv
+
+router.use("/csv", csv_router);
 
 
 

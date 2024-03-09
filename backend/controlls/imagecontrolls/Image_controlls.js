@@ -11,7 +11,6 @@ export const ImageCreate = async (req, res) => {
             api_key: process.env.CLOUDINARY_API_KEY,
             api_secret: process.env.CLOUDINARY_API_SECRET
         });
-
         cloudinary.uploader.upload(req.file.path, async (error, response) => {
             if (error) {
                 return res.status(500).json({ message: 'Error uploading image to Cloudinary', error: error.message });
@@ -27,6 +26,37 @@ export const ImageCreate = async (req, res) => {
                 res.status(500).json({ message: 'Error saving image to database', error: err.message });
             }
         });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error uploading image to Cloudinary', error: error.message });
+    }
+};
+
+export const ImageDelete = async (req, res) => {
+
+    const { id } = req.body;
+    try {
+
+        cloudinary.config({
+            cloud_name: process.env.CLOUDINARY_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET
+        });
+
+        const particlarImageid = await Imageupload.findById({ _id: id })
+        cloudinary.uploader.destroy(particlarImageid?.cloud_id, async (error, response) => {
+            if (error) {
+                return res.status(500).json({ message: 'Error uploading image to Cloudinary', error: error.message });
+            }
+
+        });
+
+        try {
+            await particlarImageid.deleteOne({ _id: id });
+            res.status(201).json({ message: "Image Deleted successfully" });
+        } catch (err) {
+            res.status(500).json({ message: 'Error saving image to database', error: err.message });
+        }
 
     } catch (error) {
         res.status(500).json({ message: 'Error uploading image to Cloudinary', error: error.message });
